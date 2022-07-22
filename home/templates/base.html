@@ -1,1 +1,85 @@
-<!-- 상속 받을 html -->
+{% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'home/css/base.css' %}" />
+{% endblock css %}
+
+<head class="">
+    <!--페이지 이름-->
+    <title>쓱터디</title>
+    <!-- 홈페이지 아이콘 -->
+    <link rel="icon" type="image/x-icon" href="{% static 'home/img/icon.png' %}" />
+    <!--외부 css,js 속성-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+</head>
+
+<nav class="p-3 mb-3 border-bottom fixed-top navbar-color">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+                <img src="{% static 'home/img/logo.png' %}" class="logo_style" alt="..."></a>
+            </svg>
+            </a>
+
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 ">
+                <li><a href="{% url 'main' %}" style="color:#56b198" class="nav-link px-2 ">Home</a></li>
+                <li><a href="{% url 'about_main' %}" class="nav-link px-2 link-dark">About</a></li>
+                <li><a href="{% url 'match' %}" class="nav-link px-2 link-dark">Match</a></li>
+                <li><a href="{% url 'signup' %}" class="nav-link px-2 link-dark">Sign up</a></li>
+                <!--user.is_authenticated을 위한 임시 li-->
+                <li><a href="{% url 'login' %}" class="nav-link px-2 link-dark">Sign in</a></li>
+            </ul>
+
+            <div class="dropdown text-end">
+                <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="{% static 'home/img/icon.png' %}" alt="mdo" width="32" height="32" class="rounded-circle">
+                </a>
+                <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                    <li><a class="dropdown-item" href="{% url 'mypage_main' %}">Mypage</a></li>
+                    <li><a class="dropdown-item" href="#">Donate</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a style="color:#56b198" class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+{% block content %}
+{% endblock %}
+
+<footer class="footer text-center">
+    <div class="container" style="margin-bottom: 20px;">
+        <div class="row">
+            <!-- logo -->
+            <div class="col-lg-4">
+                <h4><img src="{% static 'home/img/logo.png' %}" class="logo_style" style="filter: brightness(100);"
+                        alt="..."></h4>
+                <small>성공회대학교 멋쟁이 사자처럼</small>
+
+            </div>
+            <!-- copyright -->
+            <div class="col-lg-4">
+                <h4 class="text-uppercase"></h4>
+                <small>Copyright &copy; 쓱터디 2022</small><br>
+                <small>조세은 주영빈 김효중 전지윤</small><br><br><br>
+
+            </div>
+            <!-- contact -->
+            <div class="col-lg-4">
+                <h4 class="text-uppercase mb-3 nav-main-font">Contact</h4>
+
+                <small>✉️ duck_sim@naver.com</small><br> <small>📞
+                    010-6686-2779</small>
+
+            </div>
+        </div>
+    </div>
+    </div>
+</footer>
