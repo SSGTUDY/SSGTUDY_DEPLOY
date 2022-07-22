@@ -1,0 +1,26 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+.notosanskr * { 
+ font-family: 'Noto Sans KR', sans-serif;
+}
+
+.sidenav a{
+	color:black;
+    font-size:15px;
+    padding: 8px 8px 8px 8px;
+    font-family: 'Noto Sans KR', sans-serif;
+    text-decoration: none;
+    display: block;
+}
+a:first-letter{
+    color:#56b198
+}
+
+.sidenav b{
+	color:black;
+    font-size:15px;
+    padding: 8px 8px 8px 8px;
+    font-family: 'Noto Sans KR', sans-serif;
+    text-decoration: none;
+    display: block;
+}

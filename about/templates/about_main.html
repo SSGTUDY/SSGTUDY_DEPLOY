@@ -1,1 +1,31 @@
-s<h1>ABOUT_MAIN</h1>
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'about/css/about_main.css' %}" />
+{% endblock css %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About_main</title>
+</head>
+<body>
+    <div id="mysidenav" class="sidenav">
+		<a class="nav-link active" aria-current="page" href="{% url 'about_main' %}">main(삭제)</a><br>
+        <a class="nav-link" href="{% url 'about_manual' %}">쓱터디 이용방법</a><br>
+        <b class="nav-link" href="{% url 'about_notice' %}">공지사항</a>
+	</div>
+
+    <fooster>
+        {% block fooster %}
+            <p> </p>
+            <div id="box">
+            </div>
+        {% endblock %}
+    </fooster>
+</body>
+</html>
