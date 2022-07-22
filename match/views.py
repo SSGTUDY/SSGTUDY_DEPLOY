@@ -1,3 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
+# match.html
+def match(request):
+    return render(request, 'match.html')

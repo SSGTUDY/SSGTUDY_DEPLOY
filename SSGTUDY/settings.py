@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'home.apps.HomeConfig',
+    'about.apps.AboutConfig',
     'match.apps.MatchConfig',
     'mypage.apps.MypageConfig',
 ]
@@ -135,6 +136,7 @@ USE_TZ = True
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'home', 'static'),
+    os.path.join(BASE_DIR, 'about', 'static'),
     os.path.join(BASE_DIR, 'match', 'static'),
     os.path.join(BASE_DIR, 'mypage', 'static'),
 ]

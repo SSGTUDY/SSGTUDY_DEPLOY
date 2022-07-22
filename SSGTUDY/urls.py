@@ -16,18 +16,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from home import views
+
 # static과 media 불러오기 위한 import
 from django.conf import settings
 from django.conf.urls.static import static
 
-# views import
-import home.views
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home.views.main, name='main'),
+    # main.html
+    path('', views.main, name='main'),
 
     path('home/', include('home.urls')),
+    path('about/', include('about.urls')),
     path('match/', include('match.urls')),
     path('mypage/', include('mypage.urls')),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
