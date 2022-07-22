@@ -12,10 +12,28 @@ pip install pillow
 프로젝트명
 
 ## home
-Base, Home, Login/Logout, Sign in 구현
+* main.html
+* base.html
+* login.html
+* logout.html
+* signup.html
+* signup_end.html
+
+## about
+* about_main.html
+* about_manual.html
+* about_notice.html
 
 ## match
-Match, List Detail 구현
+* match.html
+* study_detail.html
+* study_edit.html
+* study_delete.html
 
 ## mypage
-Mypage 구현
+* mypage_main.html
+* mypage_edit.html
+* study_register.html
+* study_list.html
+* study_bookmark.html
+* study_schedule.html
