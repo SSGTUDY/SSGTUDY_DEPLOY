@@ -1,1 +1,10 @@
 <h1>MYPAGE-등록한 스터디 수정</h1>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table>
+        {{ form.as_p }}
+    </table>
+    <div class="button">
+        <input type="submit" value="작성완료">
+    </div>
+</form>

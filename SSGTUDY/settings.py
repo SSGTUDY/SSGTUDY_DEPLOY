@@ -59,6 +59,9 @@ INSTALLED_APPS = [
     'mypage.apps.MypageConfig',
 ]
 
+# 커스텀 유저를 사용하는데 home앱의 CustomUser 모델을 사용하겠다.
+AUTH_USER_MODEL = 'home.User'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

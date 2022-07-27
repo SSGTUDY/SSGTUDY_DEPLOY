@@ -1,1 +1,65 @@
 <h1>Study Detail</h1>
+
+<!-- 작성한 글을 띄우는 것 -->
+제목 {{ recruit.recruit_title }} <br>
+작성자 {{ recruit.recruit_writer.nickname }} <br>
+{% if recruit.recruit_image %}
+    <img src="{{ recruit.recruit_image.url }}" alt="image"> <br>
+{% endif %}
+글내용 {{ recruit.recruit_content | safe}} <br>
+모집분야 {{ recruit.recruit_field }} <br>
+모집여부 {{ recruit.recruit_status }} <br>
+모집기간 {{ recruit.recruit_period_start }} ~ {{ recruit.recruit_period_end }} <br>
+모집인원 {{ recruit.recruit_number }} <br>
+대면여부 {{ recruit.recruit_meeting }} <br>
+
+<!-- 만약 작성자가 현재 user와 동일하다면 수정, 삭제를 띄우기 -->
+{% if recruit.recruit_writer == user %}
+    <a href="{% url 'study_edit' recruit.id %}">수정</a>
+    <a href="{% url 'study_delete' recruit.id %}">삭제</a> 
+{% endif %}
+
+<br>
+<!-- 해시태그를 작성하는 Form -->
+{% if recruit.recruit_writer == user %}
+    <form method = "POST" action="{% url 'hashtag_write' recruit.id %}">
+        {% csrf_token %}
+        {{ hashtag_form.as_p }}
+        <input type="submit">
+    </form>
+{% endif %}
+
+해시태그: 
+{% for hashtag in recruit.hashtags.all %}
+    {{ hashtag.hashtag_content }}
+{% endfor %}
+
+<hr>
+<br>
+{% for comment in recruit.comments.all %}
+    {{ comment.comment_writer.nickname }} : {{ comment.comment_content }} / {{ comment.comment_date}} 
+
+    {% if comment.comment_writer == user %}
+        <a href="{% url 'comment_edit' recruit.id comment.id %}">수정</a>
+        <a href="{% url 'comment_delete' recruit.id comment.id %}">삭제</a> <br>
+    {% endif %}
+    
+    <form method = "POST" action="{% url 'recomment_write' recruit.id comment.id %}">
+        {% csrf_token %}
+        {{ re_form.as_p }}
+        <input type="submit">
+    </form>
+
+    {% for recomment in comment.recomments.all %}
+        {{ recomment.recomment_writer.nickname }} / {{ recomment.recomment_content }} <br>
+    {% endfor %}
+    <br>
+{% endfor %}
+
+<form method="POST" action = "{% url 'study_detail' recruit.id %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="button">
+        <input type="submit" value="댓글 작성">
+    </div>
+</form>
