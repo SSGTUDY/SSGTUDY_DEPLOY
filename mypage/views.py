@@ -1,12 +1,22 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from .forms import RecruitForm
 
 # mypage_main.html
 def mypage_main(request):
     return render(request, 'mypage_main.html')
 
 # study_register.html
-def study_register(request):
-    return render(request, 'study_register.html')
+def study_register(request, recruit = None):
+    if request.method == 'POST':
+        form = RecruitForm(request.POST, request.FILES, instance = recruit)
+        if form.is_valid():
+            recruit = form.save(commit = False)
+            recruit.save()
+            recruit.save_m2m()
+            redirect('main')
+    else:
+        form = RecruitForm(instance = recruit)
+        return render(request, 'study_register.html', {'form': form})
 
 # study_edit.html
 def study_edit(request):
