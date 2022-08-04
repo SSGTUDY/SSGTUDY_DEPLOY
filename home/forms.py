@@ -8,12 +8,14 @@ class UserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'password', 're_password', 'nickname', 'phone_number', 'profile_image']
+        fields = ['email', 'name', 'nickname', 'email', 'password', 're_password', 'phone_number', 'address', 'profile_image']
 
         labels = {
-            'username': 'ID',
+            'email': 'email',
+            'name': 'Name',
             'nickname': 'Nickname',
             'phone_number': '전화번호',
+            'address': '주소',
             'profile_image': '프로필 사진',
         }
 
@@ -34,6 +36,4 @@ class CustomAuthenticationForm(AuthenticationForm):
 
     def __init__(self, request=None, *args, **kwargs):
         super(CustomAuthenticationForm, self).__init__(*args, **kwargs) # 꼭 있어야 한다!
-        self.fields['username'].label = '아이디'    # 수정
         self.fields['password'].label = '비밀번호'
-    

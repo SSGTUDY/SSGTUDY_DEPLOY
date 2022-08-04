@@ -2,8 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from mypage.models import Recruit, Hashtag
-from mypage.forms import RecruitForm, HashtagForm
-from .forms import CommentForm, ReCommentForm
+from mypage.forms import BookmarkForm, RecruitForm, HashtagForm
+from .forms import CommentForm, ReCommentForm, RecruitUserForm
 from .models import Comment
 
 # match.html
@@ -18,6 +18,8 @@ def study_detail(request, id):
         form = CommentForm(request.POST)
         re_form = ReCommentForm(request.POST)
         hashtag_form = HashtagForm(request.POST)
+        recruit_user_form = RecruitUserForm(request.POST)
+        bookmark_form = BookmarkForm(request.POST)
         if form.is_valid():
             comment = form.save(commit = False)
             comment.comment_recruit = recruit
@@ -39,11 +41,26 @@ def study_detail(request, id):
             hashtag.hashtag_content = form.cleaned_data['hashtag_content']
             hashtag_form.save()
             return redirect('study_detail', id)
+        if recruit_user_form.is_valid():
+            recruit_user = recruit_user_form.save(commit = False)
+            recruit_user.recruit_user_id = recruit
+            recruit_user.recruit_user_register = request.user
+            recruit_user.save()
+            return redirect('study_detail', id)
+        if bookmark_form.is_valid():
+            bookmark = bookmark_form.save(commit = False)
+            bookmark.bookmark_id = recruit
+            bookmark.bookmark_user = request.user
+            bookmark.save()
+            return redirect('study_detail', id)
     else:
         form = CommentForm()
         re_form = ReCommentForm()
         hashtag_form = HashtagForm()
-    return render(request, 'study_detail.html', {'recruit': recruit, 'form': form, 're_form': re_form, 'hashtag_form': hashtag_form})
+        recruit_user_form = RecruitUserForm()
+        bookmark_form = BookmarkForm()
+    return render(request, 'study_detail.html',
+    {'recruit': recruit, 'form': form, 're_form': re_form, 'hashtag_form': hashtag_form, 'recruit_user_form': recruit_user_form, 'bookmark_form': bookmark_form})
 
 # study_edit.html
 @login_required
@@ -82,6 +99,38 @@ def hashtag_write(request, id):
     else:
         hashtag_form = HashtagForm()
     return render(request, 'study_detail.html')
+
+# 가입 신청
+@login_required
+def recruit_user(request, id):
+    recruit = get_object_or_404(Recruit, id = id)
+    if request.method == "POST":
+        recruit_user_form = RecruitUserForm(request.POST)
+        if recruit_user_form.is_valid():
+            recruit_user = recruit_user_form.save(commit = False)
+            recruit_user.recruit_user_id = recruit
+            recruit_user.recruit_user_register = request.user
+            recruit_user.save()
+            return redirect('study_detail', id)
+    else:
+        recruit_user_form = RecruitUserForm()
+    return render(request, 'request_user.html')
+
+
+@login_required
+def bookmark(request, id):
+    recruit = get_object_or_404(Recruit, id = id)
+    if request.method == "POST":
+        bookmark_form = BookmarkForm(request.POST)
+        if bookmark_form.is_valid():
+            bookmark = bookmark_form.save(commit = False)
+            bookmark.bookmark_id = recruit
+            bookmark.bookmark_user = request.user
+            bookmark.save()
+            return redirect('study_detail', id)
+    else:
+        bookmark_form = BookmarkForm()
+    return render(request, 'request_user.html')
 
 # 댓글 수정하는 함수
 @login_required

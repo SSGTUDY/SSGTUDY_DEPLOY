@@ -36,7 +36,11 @@ class Hashtag(models.Model):
     hashtag_recruit = models.ForeignKey(Recruit, on_delete=models.CASCADE, related_name = "hashtags", null=True)
     hashtag_writer = models.ForeignKey(User, on_delete = models.CASCADE, related_name = 'hashtags', null=True)
     hashtag_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-    hashtag_content = models.CharField(max_length = 30, unique=True, default="#")
+    hashtag_content = models.CharField(max_length = 30, default="#")
 
     def __str__(self):
         return self.hashtag_content
+
+class Bookmark(models.Model):
+    bookmark_id = models.ForeignKey(Recruit, on_delete=models.CASCADE, related_name = 'bookmarks')
+    bookmark_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = 'bookmarks', null = True)

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Comment, ReComment
+from .models import Comment, ReComment, RecruitUser
 
 class CommentForm(forms.ModelForm):
     class Meta:
@@ -18,3 +18,8 @@ class ReCommentForm(forms.ModelForm):
         labels = {
             'recomment_content': '답글작성'
         }
+
+class RecruitUserForm(forms.ModelForm):
+    class Meta:
+        model = RecruitUser
+        exclude = ('recruit_user_id', 'recruit_user_register')

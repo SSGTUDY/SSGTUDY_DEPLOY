@@ -1,0 +1,12 @@
+<h1>QnA 작성</h1>
+{% if user.is_active %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ question_form.as_p }}
+        <div class="button">
+            <input type="submit" value="작성완료">
+        </div>
+    </form>
+{% else %}
+    로그인해야 QnA 작성이 가능합니다.
+{% endif %}

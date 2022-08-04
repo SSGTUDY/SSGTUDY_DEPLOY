@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect
+from django.contrib.auth.decorators import login_required
 from .forms import RecruitForm
-from .models import Recruit
+from .models import Bookmark, Recruit
 from django.utils import timezone
 
 # mypage_main.html
@@ -16,19 +17,23 @@ def study_register(request, recruit = None):
             recruit.recruit_writer = request.user
             recruit.recruit_date = timezone.now()
             recruit.save()
-            return redirect('main')
+            return redirect('study_detail', id)
     else:
         form = RecruitForm(instance = recruit)
         return render(request, 'study_register.html', {'form': form})
 
 # study_list.html
+@login_required
 def study_list(request):
-    return render(request, 'study_list.html')
+    recruits = Recruit.objects
+    return render(request, 'study_list.html', {'recruits': recruits})
 
 # study_bookmark.html
+@login_required
 def study_bookmark(request):
-    return render(request, 'study_bookmark.html')
-
+    bookmarks = Bookmark.objects
+    return render(request, 'study_bookmark.html', {'bookmarks': bookmarks})
+    
 # study_schedule.html
 def study_schedule(request):
     return render(request, 'study_schedule.html')

@@ -1,1 +1,7 @@
 <h1>MYPAGE-내가 찜한 스터디 보기</h1>
+
+{% if user.is_active %}
+    {% for bookmarks in bookmarks.all %}
+        <a href="{% url 'study_detail' bookmarks.bookmark_id.id %}">{{ bookmarks.bookmark_id.recruit_title }}</a>
+    {% endfor %}
+{% endif %}

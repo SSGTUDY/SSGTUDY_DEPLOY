@@ -1,5 +1,5 @@
 from django import forms
-from .models import Hashtag, Recruit
+from .models import Hashtag, Recruit, Bookmark
 from django_summernote.widgets import SummernoteWidget
 
 class RecruitForm(forms.ModelForm):
@@ -36,3 +36,8 @@ class HashtagForm(forms.ModelForm):
         labels = {
             'hashtag_content': '해시태그'
         }
+
+class BookmarkForm(forms.ModelForm):
+    class Meta:
+        model = Bookmark
+        exclude = ('bookmark_id', 'bookmark_user')

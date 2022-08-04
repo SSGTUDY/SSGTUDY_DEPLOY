@@ -1,0 +1,6 @@
+<h1>QnA 페이지</h1>
+{% for questions in questions.all %}
+    <a href="{% url 'about_qna_detail' questions.id %}">{{ questions.question_title }}</a>
+{% endfor %}
+<br>
+<a href="{% url 'about_qna_write' %}"> QnA 작성 </a>
