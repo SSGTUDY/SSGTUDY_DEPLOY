@@ -4,7 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    # mypage
+    # mypage_main.js
     path('', views.mypage_main, name='mypage_main'),
     path('mypage_edit/', views.study_register, name='mypage_edit'),
     path('study_register/', views.study_register, name='study_register'),

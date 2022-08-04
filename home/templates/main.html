@@ -1,15 +1,21 @@
-<h1>메인</h1>
+{% extends 'base.html' %}
+{% block content %}
 
-<!-- 유저 로그인 중이면 -->
-{% if user.is_active %}
-    <p>{{user.nickname}} 님 안녕하세요</p>
-    <!-- 로그인 한 유저의 프로필 -->
-    {% if user.profile_image %}
-        <img src="{{ user.profile_image.url }}" alt="image"> <br>
-    {% endif %}
-    <a href="{% url 'logout' %}">로그아웃</a>
+<div class="box container">
+    <h1>test</h1>
+    <!-- 유저 로그인 중이면 -->
+    {% if user.is_active %}
+        <p>{{user.nickname}} 님 안녕하세요</p>
+        <!-- 로그인 한 유저의 프로필 -->
+        {% if user.profile_image %}
+            <img src="{{ user.profile_image.url }}" alt="image"> <br>
+        {% endif %}
+        <a href="{% url 'logout' %}">로그아웃</a>
 <!-- 유저 로그인 중이 아니면 -->
-{% else %}
-    <a href="{% url 'signup' %}">회원가입</a>
-    <a href="{% url 'login' %}">로그인</a>
-{% endif %}
+    {% else %}
+        <a href="{% url 'signup' %}">회원가입</a>
+        <a href="{% url 'login' %}">로그인</a>
+    {% endif %}
+</div>
+{% endblock %}
+>>>>>>> e4dc754d4432ca683f9e1b28ac9e704e64dcbd91
