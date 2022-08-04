@@ -1,6 +1,13 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'home/css/base.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'home/css/main.css' %}" />
+{% endblock css %}
 {% block content %}
 
+<!-- 백엔드 -->
 <div class="box container">
     <h1>test</h1>
     <!-- 유저 로그인 중이면 -->
@@ -17,5 +24,70 @@
         <a href="{% url 'login' %}">로그인</a>
     {% endif %}
 </div>
+<!-- 끝 -->
+<div style="margin-top: 73px;">
+    <div id="carouselExampleIndicators" class="carousel slide "
+        data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide-to="0" class="active" aria-current="true"
+                aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{% static 'home/img/임시슬라이드1.png' %}" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'home/img/임시슬라이드1.png' %}" class="d-block w-100"
+                    alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'home/img/임시슬라이드1.png' %}" class="d-block w-100"
+                    alt="...">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button"
+            data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button"
+            data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+
+<div class="container box" style="margin-top:90px;">
+    <p class="info_text">MATCHING</p>
+    <p class="info_text2">다양한 모임과의 매칭 서비스</p>
+    <p class="info_text3" style="margin-bottom: 30px;">해시태그를 통해 쉽고 간편하게 찾고 가입할 수 있는<br>매칭 서비스를 만나보세요</p>
+    
+    <img style="width: 80%; height: 40%; object-fit: cover;" src="{% static 'home/img/computer.jpg' %}" alt="...">
+</div>
+<div class="box" style="background-color: #F0F3F4; margin-top:100px; padding: 100px;">
+    <p class="info_text">MAKING</p>
+    <p class="info_text2">많은 이용자들과 함께 만들어가는 공간</p>
+    <p class="info_text3" style="margin-bottom: 30px;">쓱터디는 여러분과 함께 만들어가며 함께 공존하는서비스입니다.<br>
+        많은 이용자분들과 함께 다양한 모임 매칭 서비스를 할 수 있어 항상 감사하게 생각하고 있습니다.<br>
+        회원분들께 더욱 질 좋은 서비스를 할 수 있도록 노력하는 쓱터디가 되겠습니다.</p>
+</div>
+<div class="box" style="padding: 100px;">
+    <p class="info_text">HOT MATCH</p>
+    <p class="info_text2">지금 가장 인기가 많은 매칭 서비스는?</p>
+    <p class="info_text3" style="margin-bottom: 30px;">지금 가장 인기가 많은 매칭 서비스를 확인해보세요</p>
+</div>
+<div class="box" style="background-color: #E8EDEF; padding-top: 100px;">
+    <p class="info_text">INTRODUCE & INFORMATION</p>
+    <p class="info_text2">쓱터디가 궁금해</p>
+    <p class="info_text3" style="margin-bottom: 30px;">쓱터디는 많은 사람들과 함께 이용하는 웹 서비스입니다.<br>
+        서비스를 이용하기 전 다양한 정보를 확인하고 이용부탁드립니다.<br>
+        공지사항, 안내문, 이용사항을 꼼꼼히 확인해주세요.</p>
+        <br><br><br><br><br><br>
+</div>
 {% endblock %}
->>>>>>> e4dc754d4432ca683f9e1b28ac9e704e64dcbd91
