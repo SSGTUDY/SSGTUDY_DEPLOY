@@ -92,7 +92,7 @@ def change_image(request):
             user_change_form.save()
             return redirect('mypage_edit')
     else:
-        user_change_form = CustomerMediaChangeForm(instance=request.user)
+        user_change_form = CustomerMediaChangeForm(request.POST,instance=request.user)
         return render(request,'change_image.html',{
             'user_change_form':user_change_form
         })

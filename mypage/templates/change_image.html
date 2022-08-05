@@ -5,12 +5,10 @@
     <meta charset="UTF-8">
     <title>이미지 변경/추가</title>
     <style>
-
-
     </style>
 </head>
 <body>
-  <form method = "POST">
+  <form method = "POST" enctype="multipart/form-data">
     {% csrf_token %}
     업로드
     {{ user_change_form }}
