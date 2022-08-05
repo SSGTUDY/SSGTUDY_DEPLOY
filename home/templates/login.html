@@ -1,8 +1,53 @@
 <<<<<<< HEAD
 {% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'home/css/base.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'home/css/user.css' %}" />
+{% endblock css %}
+
+
+
 {% block content %}
-<div class="container">
-    <h1>login test</h1>
+<head>
+    <style>
+        body {
+            background: #f5f5f5;
+        }
+    </style>
+</head>
+
+<div class="container box user-box">
+    <body class="text-center">
+    
+        <div class="form-signin">
+          <form>
+            <img class="mb-4" src="{% static 'home/img/icon.png' %}" alt="" width="60" height="60">
+            <h1 class="h3 mb-3 fw-normal">LOGIN</h1>
+        
+            <div class="form-floating" style="width:400px; display: inline-block; z-index: 1;">
+              <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+              <label for="floatingInput" >Email address</label>
+            </div><br>
+            <div class="form-floating" style="width:400px; display: inline-block;">
+              <input type="password" class="form-control" id="floatingPassword" placeholder="Password" style="width:400px;">
+              <label for="floatingPassword">Password</label>
+            </div>
+        
+            <div class="checkbox mb-3">
+              <label>
+                <input type="checkbox" value="remember-me" class="remember"> Remember me
+              </label>
+            </div>
+            <button class="btn-lg btn-user" type="submit" >Login</button>
+            
+            <p class="mt-4 mb-3 text-muted">아직 계정이 없다면? <a style="color:#56b198;" href="{% url 'signup' %}"> 회원가입</a></p>
+          </form>
+        </div>
+       
+        
+        </body>
 </div>
 {% endblock %}
 =======

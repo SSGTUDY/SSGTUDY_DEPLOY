@@ -3,7 +3,7 @@
 
 {% endblock css %}
 
-<head class="">
+<head class="container">
     <!--페이지 이름-->
 
     <title>쓱터디</title>
@@ -19,22 +19,28 @@
 
 </head>
 
-<nav class="p-3 mb-3 border-bottom fixed-top navbar-color">
+<nav class="p-3 mb-3 border-bottom navbar navbar-expand-lg navbar-light bg-light fixed-top text-uppercase">
     <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-                <img src="{% static 'home/img/logo.png' %}" class="logo_style" alt="..."></a>
-            </svg>
-            </a>
+        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+            <img src="{% static 'home/img/logo.png' %}" class="logo_style" alt="..."></a>
+        </a>
 
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07"
+            aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+
+        <div class="collapse navbar-collapse" style="text-align: right; font-weight: bold;" id="navbarsExample07">
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 ">
                 <li><a href="{% url 'main' %}" style="color:#56b198" class="nav-link px-2 ">Home</a></li>
                 <li><a href="{% url 'about_main' %}" class="nav-link px-2 link-dark">About</a></li>
                 <li><a href="{% url 'match' %}" class="nav-link px-2 link-dark">Match</a></li>
                 <li><a href="{% url 'signup' %}" class="nav-link px-2 link-dark">Sign up</a></li>
                 <!--user.is_authenticated을 위한 임시 li-->
-                <li><a href="{% url 'login' %}" class="nav-link px-2 link-dark">Sign in</a></li>
+                <li><a href="{% url 'login' %}" class="nav-link px-2 link-dark" style="margin-right: 10px;">Login</a></li>
             </ul>
+
 
             <div class="dropdown text-end">
                 <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
@@ -42,12 +48,12 @@
                     <img src="{% static 'home/img/icon.png' %}" alt="mdo" width="32" height="32" class="rounded-circle">
                 </a>
                 <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                    <li><a class="dropdown-item" href="{% url 'mypage_main' %}">Mypage</a></li>
-                    <li><a class="dropdown-item" href="#">Donate</a></li>
+                    <li><a class="dropdown-item" style="font-weight: bold;" href="{% url 'mypage_main' %}">Mypage</a></li>
+                    <li><a class="dropdown-item" style="font-weight: bold;" href="#">Donate</a></li>
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-                    <li><a style="color:#56b198" class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                    <li><a style="color:#56b198; font-weight: bold;" class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
                 </ul>
             </div>
         </div>
