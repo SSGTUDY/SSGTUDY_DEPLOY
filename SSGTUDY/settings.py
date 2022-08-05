@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_summernote',
-
+    'about.apps.AboutConfig',
     'home.apps.HomeConfig',
     'match.apps.MatchConfig',
     'mypage.apps.MypageConfig',
@@ -141,6 +141,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'home', 'static'),
     os.path.join(BASE_DIR, 'match', 'static'),
     os.path.join(BASE_DIR, 'mypage', 'static'),
+    os.path.join(BASE_DIR, 'about', 'static'),
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
