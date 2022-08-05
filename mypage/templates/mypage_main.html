@@ -11,6 +11,7 @@
 </head>
 <body>
 {% block content %}
+
 <div class = "text">
         <div class = "text_1" style="font-size:3.5vh;letter-spacing: 0.09em;"><b>마이페이지</b></div>
         <div class = "text_1" style="font-size:2vh;letter-spacing: 0.275em;">MY PAGE</div>
@@ -20,11 +21,18 @@
 <div class = "area">
 
     <div class = "second_area">
-        <img src = "{% static 'img/user_img.png' %}">
+        {% if user.is_active %}
+
+        {% if user.profile_image %}
+        <img src = "{{ user.profile_image.url }}" alt = "유저의 이미지 부분">
+        {% endif %}
+
         <div class = "user_profile">
-            <div>닉네임:멋사 0426</div>
-            <div>아이디:khj0426</div>
+
+              <div><div id = "user_infomation">닉네임</div>{{ user.nickname }}</div>
+              <div><div id = "user_infomation">아이디</div>{{ user.username }}</div>
         </div>
+        {% endif %}
     </div>
     <div class = "mypage_move">
         <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -64,28 +72,33 @@
 </div>
 
     <div class = "content" style = "border:1px solid #d1d1d1;">
-        <div class = "content_div">
-            <img src = "{% static 'img/user_img.png' %}">
-        </div>
+
+              {% if user.is_active %}
+
+              {% if user.profile_image %}
+              <img src = "{{ user.profile_image.url }}" alt = "유저의 이미지 부분">
+              {% endif %}
+
 
         <div class = "user_info">
             <label><b>닉네임</b></label>
-            <div>khj0426</div>
+            <div>{{ user.nickname }}</div>
         </div>
         <div class = "user_info">
             <label><b>아이디</b></label>
-            <div>k아아</div>
+            <div>{{ user.username }}</div>
         </div>
-        <div class = "user_info">
-            <label><b>한줄소개</b></label>
-            <div>화이팅화이팅</div>
+        <div class = "out">
+        <button class = "log_out"><a href = "{% url 'logout' %}" style = "text-decoration:none;color:white;">로그아웃</a></button>
         </div>
 
-    <button class = "log_out" onclick = "">로그아웃</button>
+
+        {% endif %}
+
+
     </div>
-
-
 </div>
+
 {% endblock %}
 </body>
 </html>

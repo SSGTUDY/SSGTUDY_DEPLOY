@@ -5,47 +5,8 @@
     {% block css %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel = "stylesheet" href = "{% static 'css/mypage_main.css' %}">
-    <script src = "{% static 'js/mypage_main.js' %}"></script>
-    <script>
-         function check_valid(){
-         let id = document.getElementById('id').value;
-          let pass = document.getElementById('pass').value;
-         if(id == ""){
-               alert("아이디를 입력해주세요");
-               return false;
-         }
-         else if(pass == ""){
-               alert("비밀번호를 입력해주세요");
-               return false;
-         }
-            if(id.length < 6 || id.length > 12){
-              alert("아이디는 6~12자리 입니다");
-             return false;
-            }
-         if(pass.length < 6 || pass.length > 12){
-              alert("비밀번호는 6~12자리 입니다");
-              return false;
-            }
-            if(id == pass){
-                alert('아이디와 비밀번호는 달라야 합니다');
-                return false;
-            }
-
-    alert("개인정보 수정이 완료되었습니다!");
-    return true;
-    //True시 회원정보 바뀌게
-}
-
-    function change(){
-    document.querySelector(".modal").classList.add("modal_show");
-    document.querySelector(".modal").classList.add("modal_body");
-
-}
-
-     </script>
     <title>개인정보 수정하기</title>
     {% endblock css %}
-
 
 </head>
 <body>
@@ -60,11 +21,17 @@
     <div class = "area">
 
         <div class = "second_area">
-            <img src = "{% static 'img/user_img.png' %}">
+            {% if user.is_active %}
+
+            {% if user.profile_image %}
+            <img src = "{{ user.profile_image.url }}" alt = "유저의 이미지 부분">
+            {% endif %}
+
             <div class = "user_profile">
-                <div>닉네임:멋사 0426</div>
-                <div>아이디:khj0426</div>
+                <div><div id = "user_infomation">닉네임</div>{{ user.nickname }}</div>
+                <div><div id = "user_infomation">아이디</div>{{ user.username }}</div>
             </div>
+            {% endif %}
         </div>
         <div class = "mypage_move">
             <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -103,29 +70,51 @@
         </div>
     </div>
 
-    <div class = "content" style = "border:1px solid #d1d1d1;">
-        <div class = "content_div">
+    <div class = "content" style = "justify-content:space-around;">
+        {% if user.is_active %}
+
+        {% if user.profile_image %}
+        <div class = "content_div" style="width:30%;">
             <img src = "{% static 'img/user_img.png' %}">
         </div>
+        {% endif %}
+        {% endif %}
 
+        {% if user.is_active %}
         <div class = "user_info">
-            <label style="width:80%"><b>변경할 닉네임을 지정해주세요</b></label>
-            <input type = "text" style="width:80%;">
+            <label><b>닉네임</b></label>
+            <div>{{ user.nickname }}</div>
         </div>
         <div class = "user_info">
-            <label style="width:80%"><b>변경할 아이디를 입력해주세요</b></label>
-            <input type = "text" name = "id" style="width:80%;" id = "id">
+            <label><b>아이디</b></label>
+            <div>{{ user.username }}</div>
         </div>
-        <div class = "user_info">
-            <label style="width:80%"><b>변경할 비밀번호를 입력해주세요</b></label>
-            <input type = "password" name = "password" style="width:80%;" id = "pass">
+        <div>
+            <!--
+            <form method = "POST" action= "{%url 'change_nickname' %}">
+            {% csrf_token %}
+             <input type = "text" value = "nickname" name = "nickname">
+                <button type = "submit">변경</button>
+            </form>
+
+            -->
+            <button style = "color:white;background:#51a998;font-size:1vw;border:white;padding:0;border-radius:10%;">
+                <a href = "{% url 'change_nick' %}"target="_blank" class = "edit_button">아이디/닉네임 수정</a>
+            </button>
+
+            <button style="color:white;background:#51a998;font-size:1vw;border:white;padding:0;border-radius:10%;">
+                <a href = "{% url 'change_password' %}" target="_blank" class = "edit_button">비밀번호 수정</a></button>
+
+             <button style="color:white;background:#51a998;font-size:1vw;border:white;padding:0;border-radius:10%;">
+                <a href = "{% url 'change_img' %}" target="_blank" class = "edit_button">프로필 이미지 첨부/수정</a></button>
         </div>
 
-        <button class = "log_out" onclick = "check_valid()">변경하기</button>
+
+        {% endif %}
     </div>
 
-
 </div>
+<script src = "{% static 'js/mypage.js' %}"></script>
 {% endblock %}
 </body>
 </html>

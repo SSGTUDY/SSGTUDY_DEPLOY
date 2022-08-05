@@ -1,6 +1,13 @@
+<<<<<<< HEAD
 {% extends 'base.html' %}
 {% block content %}
 <div class="container">
     <h1>match test</h1>
 </div>
 {% endblock %}
+=======
+<h1>MATCH</h1>
+{% for recruits in recruits.all %}
+    <a href="{% url 'study_detail' recruits.id %}">{{ recruits.recruit_title }}</a>
+{% endfor %}
+>>>>>>> 96856aa4184fe3e0f9a5d755f8391e659239bff6

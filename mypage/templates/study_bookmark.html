@@ -22,12 +22,19 @@
 
 <div class = "area">
 
-    <div class = "second_area">
-        <img src = "{% static 'img/user_img.png' %}">
+   <div class = "second_area">
+        {% if user.is_active %}
+
+        {% if user.profile_image %}
+        <img src = "{{ user.profile_image.url }}" alt = "유저의 이미지 부분">
+        {% endif %}
+
         <div class = "user_profile">
-            <div>닉네임:멋사 0426</div>
-            <div>아이디:khj0426</div>
+
+              <div><div id = "user_infomation">닉네임</div>{{ user.nickname }}</div>
+              <div><div id = "user_infomation">아이디</div>{{ user.username }}</div>
         </div>
+        {% endif %}
     </div>
     <div class = "mypage_move">
         <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

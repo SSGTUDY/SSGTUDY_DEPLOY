@@ -1,6 +1,16 @@
+<<<<<<< HEAD
 {% extends 'base.html' %}
 {% block content %}
 <div class="box container">
     <h1>signup test</h1>
 </div>
 {% endblock %}
+=======
+<h1>회원가입</h1>
+<form method = "POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input class = "btn btn-primary" type = "submit" value = "submit">
+</form>
+</form>
+>>>>>>> 96856aa4184fe3e0f9a5d755f8391e659239bff6

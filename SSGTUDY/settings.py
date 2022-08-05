@@ -55,6 +55,9 @@ INSTALLED_APPS = [
     'mypage.apps.MypageConfig',
 ]
 
+# 커스텀 유저를 사용하는데 home앱의 CustomUser 모델을 사용하겠다.
+AUTH_USER_MODEL = 'home.User'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -115,11 +118,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+SESSION_COOKIE_AGE = 1200
+SESSION_SAVE_EVERY_REQUEST = True
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-KR'
 
 TIME_ZONE = 'Asia/Seoul'
 

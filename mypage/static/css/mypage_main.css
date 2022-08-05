@@ -52,6 +52,7 @@
     border-bottom: 1px solid #D1D1D1;
     filter: drop-shadow(0px 0.5px 0.5px rgba(0, 0, 0, 0.25));
 }
+
 .user_profile{
     display:flex;
     width:100%;
@@ -60,8 +61,19 @@
     align-items:center;
 }
 .user_profile div{
-    padding:4%;
     font-size:1vw;
+    margin-top:0.5vh;
+}
+.message_button{
+    background:#51a998;
+    font-size:1vw;
+    border:white;
+}
+.message_button:hover{
+    background:green;
+}
+.hidden{
+    display:none;
 }
 .mypage_move{
     margin-top:3vh;
@@ -98,12 +110,22 @@
         border: 1px solid #D1D1D1;
         filter: drop-shadow(0px 0.5px 0.5px rgba(0, 0, 0, 0.25));
 }
-
-.content_div{
+#user_infomation{
+    font-size:1vw;
+    color:#51a998;
+    border-bottom:1px solid #d1d1d1;
     display:flex;
-    width:30%;
+    width:100%;
     justify-content:center;
+}
+.content div{
+    display:flex;
+    justify-content:space-around;
     align-items:center;
+    width:50%;
+    font-size:1vw;
+}
+.content .out{
 }
 
 .content_div img{
@@ -114,7 +136,7 @@
     width:80%;
     display:flex;
     flex-direction:column;
-    justify-content:center;
+    justify-content:space-around;
     align-items:center;
 }
 .user_info div{
@@ -126,16 +148,21 @@
 label{
     margin-bottom:0.5vh;
     display:flex;
+    font-size:1vw;
     justify-content:center;
     width:100%;
 }
 
 .log_out{
-    width:10%;
+
     background-color:#51a998;
     color:white;
     font-size:1vw;
+    display:flex;
+    justify-content:center;
+    align-items:flex-end;
     border:1px solid #a1a1a1;
+
 }
 
 .log_out:hover{
@@ -158,5 +185,16 @@ label{
 }
 
 
+.edit_button{
+    padding:1.5px;
+    display:inline-block;
+    width:100%;
+    text-decoration:none;
+    color:white;
+    border-radius:10%;
 
-
+}
+.edit_button:hover{
+    background:green;
+    color:white;
+}

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends 'base.html' %}
 {% block content %}
 
@@ -6,3 +7,20 @@
     </div>
 </div>
 {% endblock %}
+=======
+<h1>메인</h1>
+
+<!-- 유저 로그인 중이면 -->
+{% if user.is_active %}
+    <p>{{user.nickname}} 님 안녕하세요</p>
+    <!-- 로그인 한 유저의 프로필 -->
+    {% if user.profile_image %}
+        <img src="{{ user.profile_image.url }}" alt="image"> <br>
+    {% endif %}
+    <a href="{% url 'logout' %}">로그아웃</a>
+<!-- 유저 로그인 중이 아니면 -->
+{% else %}
+    <a href="{% url 'signup' %}">회원가입</a>
+    <a href="{% url 'login' %}">로그인</a>
+{% endif %}
+>>>>>>> 96856aa4184fe3e0f9a5d755f8391e659239bff6
