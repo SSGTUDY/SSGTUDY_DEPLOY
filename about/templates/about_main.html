@@ -1,6 +1,46 @@
 {% extends 'base.html' %}
+
+{% load static %}
+
+
 {% block content %}
-<div class="container">
-    <h1>about_main test</h1>
-</div>
+    <div class="container">
+        
+        <hd class="">
+            <title>About_main</title>
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+            <link rel="stylesheet" type="text/css" href="{% static 'about/css/about_main.css' %}" />
+        </hd>
+
+        <div id="mysidenav" class="sidenav">
+            <a class="nav-link active" aria-current="page" href="{% url 'about_main' %}"></a><br>
+            <a class="nav-link" href="{% url 'about_main' %}"><img src="{% static 'about/image/i.png' %}" alt="mdo" width="24" height="24"><span style="color:#56b198">쓱</span>터디 이용방법</a></p><hr>
+            <a class="nav-link" href="{% url 'about_post' %}"><img src="{% static 'about/image/i.png' %}" alt="mdo" width="24" height="24">스터디 등록방법</a><hr>
+            <a class="nav-link" href="{% url 'about_notice' %}"><img src="{% static 'about/image/i.png' %}" alt="mdo" width="24" height="24">공지사항</a><hr>
+            <a class="nav-link" href="{% url 'about_qna' %}"><img src="{% static 'about/image/i.png' %}" alt="mdo" width="24" height="24">문의하기</a>
+        </div>
+        
+        <div id="box" class="box">
+            <fooster>
+                {% block fooster %}
+                <h4 style="color:#56b198; font-weight:1000; font-size:23px;"><img src="{% static 'about/image/i.png' %}" alt="mdo" width="45" height="45">스터디를 빠르게 찾고 싶다면</h4>
+                <div id="ssg" class="ssg">
+                    <p style="position:absolute; left:50; top:120;">저희 쓱터디는 <br><br>사용자분들이 원하는 스터디를 빠르게 찾아 보실 수 있도록 <br><br>보다 편리한 기능을 제공합니다.</p>
+                    <img src="{% static 'about/image/ssg.png' %}" alt="mdo" width="600" height="275" style="position:absolute; left:520;">
+                </div>
+                <br><br>
+                <h5 style="color:#666666"><img src="{% static 'about/image/plant.png' %}" alt="mdo" width="40" height="40">&nbsp;원하는 스터디를 해시태그로 검색하세요!</h5>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#56b198">쓱터디</span>는 사용자가 원하는 태그를 만들고, 사용할 수 있도록 합니다.<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;태그별로 글을 볼 수 있고, 스터디를 태그를 통해서 검색하세요!</p><br>
+                <h5 style="color:#666666"><img src="{% static 'about/image/clover.png' %}" alt="mdo" width="40" height="40">&nbsp;관심 있는 스터디를 찜으로 등록해보세요!</h5>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#56b198">쓱터디</span>는 사용자가 찜한 태그를 한번에 볼 수 있습니다.<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;찜한 태그를 <span style="color:#818181">MYPAGE-내가 찜한 스터디</span>에서 한꺼번에 확인해보세요!</p><br>
+                <h5 style="color:#666666"><img src="{% static 'about/image/calender.png' %}" alt="mdo" width="40" height="40">&nbsp;오늘은 무슨 스터디가 있는지 확인이 가능한가요?</h5>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#56b198">쓱터디</span>는 사용자가 등록한 스터디를 토대로 오늘은 무슨 스터디가 있는지 알려드립니다<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;오늘은 무슨 스터디가 있는지 궁금하다면 <span style="color:#818181">MYPAGE-오늘의 스터디 일정</span>에서 만나보세요!</p>
+                {% endblock %}
+            </fooster>
+        </div><div style="clear:both"></div>
+       
+    </div>
 {% endblock %}
