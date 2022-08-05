@@ -1,0 +1,46 @@
+{% extends 'about_main.html' %}
+
+
+{% block fooster%}
+    <p style="color:#56b198; font-weight:1000; font-size:23px;"><svg width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M34.6875 37.5H10.3125L4.6875 43.125V11.25C4.6875 8.15625 7.21875 5.625 10.3125 5.625H34.6875C37.7812 5.625 40.3125 8.15625 40.3125 11.25V31.875C40.3125 34.9688 37.7812 37.5 34.6875 37.5Z" fill="#56B198"/>
+        <path d="M20.625 18.75H24.375V29.0625H20.625V18.75Z" fill="white"/>
+        <path d="M22.5 15.9375C23.5355 15.9375 24.375 15.098 24.375 14.0625C24.375 13.027 23.5355 12.1875 22.5 12.1875C21.4645 12.1875 20.625 13.027 20.625 14.0625C20.625 15.098 21.4645 15.9375 22.5 15.9375Z" fill="white"/>
+        </svg>문의하기</p>
+    <hr style="color:#56b198" size="4px" width="110%">
+    <table class = "qna">
+        <tr style="color:#999">
+            <td width="200px;">등록번호</td>
+            <td width="200px">카테고리</td>
+            <td width="500px">제목</td>
+            <td width="150px">작성자</td>
+            <td width="150px">작성일</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td style="color:#999;">아직 등록된 글이 없습니다.</td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+    <button class="plus" type="button" v-on:click="plus">글쓰기</button>
+    <div class="search">
+        <br>
+        <p>
+            <select id="category">
+                <option>전체</option>
+                <option>게시글 작성</option>
+                <option>게시글 찾기</option>
+            </select>
+            <select id="category">
+                <option>제목</option>
+                <option>내용</option>
+                <option>작성자</option>
+                <option>등록번호</option>
+            </select>
+                <input type="text" v-model="word"/>
+                <button class="srch" type="button" v-on:click="search">검색</button>
+        </p>
+    </div>
+{% endblock %}
