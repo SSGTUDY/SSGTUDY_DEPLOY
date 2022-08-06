@@ -72,12 +72,16 @@
 
     <div class = "content" style = "justify-content:space-around;">
         {% if user.is_active %}
-
         {% if user.profile_image %}
+                <div>
+              <img src = "{{ user.profile_image.url }}" alt = "유저의 이미지 부분">
+              </div>
+              {% endif %}
+
         <div class = "content_div" style="width:30%;">
-            <img src = "{% static 'img/user_img.png' %}">
+
         </div>
-        {% endif %}
+
         {% endif %}
 
         {% if user.is_active %}

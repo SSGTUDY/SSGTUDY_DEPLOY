@@ -4,15 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <title>이미지 변경/추가</title>
-    <style>
-    </style>
+    <link rel = "stylesheet" href = "{% static 'css/change_img.css' %}">
+
 </head>
 <body>
+  <div class = "main_form">
   <form method = "POST" enctype="multipart/form-data">
     {% csrf_token %}
     업로드
-    {{ user_change_form }}
+    {{ profile_form }}
+
       <button type="submit">변경하기</button>
+
   </form>
+  </div>
 </body>
 </html>

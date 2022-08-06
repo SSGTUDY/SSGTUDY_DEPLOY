@@ -32,11 +32,12 @@ button{
     border:white;
 }
 
-input[type = 'file']{
-    display:none;
+input{
+    color:white;
+    border:white;
+    cursor:pointer;
 }
 button:hover{
     cursor:pointer;
     background:green;
 }
-

@@ -4,7 +4,7 @@ from django_summernote.widgets import SummernoteWidget
 from home.forms import UserForm
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import  UserChangeForm
-
+from home .models import User
 class RecruitForm(forms.ModelForm):
     class Meta:
         model = Recruit
@@ -46,8 +46,9 @@ class CustomUserChangeForm(UserChangeForm):
         model = get_user_model()
         fields = ['username','nickname']
 
-class CustomerMediaChangeForm(UserChangeForm):
+class ProfileForm(forms.ModelForm):
     class Meta:
-        model = get_user_model()
+        model = User
         fields = ['profile_image']
+
 

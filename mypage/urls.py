@@ -18,7 +18,6 @@ urlpatterns = [
     path('change_pass/',views.change_pass,name = 'change_pass'),
     path('change_nickname/',views.change_nickname,name = 'change_nickname'),
     path('change_nick/',views.change_nickname,name = "change_nick"),
-    path('change_image/',views.change_image,name = 'change_image'),
-    path('change_img/',views.change_image,name = 'change_img'),
+    path('change_img/',views.change_image,name = 'change_img')
 
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

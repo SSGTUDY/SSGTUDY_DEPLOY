@@ -9,7 +9,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.hashers import check_password
 from home.models import User
 from django.contrib.auth.forms import UserChangeForm
-from .forms import CustomUserChangeForm,CustomerMediaChangeForm
+from .forms import CustomUserChangeForm,ProfileForm
 from django.contrib import messages
 
 # mypage_main.html
@@ -71,6 +71,8 @@ def change_password(request):
         form = PasswordChangeForm(request.user)
     return render(request,'change_password.html',{'form':form})
 
+def change_img(request):
+    return render(request,'change_image.html')
 
 def change_nickname(request):
     if request.method == 'POST':
@@ -87,14 +89,17 @@ def change_nickname(request):
 
 def change_image(request):
     if request.method == 'POST':
-        user_change_form = CustomerMediaChangeForm(request.POST,instance=request.user)
-        if user_change_form.is_valid():
-            user_change_form.save()
+
+        user_change_form = CustomUserChangeForm(request.POST,instance = request.user)
+        profile_form = ProfileForm(request.POST,request.FILES,instance=request.user)
+        if profile_form.is_valid():
+            profile_form.save()
             return redirect('mypage_edit')
     else:
-        user_change_form = CustomerMediaChangeForm(request.POST,instance=request.user)
+        profile_form = ProfileForm(instance=request.user)
         return render(request,'change_image.html',{
-            'user_change_form':user_change_form
+            'profile_form': profile_form
         })
+
 
 
