@@ -83,11 +83,17 @@
         </div>
         {% endfor %}
         {% if posts.has_previous %}
-        <div class = "page_list" style="width:40%;">
+        <div class = "page_list" style="width:60%;">
+             <a href = "?page=1" class = "page_list_li">
+                <button style="background:#51a998;color:white;border:white;height:5vh;border-radius:15%">처음페이지</button></a>
             <a href = "?page={{posts.previous_page_number}}" class = "page_list_li">
                 <button style="background:#51a998;color:white;border:white;height:5vh;border-radius:15%">이전페이지</button></a>
-            <a href = "?page=1" class = "page_list_li">
-                <button style="background:#51a998;color:white;border:white;height:5vh;border-radius:15%">처음페이지</button></a>
+            {% endif %}
+            {% if posts.has_next %}
+            <a href = "?page={{posts.paginator.num_pages}}" class = "page_list_li">
+                <button style="background:#51a998;color:white;border:white;height:5vh;border-radius:15%">마지막 페이지</button></a>
+            <a href = "?page={{posts.next_page_number}}" class = "page_list_li">
+                <button style="background:#51a998;color:white;border:white;height:5vh;border-radius:15%">다음페이지</button></a>
         </div>
         {% endif %}
         <section class = "span_list">
@@ -95,14 +101,7 @@
             /
             <span class = "span_detail">{{posts.paginator.num_pages}}</span>
         </section>
-        {% if posts.has_next %}
-        <div class = "page_list" style="width:40%;">
-            <a href = "?page={{posts.next_page_number}}" class = "page_list_li">
-                <button style="background:#51a998;color:white;border:white;height:5vh;border-radius:15%">다음페이지</button></a>
-            <a href = "?page={{posts.paginator.num_pages}}" class = "page_list_li">
-                <button style="background:#51a998;color:white;border:white;height:5vh;border-radius:15%">마지막 페이지</button></a>
-        </div>
-        {% endif %}
+
     </div>
 
 
