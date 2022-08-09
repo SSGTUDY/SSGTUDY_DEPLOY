@@ -1,6 +1,41 @@
 {% extends 'base.html' %}
+
+{% load static %}
+
 {% block content %}
 <div class="container">
-    <h1>match test</h1>
+
+    <hd class="">
+        <title>Match_main</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'match/css/match_main.css' %}" />
+    </hd>
+
+    <div class="categorybox">
+        <h4 class="bycategory">카테고리별</h4>
+        <input class="findcate" type="text" v-model="word"/>
+                <button class="srchbutton" type="button" v-on:click="search">SEARCH</button>
+        <div class="cate">
+            <nav class="navbar navbar-expand-lg bg-light">
+                <div class="container-fluid">
+                  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                      <a class="nav-link active" aria-current="page" href="#">전체</a>
+                      <a class="nav-link" href="#">소모임</a>
+                      <a class="nav-link" href="#">스터디</a>
+                      <a class="nav-link" href="#">프로젝트</a>
+                      <a class="nav-link" href="#">설문조사</a>
+                    </div>
+                  </div>
+                </div>
+              </nav>
+              <table class="catepost">
+                <tr class="line"><td class="line"></td></tr>
+                <tr class="line"><td class="line"></td></tr>
+                <tr class="line"><td class="line"></td></tr>
+                <tr class="line"><td class="line"></td></tr>
+            </table>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

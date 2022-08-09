@@ -19,3 +19,7 @@ def about_notice(request):
 # about_qna.html
 def about_qna(request):
     return render(request, 'about_qna.html')
+
+# about_qna.html
+def about_person(request):
+    return render(request, 'about_person.html')
