@@ -8,14 +8,13 @@ class UserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['email', 'name', 'nickname', 'email', 'password', 're_password', 'phone_number', 'address', 'profile_image']
+        fields = ['email', 'username', 'nickname', 'password', 're_password', 'phone_number', 'profile_image']
 
         labels = {
             'email': 'email',
-            'name': 'Name',
+            'username': 'Name',
             'nickname': 'Nickname',
             'phone_number': '전화번호',
-            'address': '주소',
             'profile_image': '프로필 사진',
         }
 

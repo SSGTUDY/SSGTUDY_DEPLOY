@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-from mypage.models import Recruit, Hashtag
+from mypage.models import Recruit
 from mypage.forms import BookmarkForm, RecruitForm, HashtagForm
 from .forms import CommentForm, ReCommentForm, RecruitUserForm
 from .models import Comment
@@ -9,7 +9,8 @@ from .models import Comment
 # match.html
 def match(request):
     recruits = Recruit.objects
-    return render(request, 'match.html', {'recruits': recruits})
+    recruit_field_study = Recruit.objects.filter(recruit_field = "study")
+    return render(request, 'match.html', {'recruits': recruits, 'recruit_field_study': recruit_field_study})
 
 # study_detail.html
 def study_detail(request, id):
@@ -115,7 +116,6 @@ def recruit_user(request, id):
     else:
         recruit_user_form = RecruitUserForm()
     return render(request, 'request_user.html')
-
 
 @login_required
 def bookmark(request, id):

@@ -36,41 +36,44 @@
 <br><br>
 
 {% if recruit.recruit_writer != user %}
+<form method = "POST" action="{% url 'recruit_user' recruit.id %}">
+    {% csrf_token %}
+    {{ recruit_user_form.as_p }}
+    <input type="submit" value="가입">
+</form>
     {% for recruit_user in recruit.recruit_users.all %}
-        {% if recruit_user.recruit_user_register != user %}
-            <form method = "POST" action="{% url 'recruit_user' recruit.id %}">
-                {% csrf_token %}
-                {{ recruit_user_form.as_p }}
-                <input type="submit" value="가입">
-            </form>
-        {% elif recruit_user.recruit_user_register == user %}
-            {{ user.nickname }}님 가입되었습니다.
-        {% endif %}
+    {% if recruit_user.recruit_user_register == user %}
+        <script>
+            alert('이미 가입되었습니다.')
+        </script>
+    {% endif %}
     {% endfor %}
 {% elif recruit.recruit_writer == user %}
-    대표 : {{ recruit.recruit_writer.nickname }} <br>
     {% for recruit_user in recruit.recruit_users.all %}
         {{ recruit_user.recruit_user_register.nickname }} <br>
     {% endfor %}
 {% endif %}
 
 {% if recruit.recruit_writer != user %}
+<form method = "POST" action="{% url 'bookmark' recruit.id %}">
+    {% csrf_token %}
+    {{ bookmark_form.as_p }}
+    <input type="submit" value="북마크">
+</form>
     {% for bookmark in recruit.bookmarks.all %}
-        {% if bookmark.bookmark_user != user %}
-            <form method = "POST" action="{% url 'bookmark' recruit.id %}">
-                {% csrf_token %}
-                {{ bookmark_form.as_p }}
-                <input type="submit" value="북마크">
-            </form>
-        {% elif bookmark.bookmark_user == user %}
-            이미 북마크 되어있습니다.
+        {% if bookmark.bookmark_user == user %}
+        <script>
+            alert('이미 북마크 되었습니다.')
+        </script>
         {% endif %}
     {% endfor %}
 {% endif %}
 <hr>
 
 {% for comment in recruit.comments.all %}
-    {{ comment.comment_writer.nickname }} : {{ comment.comment_content }} / {{ comment.comment_date}} 
+    {% if comment.comment_writer.profile_image %}
+        <img src="{{ comment.comment_writer.profile_image.url }}" alt="image" width="20" height="20"> {{ comment.comment_writer.nickname }} : {{ comment.comment_content }} / {{ comment.comment_date}} 
+    {% endif %}
 
     {% if comment.comment_writer == user %}
         <a href="{% url 'comment_edit' recruit.id comment.id %}">수정</a>
@@ -84,7 +87,7 @@
     </form>
 
     {% for recomment in comment.recomments.all %}
-        {{ recomment.recomment_writer.nickname }} / {{ recomment.recomment_content }} <br>
+        ↪<img src="{{ comment.comment_writer.profile_image.url }}" alt="image" width="20" height="20"> : {{ recomment.recomment_writer.nickname }} / {{ recomment.recomment_content }} <br>
     {% endfor %}
     <br>
 {% endfor %}

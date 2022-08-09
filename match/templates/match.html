@@ -1,9 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container">
-    <h1>match test</h1>
+    모집 마감 임박 <br>
     {% for recruits in recruits.all %}
+        <br><br>
+        {{ recruits.get_recruit_field_display }} <br>
         <a href="{% url 'study_detail' recruits.id %}">{{ recruits.recruit_title }}</a>
+        {{ recruits.recruit_period_end | timeuntil }}
     {% endfor %}
-</div>
+
+    <br><br>
+
+    카테고리별
+    <br>
+    {% for recruit_field_study in recruit_field_study.all %}
+        <a href="{% url 'study_detail' recruit_field_study.id %}">{{ recruit_field_study.recruit_title }}</a>
+        {{ recruit_field_study.hashtag}}
+    {% endfor %}
 {% endblock %}

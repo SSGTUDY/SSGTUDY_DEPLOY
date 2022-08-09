@@ -71,14 +71,14 @@
             <div class = "board_div_first">C++스터디</div>
             <div>월/금</div>
             <div>대면</div>
-            {% if user.is_active %}
-                {% for recruits in recruits.all %}
-                    {% if recruits.recruit_writer == user %}
-                        <a href="{% url 'study_detail' recruits.id %}">{{ recruits.recruit_title }}</a>
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
         </div>
+        {% if user.is_active %}
+            {% for recruits in recruits.all %}
+                {% if recruits.recruit_writer == user %}
+                    <a href="{% url 'study_detail' recruits.id %}">{{ recruits.recruit_title }}</a>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
 
     </div>
 

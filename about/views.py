@@ -29,7 +29,7 @@ def about_qna_write(request):
             question.question_writer = request.user
             question.question_date = timezone.now()
             question.save()
-            return redirect('about_qna_detail', id)
+            return redirect('about_qna_detail', question.id)
     else:
         question_form = QuestionForm()
     return render(request, 'about_qna_write.html', {'question_form': question_form})

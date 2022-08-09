@@ -17,7 +17,7 @@ def study_register(request, recruit = None):
             recruit.recruit_writer = request.user
             recruit.recruit_date = timezone.now()
             recruit.save()
-            return redirect('study_detail', id)
+            return redirect('study_detail', recruit.id)
     else:
         form = RecruitForm(instance = recruit)
         return render(request, 'study_register.html', {'form': form})
