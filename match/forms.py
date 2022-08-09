@@ -1,5 +1,6 @@
 from django import forms
 from .models import Comment, ReComment
+from django import forms
 
 class CommentForm(forms.ModelForm):
     class Meta:
@@ -7,8 +8,11 @@ class CommentForm(forms.ModelForm):
         fields = ['comment_content']
 
         labels = {
-            'comment_content': '댓글작성'
+            'comment_content': '댓글작성',
+
         }
+
+
 
 class ReCommentForm(forms.ModelForm):
     class Meta:

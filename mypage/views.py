@@ -11,6 +11,11 @@ from home.models import User
 from django.contrib.auth.forms import UserChangeForm
 from .forms import CustomUserChangeForm,ProfileForm
 from django.contrib import messages
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+
+
 
 # mypage_main.html
 def mypage_main(request):
@@ -101,5 +106,11 @@ def change_image(request):
             'profile_form': profile_form
         })
 
-
-
+@login_required
+def my_study_list(request):
+    recruit = Recruit.objects.filter(recruit_writer = request.user)
+    paginator = Paginator(recruit,3)
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
+    print(recruit)
+    return render(request,'study_list.html', {'recruit':recruit,'posts':posts})

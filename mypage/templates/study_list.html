@@ -64,22 +64,45 @@
             <path d="M19.5 3H18.75V2.27109C18.75 1.8675 18.4397 1.52109 18.0361 1.50094C17.9347 1.49605 17.8333 1.51181 17.7382 1.54724C17.6431 1.58268 17.5561 1.63707 17.4826 1.7071C17.4091 1.77714 17.3506 1.86137 17.3106 1.95469C17.2706 2.04801 17.25 2.14848 17.25 2.25V3H6.75V2.27109C6.75 1.8675 6.43969 1.52109 6.03609 1.50094C5.93469 1.49605 5.83334 1.51181 5.7382 1.54724C5.64307 1.58268 5.55611 1.63707 5.48261 1.7071C5.40911 1.77714 5.3506 1.86137 5.31062 1.95469C5.27063 2.04801 5.25001 2.14848 5.25 2.25V3H4.5C3.70435 3 2.94129 3.31607 2.37868 3.87868C1.81607 4.44129 1.5 5.20435 1.5 6V6.5625C1.5 6.61223 1.51975 6.65992 1.55492 6.69508C1.59008 6.73025 1.63777 6.75 1.6875 6.75H22.3125C22.3622 6.75 22.4099 6.73025 22.4451 6.69508C22.4802 6.65992 22.5 6.61223 22.5 6.5625V6C22.5 5.20435 22.1839 4.44129 21.6213 3.87868C21.0587 3.31607 20.2956 3 19.5 3ZM22.3594 8.25H1.64062C1.60333 8.25 1.56756 8.26482 1.54119 8.29119C1.51482 8.31756 1.5 8.35333 1.5 8.39062V19.5C1.5 20.2956 1.81607 21.0587 2.37868 21.6213C2.94129 22.1839 3.70435 22.5 4.5 22.5H19.5C20.2956 22.5 21.0587 22.1839 21.6213 21.6213C22.1839 21.0587 22.5 20.2956 22.5 19.5V8.39062C22.5 8.35333 22.4852 8.31756 22.4588 8.29119C22.4324 8.26482 22.3967 8.25 22.3594 8.25ZM10.5 14.4108C10.5 14.766 10.3589 15.1066 10.1078 15.3578C9.8566 15.6089 9.51596 15.75 9.16078 15.75H5.83922C5.48404 15.75 5.1434 15.6089 4.89225 15.3578C4.6411 15.1066 4.5 14.766 4.5 14.4108V11.0892C4.5 10.734 4.6411 10.3934 4.89225 10.1422C5.1434 9.8911 5.48404 9.75 5.83922 9.75H9.16078C9.51596 9.75 9.8566 9.8911 10.1078 10.1422C10.3589 10.3934 10.5 10.734 10.5 11.0892V14.4108Z" fill="#51a998"/>
         </svg>
             <a href = "{% url 'study_schedule' %}" style = "text-decoration:none;color:black;">
-            오늘의 스터디 일정</a></div>
+                오늘의 스터디 일정</a></div>
         <div><svg width="24" height="24" viewBox="0 0 24 24" fill="#51a998" xmlns="http://www.w3.org/2000/svg">
             <path d="M20 4H4C2.897 4 2 4.897 2 6V18C2 19.103 2.897 20 4 20H20C21.103 20 22 19.103 22 18V6C22 4.897 21.103 4 20 4ZM8.715 8C9.866 8 10.715 8.849 10.715 10C10.715 11.151 9.866 12 8.715 12C7.564 12 6.715 11.151 6.715 10C6.715 8.849 7.563 8 8.715 8ZM12.43 16H5V15.535C5 14.162 6.676 12.75 8.715 12.75C10.754 12.75 12.43 14.162 12.43 15.535V16ZM19 15H15V13H19V15ZM19 11H14V9H19V11Z" fill="#51a998"/>
         </svg>
             <a href = "{% url 'mypage_edit' %}" style = "text-decoration:none;color:black;">
-            개인정보 수정하기</a></div>
+                개인정보 수정하기</a></div>
     </div>
 </div>
 
-    <div class = "content" style = "border:1px solid #d1d1d1;">
-        <div class = "board_div"> <!--상세 리스트 -->
-            <div class = "board_div_first">C++스터디</div>
-            <div>월/금</div>
-            <div>대면</div>
-        </div>
+    <div class = "content" style = "border:1px solid #d1d1d1;border-radius:1%;">
+        {% for temp in posts %}
 
+        <div class = "detail_div" style="border:1px solid #d1d1d1;width:60%;height:15vh;display:flex;flex-direction:column">
+            <div style="color:#51a998;font-size:1.2vw;">{{ temp.recruit_title }}</div>
+            <br>
+            <div>{{ temp.recruit_date}}</div>
+        </div>
+        {% endfor %}
+        {% if posts.has_previous %}
+        <div class = "page_list" style="width:40%;">
+            <a href = "?page={{posts.previous_page_number}}" class = "page_list_li">
+                <button style="background:#51a998;color:white;border:white;height:5vh;border-radius:15%">이전페이지</button></a>
+            <a href = "?page=1" class = "page_list_li">
+                <button style="background:#51a998;color:white;border:white;height:5vh;border-radius:15%">처음페이지</button></a>
+        </div>
+        {% endif %}
+        <section class = "span_list">
+            <span class = "span_detail">{{posts.number}}</span>
+            /
+            <span class = "span_detail">{{posts.paginator.num_pages}}</span>
+        </section>
+        {% if posts.has_next %}
+        <div class = "page_list" style="width:40%;">
+            <a href = "?page={{posts.next_page_number}}" class = "page_list_li">
+                <button style="background:#51a998;color:white;border:white;height:5vh;border-radius:15%">다음페이지</button></a>
+            <a href = "?page={{posts.paginator.num_pages}}" class = "page_list_li">
+                <button style="background:#51a998;color:white;border:white;height:5vh;border-radius:15%">마지막 페이지</button></a>
+        </div>
+        {% endif %}
     </div>
 
 

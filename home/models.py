@@ -8,7 +8,6 @@ class User(AbstractUser):
     profile_image = models.ImageField(upload_to="profile/", blank = True)
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['nickname', 'phone_number', 'profile_image']
-
     def __str__(self):
         return "<%d %s>" %(self.pk, self.username)
 

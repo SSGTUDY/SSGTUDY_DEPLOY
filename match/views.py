@@ -5,6 +5,7 @@ from mypage.models import Recruit, Hashtag
 from mypage.forms import RecruitForm, HashtagForm
 from .forms import CommentForm, ReCommentForm
 from .models import Comment
+from home.models import User
 
 # match.html
 def match(request):
@@ -18,6 +19,7 @@ def study_detail(request, id):
         form = CommentForm(request.POST)
         re_form = ReCommentForm(request.POST)
         hashtag_form = HashtagForm(request.POST)
+
         if form.is_valid():
             comment = form.save(commit = False)
             comment.comment_recruit = recruit
@@ -91,6 +93,7 @@ def comment_edit(request, comment_id, id):
     form = CommentForm(instance = comment_id)
     if request.method == "POST":
         form = CommentForm(request.POST, instance = comment_id)
+
         if form.is_valid():
             form.save()
             return redirect('study_detail', id)

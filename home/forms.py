@@ -2,6 +2,7 @@ from django import forms
 from .models import User
 from django.contrib.auth.forms import AuthenticationForm
 
+
 class UserForm(forms.ModelForm):
     password = forms.CharField(label = '비밀번호', widget = forms.PasswordInput)
     re_password = forms.CharField(label = '비밀번호 재확인', widget = forms.PasswordInput)
