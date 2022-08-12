@@ -1,10 +1,62 @@
-<h1>MYPAGE-등록한 스터디 수정</h1>
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    <table>
-        {{ form.as_p }}
-    </table>
-    <div class="button">
-        <input type="submit" value="작성완료">
+{% load static %}
+<html lang="en">
+<head>
+    {% block css %}
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스터디 수정</title>
+    <link rel = "stylesheet" href = "{% static 'css/mypage_main.css' %}">
+    <link rel = "stylesheet" href = "{% static 'css/mypage_register.css' %}">
+    <link rel="stylesheet" media="(max-width: 480px)" href="{% static 'css/mobile.css' %}">
+    <script src = "{% static 'js/mypage.js' %}"></script>
+    <style>
+
+        .main_filed{
+            display:flex;
+            width:50%;
+            height:5vh;
+            flex-direction:column;
+            border-bottom:1px solid #51a998;
+        }
+        .filed_label{
+            display:flex;
+            width:50%;
+            justify-content:space-around;
+            align-items:center;
+        }
+    </style>
+    {% endblock css %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+</head>
+<body>
+
+<div class = "main">
+ <div>
+        <div style = "font-size:1.2rem;color:#51a998;margin:2vh auto"><b>수 정 하 기</b></div>
+
     </div>
-</form>
+    <div class = "second">
+    <div>
+        <form method="POST" enctype="multipart/form-data" id = "forms" style = " width:100%;display:flex;flex-direction:column;justify-content:space-around">
+    {% csrf_token %}
+
+        {% for field in form %}
+        <div class = "main_filed">{{ field.label }}</div>
+      <div class = "filed_label ">{{ field }}</div>
+        {% endfor %}
+
+    <div>
+        <input type="submit" value="작성완료" class = "imgadd">
+    </div>
+    </form>
+
+    </div>
+    </div>
+    </div>
+
+
+</body>
+</html>

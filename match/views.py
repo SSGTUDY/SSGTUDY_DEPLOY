@@ -6,6 +6,8 @@ from mypage.forms import RecruitForm, HashtagForm
 from .forms import CommentForm, ReCommentForm
 from .models import Comment
 from home.models import User
+from datetime import date,timedelta
+from django.core.paginator import Paginator
 
 # match.html
 def match(request):
@@ -120,3 +122,18 @@ def recomment_write(request, id, comment_id):
     else:
         re_form = ReCommentForm()
     return render(request, 'study_detail.html')
+
+
+def find_date_end(request):
+   startdate = date.today()
+   enddate = startdate + timedelta(days = 30)
+   recruits = Recruit.objects.filter(recruit_period_end__lte = enddate,recruit_status = 'ongoing').order_by('recruit_period_end')
+   paginator = Paginator(recruits,5)
+   page = request.GET.get('page')
+   posts = paginator.get_page(page)
+   return render(request, 'match.html', {'recruits':recruits,'posts':posts})
+
+
+def find_Hashtag(request):
+    hashtag = Hashtag.objects.all()
+

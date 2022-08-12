@@ -112,5 +112,4 @@ def my_study_list(request):
     paginator = Paginator(recruit,3)
     page = request.GET.get('page')
     posts = paginator.get_page(page)
-    print(recruit)
     return render(request,'study_list.html', {'recruit':recruit,'posts':posts})

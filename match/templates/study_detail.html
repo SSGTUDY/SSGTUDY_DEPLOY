@@ -49,7 +49,7 @@
         </div>
         <div> <!--게시글 내용 -->
             <label style="color:black;font-size:1vw;">내용</label>
-                <div readonly id = "Textarea" style="height:auto;width:89%;color:black;font-weight:400;">{{recruit.recruit_content|safe}}</div>
+                <div readonly id = "Textarea" style="height:35vh;width:89%;color:black;font-weight:400;overflow:scroll;">{{recruit.recruit_content|safe}}</div>
             </div>
         <div> <!-- 모집 분야 -->
             <label style="color:black;">모집 분야</label>
@@ -107,18 +107,18 @@
         {% if comment.comment_writer_profile %}
         <img src = "{{ comment.comment_writer_profile }}" alt = "유저의 이미지 부분" class = "comment_user_image">
         {% endif %}
-        <div class = "comment_user_nickname"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20 2H4C2.897 2 2 2.897 2 4V22L7.333 18H20C21.103 18 22 17.103 22 16V4C22 2.897 21.103 2 20 2ZM20 16H6.667L4 18V4H20V16Z" fill="#51a998"/>
-        </svg>   {{ comment.comment_writer.nickname }}</div>
+
+        <div class = "comment_user_nickname">
+        <img src = "{% static 'img/match_comment.png' %}">
+        {{ comment.comment_writer.nickname }}</div>
         <div style = "font-size:0.8vw;" id = "comment_date"> {{ comment.comment_date}}</div>
         {{ comment.comment_content }}
         {% if comment.comment_writer == user %}
-        <div style="margin:2vh auto;">
+        <div style="margin:0.6vh auto;">
         <a href="{% url 'comment_edit' recruit.id comment.id %}" class = "comment_modify">수정</a>
         <a href="{% url 'comment_delete' recruit.id comment.id %}" class = "comment_delete">삭제</a>
         </div>
         {% endif %}
-    </div>
 
     <form method = "POST" action="{% url 'recomment_write' recruit.id comment.id %}">
         {% csrf_token %}
@@ -126,13 +126,21 @@
         <input type="submit" class = "recomment_form">
     </form>
 
-    {% for recomment in comment.recomments.all %}
-    {{ recomment.recomment_writer.nickname }} / {{ recomment.recomment_content }} <br>
-    {% endfor %}
-    <br>
-    {% endfor %}
+        {% for recomment in comment.recomments.all %}
+        <div class = "comment_user_name">
+            <img src = "{% static 'img/match_recomment.png' %}">
+            {{ recomment.recomment_writer.nickname }}
+        </div>
+        <div style = "font-size:0.8vw;" id = "comment_date"> {{recomment.recomment_date}}</div>
+        <div style="margin-top:1vh;">{{ recomment.recomment_content }}</div>
+     <br>
+        {% endfor %}
 
-    <form method="POST" action = "{% url 'study_detail' recruit.id %}">
+
+    </div>
+
+    {% endfor %}
+    <form method="POST" action = "{% url 'study_detail' recruit.id %}" style="margin-top:6vh;">
         {% csrf_token %}
         {{ form.as_p }}
         <div class="button">

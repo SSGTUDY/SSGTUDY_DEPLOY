@@ -1,14 +1,76 @@
 {% extends 'base.html' %}
+{% load static %}
+<html>
+<head>
+    {% block css %}
+    <title>Match</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" href = "{% static 'css/match_main.css' %}">
+    {% endblock css %}
+</head>
+
+<body>
 {% block content %}
-<div class="container">
-    <h1>match test</h1>
+<div class="top_container"> <!--모집 마감 임박 -->
+    <div class = "text_area">
+        <text style="font-size:2vw;">모집 마감 임박</text>
+        <img src = "{% static 'img/match_home_logo.png' %}" style="width:2.8vw;">
+
+    </div>
+
+    <div class = "board_area"> <!--실제 게시글이 들어갈 위치 -->
+        {% if posts.has_previous %}
+        <a href = "?page={{posts.previous_page_number}}" class = "page_nation" style="text-decoration:none">
+            <div class = "circle">
+                <div class = "inner_circle">⇦</div>
+            </div></a>
+        {% endif %}
+        <!-- 게시글 세부 정보가 들어갈 영역 -->
+        {% for temp in posts %}
+        <div class = "board_detail">
+            <!--어떤 종류의 게시글인지 보여줌 -->
+            <div class = "top_board_detail">
+                <div style="font-size:0.8vw;color:#BBBABA">
+                    {{ temp.recruit_field }}
+                </div>
+                <div style="font-size:1.1vw;color:#3165B1" class = "top_content_date">
+                    <section style="font-size:1vw;display:inline;">D-</section>
+                    <label class = "today" style="font-size:1vw;">{{ temp.recruit_period_end }}</label> <!-- 모집 날짜 (마감) -->
+                </div>
+            </div>
+
+            <div style = "width:100%;height:35%;overflow:auto;border-bottom:1px solid #d1d1d1;margin:0px auto;">
+                <a href="{% url 'study_detail' temp.id %}" style="text-decoration:none;color:black;font-size:1vw;font-weight:700">{{ temp.recruit_title }}</a>
+            </div>
+
+            <div style= "width:100%;height:45%;overflow:auto;">
+                {{ temp.recruit_content | safe}}
+            </div>
+        </div>
+
+        {% endfor %}
+
+        {% if posts.has_next %}
+        <a href = "?page={{posts.next_page_number}}" class = "page_nation" style="text-decoration:none;">
+            <div class = "circle">
+                <div class = "inner_circle">⇨</div>
+            </div>
+        </a>
+        {% endif %}
+    </div>
 </div>
 
 
-<h1>MATCH</h1>
-{% for recruits in recruits.all %}
-    <a href="{% url 'study_detail' recruits.id %}">{{ recruits.recruit_title }}</a>
-{% endfor %}
+<div class = "tag_area">
+    <div class = "text_area">
+        <text style="font-size:2vw;">태그 별</text>
+    </div>
+</div>
+</div>
 
+<script src = "{% static 'js/match_main.js' %}"></script>
 {% endblock %}
+
+</body>
+</html>
 
