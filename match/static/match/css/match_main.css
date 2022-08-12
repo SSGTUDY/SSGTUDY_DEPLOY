@@ -1,0 +1,56 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+.notosanskr * { 
+ font-family: 'Noto Sans KR', sans-serif;
+}
+
+.bycategory{
+    color:#56b198;
+    font-weight: 500;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.categorybox{
+    margin-top:80px;
+}
+
+.findcate{
+    width:550px;
+    height:45px;
+    border:3px solid #56b198;
+}
+
+.srchbutton{
+    margin: 5px;
+    position: relative;
+    padding: 10px 30px;
+    border: none;
+    font-family: 'Noto Sans KR', sans-serif;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.25s;
+    background: linear-gradient(#56b198, #3165b1);
+    color: white;
+}
+
+.cate{
+    margin: 20px auto;
+    padding: 20px;
+    width: 700px;
+    height: 500px;
+    border: 2px solid #56b198;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.navbar-nav a{
+    color:#999;
+    font-weight: 600;
+}
+
+.catepost{
+    width: 650px;
+    height: 400px;
+}
+
+.line{
+    border-top: 1px solid rgb(233, 233, 233);
+}

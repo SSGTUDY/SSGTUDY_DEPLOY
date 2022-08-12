@@ -1,1 +1,13 @@
-<h1>ABOUT-공지사항</h1>
+{% extends 'about_main.html' %}
+
+{% load static %}
+
+
+{% block fooster%}
+    <h4 class="findssg">
+        <img src="{% static 'about/image/i.png' %}" alt="mdo" width="45" height="45">공지사항</h4>
+    <div id="notice" class="notice">
+        <p style="color:#56b198; font-weight:bold;">[사전공지]</p>
+        <p>사이트 리뉴얼이 2023-05-06에 시작됩니다.</p>
+    </div>
+{% endblock %}
