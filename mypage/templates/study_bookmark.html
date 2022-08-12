@@ -1,1 +1,71 @@
-<h1>MYPAGE-내가 찜한 스터디 보기</h1>
+{% extends "base.html" %}
+{% load static %}
+<html lang="en">
+<head>
+    {% block css %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>내가 찜한 스터디</title>
+    <link rel = "stylesheet" href = "{% static 'css/mypage_main.css' %}">
+    {% endblock css %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+</head>
+<body>
+{% block content %}
+<div class = "text">
+        <div class = "text_1" style="font-size:3.5vh;"><b>내가 찜한 게시글 보기</b></div>
+        <div class = "text_1" style="font-size:2vh;letter-spacing: 0.275em;">MY LIKE</div>
+    </div>
+<div class = "body_area">
+
+<div class = "area">
+
+   <div class = "second_area">
+        {% if user.is_active %}
+
+        {% if user.profile_image %}
+        <img src = "{{ user.profile_image.url }}" alt = "유저의 이미지 부분">
+        {% endif %}
+
+        <div class = "user_profile">
+
+              <div><div id = "user_infomation">닉네임</div>{{ user.nickname }}</div>
+              <div><div id = "user_infomation">아이디</div>{{ user.username }}</div>
+        </div>
+        {% endif %}
+    </div>
+    <div class = "mypage_move">
+        <div><img src = "{% static 'img/register.png' %}">
+            <a href = "{% url 'study_register' %}" target = "_blank" style = "text-decoration:none;color:black;">
+            스터디 등록하기</a></div>
+        <div><img src = "{% static 'img/mylist.png' %}">
+            <a href = "{% url 'study_list' %}" style = "text-decoration:none;color:black;">
+            등록한 게시글 보기</a></div>
+        <div><img src = "{% static 'img/bookmark.png' %}">
+            <a href = "{% url 'study_bookmark' %}" style = "text-decoration:none;color:black;">
+            내가 찜한 게시글</a></div>
+        <div><img src = "{% static 'img/today.png' %}">
+            <a href = "{% url 'study_schedule' %}" style = "text-decoration:none;color:black;">
+            오늘의 스터디 일정</a></div>
+        <div><img src = "{% static 'img/change_user.png' %}">
+            <a href = "{% url 'mypage_edit' %}" style = "text-decoration:none;color:black;">
+            개인정보 수정하기</a></div>
+    </div>
+</div>
+
+    <div class = "content" style = "border:1px solid #d1d1d1;">
+        <div class = "board_div"> <!--상세 리스트 -->
+            <div class = "board_div_first">C++스터디</div>
+            <div>월/금</div>
+            <div>대면</div>
+        </div>
+
+    </div>
+
+
+</div>
+{% endblock %}
+</body>
+</html>

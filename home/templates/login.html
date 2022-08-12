@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends 'base.html' %}
 {% load static %}
 
@@ -49,3 +50,13 @@
         </body>
 </div>
 {% endblock %}
+=======
+<h1>로그인</h1>
+
+<!-- 로그인 form -->
+<form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+    <input type="submit" class="btn1" value="LOG IN">
+</form>
+>>>>>>> 96856aa4184fe3e0f9a5d755f8391e659239bff6

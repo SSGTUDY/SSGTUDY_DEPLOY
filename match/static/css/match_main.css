@@ -1,0 +1,110 @@
+body{
+    font-family: 'Noto Sans KR';
+    fobnt-size:1vw;
+}
+
+.top_container{
+    margin:15vh auto;
+    width:100%;
+    background:#f5f5f5;
+    height:auto;
+}
+
+.text_area{
+    margin-top:5vh;
+    font-size:2vw;
+    color:#51a998;
+    font-weight: 700;
+    width:25%;
+    display:flex;
+    justify-content:flex-end;
+}
+.title{
+    color:black;
+    text-decoration:none;
+}
+.title:hover{
+    color:red;
+}
+.page_nation{
+    display:flex;
+    height:100%;width:auto;align-items:center;
+
+}
+
+#title{
+    width:100%;
+    height:20%;
+    overflow:auto;
+
+}
+
+.board_area{
+    height:35vh;
+    width:80%;
+    margin:0px auto;
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-around;
+}
+
+.board_content{
+    overflow:scroll;
+    height:100%;
+}
+
+.board_detail{
+    margin-top:3vh;
+    border:1px solid #51a998;
+    width:15%;
+    height:25vh;
+    font-size:1vw;
+    cursor:default;
+}
+
+.tag_area{
+    height:60vh;
+    width:100%;
+    background:#f5f5f5;
+}
+.recruit_title{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    text-decoration:none;color:black;font-weight:600;font-size:1.05vw;
+    overflow-y:scroll;
+    height:20%;
+    width:100%;
+}
+.top_board_detail{
+    display:flex;
+    justify-content:space-around;
+    font-weight:700;
+
+
+}
+
+.circle{
+    background:#51a998;
+    border-radius:50%;
+    width:3vw;
+    height:3vw;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.inner_circle{
+    font-size:2vw;
+    color:white;
+    display:flex;
+    text-decoration:none;
+}
+.circle:hover{
+    cursor:pointer;
+    background:green;
+}
+
+
+circle{
+    cursor:pointer;
+}
