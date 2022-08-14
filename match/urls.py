@@ -9,6 +9,7 @@ urlpatterns = [
     path('study_edit/<str:id>/', views.study_edit, name='study_edit'),
     path('study_delete/<str:id>/', views.study_delete, name='study_delete'),
     path('hashtag_write/<str:id>/', views.hashtag_write, name='hashtag_write'),
+    path('<int:pk>/', views.hashtag_detail, name = 'hashtag_detail'),
     path('recruit_user/<str:id>/', views.recruit_user, name='recruit_user'),
     path('bookmark/<str:id>/', views.bookmark, name='bookmark'),
     path('comment_edit/<str:id>/<str:comment_id>/', views.comment_edit, name='comment_edit'),

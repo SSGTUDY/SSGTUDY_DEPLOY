@@ -9,11 +9,53 @@
     {% endfor %}
 
     <br><br>
+    
+    <form class="sea" action="" method="GET">
+        <input type="text" name="q" value="{{ q }}"/>
+        <input type="submit" value="검색" />
+    </form>
 
+    <br><br>
     카테고리별
     <br>
+
+    스터디
     {% for recruit_field_study in recruit_field_study.all %}
         <a href="{% url 'study_detail' recruit_field_study.id %}">{{ recruit_field_study.recruit_title }}</a>
-        {{ recruit_field_study.hashtag}}
+        <br>
+    {% endfor %}
+    <br>
+
+    소모임
+    {% for recruit_field_club in recruit_field_club.all %}
+        <a href="{% url 'study_detail' recruit_field_club.id %}">{{ recruit_field_club.recruit_title }}</a>
+        {{ recruit_field_club.hashtag}}
+        <br>
+    {% endfor %}
+    <br>
+
+    프로젝트
+    {% for recruit_field_project in recruit_field_project.all %}
+        <a href="{% url 'study_detail' recruit_field_project.id %}">{{ recruit_field_project.recruit_title }}</a>
+        {{ recruit_field_project.hashtag}}
+        <br>
+    {% endfor %}
+    <br>
+
+    설문조사
+    {% for recruit_field_survey in recruit_field_survey.all %}
+        <a href="{% url 'study_detail' recruit_field_survey.id %}">{{ recruit_field_survey.recruit_title }}</a>
+        {{ recruit_field_survey.hashtag}}
+        <br>
+    {% endfor %}
+    <br>
+
+    태그별 <br>
+    {% for hashtag in hashtag.all %}
+        <a href="{% url 'hashtag_detail' pk=hashtag.pk %}">{{ hashtag.hashtag_content }}</a>
+    {% endfor %}
+    <br>
+    {% for hashtag_recruits in hashtag_recruits.all %}
+        <a href="{% url 'study_detail' id=hashtag_recruits.id %}">{{ hashtag_recruits.recruit_title }}</a>
     {% endfor %}
 {% endblock %}

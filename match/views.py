@@ -5,12 +5,46 @@ from mypage.models import Recruit
 from mypage.forms import BookmarkForm, RecruitForm, HashtagForm
 from .forms import CommentForm, ReCommentForm, RecruitUserForm
 from .models import Comment
+from mypage.models import Hashtag
+from django.db.models import Q
 
 # match.html
 def match(request):
     recruits = Recruit.objects
     recruit_field_study = Recruit.objects.filter(recruit_field = "study")
-    return render(request, 'match.html', {'recruits': recruits, 'recruit_field_study': recruit_field_study})
+    recruit_field_club = Recruit.objects.filter(recruit_field = "club")
+    recruit_field_project = Recruit.objects.filter(recruit_field = "project")
+    recruit_field_survey = Recruit.objects.filter(recruit_field = "survey")
+    hashtag = Hashtag.objects
+    q = request.GET.get('q', '')
+    if q:
+        recruit_field_study = recruit_field_study.filter(Q(recruit_title__icontains = q) | Q(recruit_content__icontains = q))
+        recruit_field_club = recruit_field_club.filter(Q(recruit_title__icontains = q) | Q(recruit_content__icontains = q))
+        recruit_field_project = recruit_field_project.filter(Q(recruit_title__icontains = q) | Q(recruit_content__icontains = q))
+        recruit_field_survey = recruit_field_survey.filter(Q(recruit_title__icontains = q) | Q(recruit_content__icontains = q))
+    return render(request, 'match.html', {'recruits': recruits, 'hashtag': hashtag,
+    'recruit_field_study': recruit_field_study, 'recruit_field_club': recruit_field_club, 'recruit_field_project': recruit_field_project, 'recruit_field_survey': recruit_field_survey,
+    'q': q})
+
+def hashtag_detail(request, pk):
+    recruits = Recruit.objects
+    recruit_field_study = Recruit.objects.filter(recruit_field = "study")
+    recruit_field_club = Recruit.objects.filter(recruit_field = "club")
+    recruit_field_project = Recruit.objects.filter(recruit_field = "project")
+    recruit_field_survey = Recruit.objects.filter(recruit_field = "survey")
+    hashtag = Hashtag.objects
+    hashtags = get_object_or_404(Hashtag, pk = pk)
+    hashtag_recruits = hashtags.recruit_set
+    q = request.GET.get('q', '')
+    if q:
+        recruit_field_study = recruit_field_study.filter(Q(recruit_title__icontains = q) | Q(recruit_content__icontains = q))
+        recruit_field_club = recruit_field_club.filter(Q(recruit_title__icontains = q) | Q(recruit_content__icontains = q))
+        recruit_field_project = recruit_field_project.filter(Q(recruit_title__icontains = q) | Q(recruit_content__icontains = q))
+        recruit_field_survey = recruit_field_survey.filter(Q(recruit_title__icontains = q) | Q(recruit_content__icontains = q))
+    return render(request, 'match.html', {'recruits': recruits, 'hashtag': hashtag, 'hashtags': hashtags, 'hashtag_recruits': hashtag_recruits,
+    'recruit_field_study': recruit_field_study, 'recruit_field_club': recruit_field_club, 'recruit_field_project': recruit_field_project, 'recruit_field_survey': recruit_field_survey,
+    'q': q})
+
 
 # study_detail.html
 def study_detail(request, id):
@@ -36,12 +70,6 @@ def study_detail(request, id):
             recomment.recomment_date = timezone.now()
             recomment.recomment_content = form.cleaned_data['recomment_content']
             recomment.save()
-        if hashtag_form.is_valid():
-            hashtag = hashtag_form.save(commit = False)
-            hashtag.hashtag_recruit = recruit
-            hashtag.hashtag_content = form.cleaned_data['hashtag_content']
-            hashtag_form.save()
-            return redirect('study_detail', id)
         if recruit_user_form.is_valid():
             recruit_user = recruit_user_form.save(commit = False)
             recruit_user.recruit_user_id = recruit
@@ -88,14 +116,12 @@ def study_delete(request, id):
 @login_required
 def hashtag_write(request, id):
     recruit = get_object_or_404(Recruit, id = id)
+    hashtag_form = HashtagForm(request.POST)
     if request.method == "POST":
-        hashtag_form = HashtagForm(request.POST)
         if hashtag_form.is_valid():
             hashtag = hashtag_form.save(commit = False)
-            hashtag.hashtag_recruit = recruit
-            hashtag.hashtag_writer = request.user
-            hashtag.hashtag_date = timezone.now()
-            hashtag.save()
+            hashtag, created = Hashtag.objects.get_or_create(hashtag_content = hashtag.hashtag_content)
+            recruit.recruit_hashtag.add(hashtag)
             return redirect('study_detail', id)
     else:
         hashtag_form = HashtagForm()
