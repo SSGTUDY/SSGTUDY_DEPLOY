@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib import auth
 from .forms import UserForm, CustomAuthenticationForm
+from mypage.models import Hashtag
 # main.html
 def main(request):
-    return render(request, 'main.html')
+    hashtag = Hashtag.objects
+    return render(request, 'main.html', {'hashtag': hashtag})
 
 # login.html
 def login(request):

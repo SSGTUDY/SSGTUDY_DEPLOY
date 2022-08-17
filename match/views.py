@@ -1,29 +1,43 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from django.utils import timezone
-from mypage.models import Recruit
+from mypage.models import Recruit, Bookmark
 from mypage.forms import BookmarkForm, RecruitForm, HashtagForm
 from .forms import CommentForm, ReCommentForm, RecruitUserForm
-from .models import Comment
+from .models import Comment, RecruitUser
 from mypage.models import Hashtag
 from django.db.models import Q
 
 # match.html
 def match(request):
     recruits = Recruit.objects
-    recruit_field_study = Recruit.objects.filter(recruit_field = "study")
-    recruit_field_club = Recruit.objects.filter(recruit_field = "club")
-    recruit_field_project = Recruit.objects.filter(recruit_field = "project")
-    recruit_field_survey = Recruit.objects.filter(recruit_field = "survey")
+
+    # 최신순 정렬
+    recruit_field = Recruit.objects.filter(recruit_status = "ongoing").order_by('-recruit_date')[:3]
+    recruit_field_study = Recruit.objects.filter(recruit_field = "study", recruit_status = "ongoing").order_by('-recruit_date')
+    recruit_field_club = Recruit.objects.filter(recruit_field = "club", recruit_status = "ongoing").order_by('-recruit_date')
+    recruit_field_project = Recruit.objects.filter(recruit_field = "project", recruit_status = "ongoing").order_by('-recruit_date')
+    recruit_field_survey = Recruit.objects.filter(recruit_field = "survey", recruit_status = "ongoing").order_by('-recruit_date')
+
+    recruit_like = Recruit.objects.filter(recruit_status = "ongoing").order_by('-like_count')[:3]
+    recruit_like_study = Recruit.objects.filter(recruit_field = "study", recruit_status = "ongoing").order_by('-like_count')
+    recruit_like_club = Recruit.objects.filter(recruit_field = "club", recruit_status = "ongoing").order_by('-like_count')
+    recruit_like_project = Recruit.objects.filter(recruit_field = "project", recruit_status = "ongoing").order_by('-like_count')
+    recruit_like_survey = Recruit.objects.filter(recruit_field = "survey", recruit_status = "ongoing").order_by('-like_count')
+
     hashtag = Hashtag.objects
+
     q = request.GET.get('q', '')
     if q:
         recruit_field_study = recruit_field_study.filter(Q(recruit_title__icontains = q) | Q(recruit_content__icontains = q))
         recruit_field_club = recruit_field_club.filter(Q(recruit_title__icontains = q) | Q(recruit_content__icontains = q))
         recruit_field_project = recruit_field_project.filter(Q(recruit_title__icontains = q) | Q(recruit_content__icontains = q))
         recruit_field_survey = recruit_field_survey.filter(Q(recruit_title__icontains = q) | Q(recruit_content__icontains = q))
+
     return render(request, 'match.html', {'recruits': recruits, 'hashtag': hashtag,
-    'recruit_field_study': recruit_field_study, 'recruit_field_club': recruit_field_club, 'recruit_field_project': recruit_field_project, 'recruit_field_survey': recruit_field_survey,
+    'recruit_field': recruit_field, 'recruit_field_study': recruit_field_study, 'recruit_field_club': recruit_field_club, 'recruit_field_project': recruit_field_project, 'recruit_field_survey': recruit_field_survey,
+    'recruit_like': recruit_like, 'recruit_like_study': recruit_like_study, 'recruit_like_club': recruit_like_club, 'recruit_like_project': recruit_like_project, 'recruit_like_survey': recruit_like_survey,
     'q': q})
 
 def hashtag_detail(request, pk):
@@ -49,6 +63,7 @@ def hashtag_detail(request, pk):
 # study_detail.html
 def study_detail(request, id):
     recruit = get_object_or_404(Recruit, id = id)
+    bookmark = Bookmark.objects
     if request.method == 'POST':
         form = CommentForm(request.POST)
         re_form = ReCommentForm(request.POST)
@@ -137,7 +152,8 @@ def recruit_user(request, id):
             recruit_user = recruit_user_form.save(commit = False)
             recruit_user.recruit_user_id = recruit
             recruit_user.recruit_user_register = request.user
-            recruit_user.save()
+            recruit_user, created = RecruitUser.objects.get_or_create(recruit_user_id = recruit_user.recruit_user_id, recruit_user_register = recruit_user.recruit_user_register)
+            recruit.recruit_register.add(recruit_user)
             return redirect('study_detail', id)
     else:
         recruit_user_form = RecruitUserForm()
@@ -152,7 +168,8 @@ def bookmark(request, id):
             bookmark = bookmark_form.save(commit = False)
             bookmark.bookmark_id = recruit
             bookmark.bookmark_user = request.user
-            bookmark.save()
+            bookmark, created = Bookmark.objects.get_or_create(bookmark_id = bookmark.bookmark_id, bookmark_user = bookmark.bookmark_user)
+            recruit.recruit_bookmark.add(bookmark)
             return redirect('study_detail', id)
     else:
         bookmark_form = BookmarkForm()
@@ -192,3 +209,15 @@ def recomment_write(request, id, comment_id):
     else:
         re_form = ReCommentForm()
     return render(request, 'study_detail.html')
+
+def likes(request, recruit_id):
+    recruit = get_object_or_404(Recruit, id = recruit_id)
+    if request.user in recruit.like.all():
+        recruit.like.remove(request.user)
+        recruit.like_count -= 1
+        recruit.save()
+    else:
+        recruit.like.add(request.user)
+        recruit.like_count += 1
+        recruit.save()
+    return redirect('/match/study_detail/' + str(recruit_id))
