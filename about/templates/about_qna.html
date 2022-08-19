@@ -1,0 +1,43 @@
+{% extends 'about_manual.html' %}
+
+{% load static %}
+
+
+{% block fooster %}
+
+
+<head>
+    <style>
+    </style>
+</head>
+<div class="container">
+    <h4 class="findssg">
+        <img src="{% static 'about/image/i.png' %}" alt="mdo" width="45" height="45">문의하기
+    </h4>
+    <hr style="color:#56b198" size="4px" width="100%">
+    <table class="qna">
+        <tr style="color:#999">
+            <td width="500px">제목</td>
+            <td width="150px">작성자</td>
+            <td width="150px">작성일</td>
+        </tr>
+        {% for questions in questions.all %}
+        <tr>
+            <td style="color:#999;"><a href="{% url 'about_qna_detail' questions.id %}">{{ questions.question_title}}</a></td>
+            <td>{{ questions.question_writer.nickname }}</td>
+            <td>{{ questions.question_date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div class="search">
+        <br>
+        <form class="sea" action="" method="GET">
+            <input type="text" name="q" value="{{ q }}" />
+            <input class=btn style="background-color: #56b198; color:white; margin-left: 10px;" type="submit"
+                value="검색" />
+            <a class=btn style="background-color: #56b198; color:white;" href="{% url 'about_qna_write' %}">글쓰기</a>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'home/css/base.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'home/css/user.css' %}" />
+{% endblock css %}
+
+
+
+{% block content %}
+
+<head>
+  <style>
+    body {
+      background: #f5f5f5;
+    }
+  </style>
+</head>
+
+
+
+
+
+<div class="container box user-box">
+  <body class="text-center">
+    <div class="form-signin">
+      <form method="POST" action="{% url 'login' %}">
+        <img class="mb-4" src="{% static 'home/img/icon.png' %}" alt="" width="60" height="60">
+        <h1 class="h3 mb-3 fw-normal">LOGIN</h1>
+
+
+        {% csrf_token %}
+        <div class="form-floating" style="width:400px; display: inline-block; z-index: 1;">
+         <p>Email: {{ form.username }}</p>
+        </div><br>
+        <div class="form-floating" style="width:400px; display: inline-block;">
+          <p>Password: {{ form.password }}</p>
+        </div>
+
+        <div class="checkbox mb-3">
+          <label>
+            <input type="checkbox" value="remember-me" class="remember"> Remember me
+          </label>
+        </div>
+        <button class="btn-lg btn-user" type="submit" value="LOG IN">Login</button>
+
+        <p class="mt-4 mb-3 text-muted">아직 계정이 없다면? <a style="color:#56b198;" href="{% url 'signup' %}"> 회원가입</a></p>
+      </form>
+
+      <!-- 끝 -->
+    </div>
+
+
+  </body>
+</div>
+{% endblock %}

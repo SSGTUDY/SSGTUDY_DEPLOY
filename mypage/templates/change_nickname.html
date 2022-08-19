@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>닉네임 수정</title>
+    <link rel = "stylesheet" href = "{% static 'css/change_nickname.css' %}">
+        <script>
+            function change(){
+                alert('수정이 완료되었습니다!');
+            }
+        </script>
+
+</head>
+<body>
+<div class = "main_form">
+    <form method="POST">
+        {% csrf_token %}
+        {{ user_change_form }}
+
+        <input type = "submit" value = "제출" class = "change_nickname" onclick="change()" >
+    </form>
+</div>
+</body>
+</html>

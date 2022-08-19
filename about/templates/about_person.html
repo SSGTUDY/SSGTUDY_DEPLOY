@@ -1,0 +1,64 @@
+{% extends 'about_manual.html' %}
+
+{% load static %}
+
+
+{% block fooster %}
+<div class="container">
+    <h4 class="findssg">
+        <img src="{% static 'about/image/i.png' %}" alt="mdo" width="45" height="45">개발자 정보
+    </h4>
+    <hr style="color:#56b198" size="4px" width="100%">
+
+    <div>
+        <div class="people-box">
+            <img src="{% static 'home/img/icon.png' %}" class="circle-img">
+            <p class="name">쓱터디</p>
+            <p class="info">✉️ ssgtudy@naver.com<br>
+                <img src="{% static 'about/image/깃허브.png' %}" class="github">
+                <a class=nolink href="https://github.com/SSGTUDY" style="color: black">
+                    github.com/SSGTUDY</a>
+            </p>
+        </div>
+        <div class="people-box">
+            <img src="{% static 'about/image/seeun.png' %}" class="circle-img">
+            <p class="name">조세은</p>
+            <p class="info">✉️ duck_sim@naver.com<br>
+                <img src="{% static 'about/image/깃허브.png' %}" class="github">
+                <a class=nolink href="https://github.com/Joseeun" style="color: black">
+                    github.com/Joseeun</a>
+            </p>
+        </div>
+        <div class="people-box">
+            <img src="{% static 'about/image/youngbin.png' %}" class="circle-img">
+            <p class="name">주영빈</p>
+            <p class="info">✉️ tonty1222@naver.com<br>
+                <img src="{% static 'about/image/깃허브.png' %}" class="github">
+                <a class=nolink href="https://github.com/Rommmu" style="color: black">
+                    github.com/Rommmu</a>
+            </p>
+        </div>
+    </div>
+    <div>
+        <div class="people-box">
+            <img src="{% static 'about/image/hyojung.png' %}" class="circle-img">
+            <p class="name">김효중</p>
+            <p class="info">✉️ 706shin1728@naver.com<br>
+                <img src="{% static 'about/image/깃허브.png' %}" class="github">
+                <a class=nolink href="https://github.com/khj0426" style="color: black">
+                    github.com/khj0426</a>
+            </p>
+        </div>
+        <div class="people-box">
+            <img src="{% static 'about/image/jiyun.png' %}" class="circle-img">
+            <p class="name">전지윤</p>
+            <p class="info">✉️ missji1004@gmail.com<br>
+                <img src="{% static 'about/image/깃허브.png' %}" class="github">
+                <a class=nolink href="https://github.com/j1y4own" style="color: black">
+                    github.com/j1y4own</a>
+            </p>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

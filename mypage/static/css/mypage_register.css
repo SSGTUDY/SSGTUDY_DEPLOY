@@ -1,0 +1,118 @@
+body{
+    background: #F5F5F5;
+
+}
+
+.main{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    border:1px solid #f1f1f1;
+    filter: drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.25));
+    background-color:white;
+    margin:2vh auto;
+}
+.first{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color:#51a998;
+    font-size:1rem;
+    letter-spacing: 1em;
+
+}
+.imgadd{
+
+    background:#51a998;
+    color:white;
+    font-size:1vw;
+    border:1px solid white;
+}
+.imgadd:hover{
+    background:green;
+}
+.second{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width:100%;
+    flex-wrap:wrap;
+
+}
+
+
+.second div,#forms{
+    margin-top:1vh;
+    width: 100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-bottom:#a1a1a1;
+}
+
+#forms .main_filed{
+    width:40%;
+    font-weight:700;
+    border-bottom:1px solid #d1d1d1;
+    margin-top:3.5vh;
+    font-size:1.1vw;
+
+}
+#forms .filed_label{
+    width:50%;
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    font-size:1vw;
+    accent-color:#51a998;
+    cursor:pointer;
+
+}
+#forms .filed_label input{
+      zoom: 1.2;
+      cursor:pointer;
+}
+
+#forms .filed_label #id_recruit_title{
+
+    margin-top:1.5vh;
+    width:80%;
+    height:auto;
+    font-size:1vh;
+
+}
+
+#forms .filed_label #id_recruit_period_start, #id_recruit_period_end{
+    height:auto;
+    font-size:1h;
+}
+
+#forms .filed_label #id_recruit_number{
+    width:40%;
+    height:auto;
+    font-size:1vh;
+
+}
+
+#forms .filed_label .summernote-div{
+
+    width:200%;
+}
+
+#forms .filed_label #id_recruit_image{
+    zoom:1;
+    display:inline-flex;
+    width:100%;
+    justify-content:center;
+    color:white;
+    width:50%;
+}
+
+

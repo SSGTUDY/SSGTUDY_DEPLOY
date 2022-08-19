@@ -1,0 +1,32 @@
+{% extends 'about_manual.html' %}
+
+{% load static %}
+
+
+{% block fooster %}
+<div class="container">
+    <h4 class="findssg">
+        <img src="{% static 'about/image/i.png' %}" alt="mdo" width="45" height="45">{{ question.question_title }}
+    </h4>
+    <hr style="color:#56b198" size="4px" width="100%">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ question_form.as_p }}
+        <div class="button">
+            <input type="submit" value="수정완료">
+        </div>
+    </form>
+   
+</div>
+{% endblock %}
+
+
+
+<h1>QnA 수정</h1>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ question_form.as_p }}
+    <div class="button">
+        <input type="submit" value="수정완료">
+    </div>
+</form>

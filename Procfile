@@ -1,0 +1,1 @@
+web: gunicorn SSGTUDY.wsgi --log-file -

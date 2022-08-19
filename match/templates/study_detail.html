@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+{% load static %}
+<html lang="en">
+<head>
+    {% block css %}
+    <title>게시글정보</title>
+    <link rel = "stylesheet" href = "{% static 'css/match_detail.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% endblock css %}
+</head>
+
+
+<body>
+
+{% block content %}
+
+
+<div class = "main_content">
+
+    <div class = "top_content">
+        <div class = "top_content_title">
+            제목
+        </div>
+
+        <div class = "top_content_real_title">
+            {{ recruit.recruit_title }}  <!-- 실제 제목 -->
+        </div>
+
+        <div class = "top_content_date">
+            D-
+            <label id = "today">
+                {{ recruit.recruit_period_end }}</label> <!-- 모집 날짜 (마감) -->
+        </div>
+
+    </div>
+
+    <div class = "user_image"> <!--게시글이미지에 대한 정보 -->
+
+        {% if recruit.recruit_image %}
+        <img src="{{ recruit.recruit_image.url }}" alt="유저이미지" style="width:50%;">
+        {% endif %}
+    </div>
+
+    <div class = "recruit_info">
+        <div> <!--작성자 닉네임 -->
+            <label style="color:black;">작성자</label>
+            <div>{{ recruit.recruit_writer.nickname }}</div>
+        </div>
+        <div> <!--게시글 내용 -->
+            <label style="color:black;font-size:1vw;">내용</label>
+                <div readonly id = "Textarea" style="height:35vh;width:89%;color:black;font-weight:400;overflow:scroll;">{{recruit.recruit_content|safe}}</div>
+            </div>
+        <div> <!-- 모집 분야 -->
+            <label style="color:black;">모집 분야</label>
+            <div>{{ recruit.recruit_field }}</div>
+        </div>
+        <div> <!-- 모집 상태 -->
+            <label style="color:black;">모집 상태</label>
+            <div>{{ recruit.recruit_status }}</div>
+        </div>
+        <div><!-- 모집 기간 -->
+            <label style="color:black;">모집 기간</label>
+            <div>{{ recruit.recruit_period_start }} ~ {{ recruit.recruit_period_end }}</div>
+        </div>
+        <div> <!-- 모집 인원 -->
+            <label style="color:black;">모집 인원</label>
+            <div>{{ recruit.recruit_number }}</div>
+        </div>
+        <div> <!-- 대면여부 -->
+            <label style="color:black;">대면 여부</label>
+            <div>{{ recruit.recruit_meeting }}</div>
+        </div>
+        <div> <!-- 해시태그 -->
+            <label style="color:black;">해쉬태그</label>
+            <div>
+                {% for hashtag in recruit.recruit_hashtag.all %}
+                    {{ hashtag.hashtag_content }}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div> <!-- 해시태그를 작성하는 Form -->
+            {% if recruit.recruit_writer == user %}
+
+            <form method = "POST" action="{% url 'hashtag_write' recruit.id %}" style="color:black;">
+                {% csrf_token %}
+                {{ hashtag_form.as_p }}
+                <input type="submit" value = "추가" class = "hash_add">
+            </form>
+            {% endif %}
+            {% for hashtag in recruit.hashtags.all %}
+            {{ hashtag.hashtag_content }}
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- 좋아요 -->
+    {{ recruit.like.count }}
+    <a href="{% url 'likes' recruit.id %}">
+        {% if user in recruit.like.all %}
+        취소
+        {% else %}
+        ❤️좋아요
+        {% endif %}
+    </a>
+    <br><br>
+
+    <!-- 만약 작성자가 현재 user와 동일하다면 수정, 삭제를 띄우기 -->
+    {% if recruit.recruit_writer == user %}
+    <div class = "button_list">
+        <!-- 게시글 수정 -->
+        <a href="{% url 'study_edit' recruit.id %}" class = "modify">수정</a>
+
+        <!-- 게시글 삭제 -->
+        <a href="{% url 'study_delete' recruit.id %}" class = "delete">삭제</a>
+    </div>
+    {% endif %}
+</div>
+
+<!-- 가입 -->
+{% if recruit.recruit_writer != user %}
+<form method = "POST" action="{% url 'recruit_user' recruit.id %}">
+    {% csrf_token %}
+    {{ recruit_user_form.as_p }}
+    <input type="submit" value="가입">
+</form>
+    {% for recruit_user in recruit.recruit_users.all %}
+    {% if recruit_user.recruit_user_register == user %}
+        가입되었습니다.
+    {% endif %}
+    {% endfor %}
+{% elif recruit.recruit_writer == user %}
+    대표: {{ recruit.recruit_writer.nickname }} <br>
+    {% for recruit_user in recruit.recruit_users.all %}
+        {{ recruit_user.recruit_user_register.nickname }} <br>
+    {% endfor %}
+{% endif %}
+
+<!-- 북마크 -->
+{% if recruit.recruit_writer != user %}
+<form method = "POST" action="{% url 'bookmark' recruit.id %}">
+    {% csrf_token %}
+    {{ bookmark_form.as_p }}
+    <input type="submit" value="북마크">
+</form>
+    {% for bookmark in recruit.recruit_bookmark.all %}
+    {% if bookmark.bookmark_user == user %}
+        북마크 되었습니다.
+    {% endif %}
+    {% endfor %}
+{% endif %}
+<hr>
+
+
+<div class = "comment_container">
+    {% for comment in recruit.comments.all %}
+        {% if comment.comment_writer.profile_image %}
+            {% if comment.comment_writer == user %}
+                작성자 <img src="{{ comment.comment_writer.profile_image.url }}" alt="image" width="20" height="20"> {{ comment.comment_writer.nickname }} : {{ comment.comment_content }} / {{ comment.comment_date}} 
+            {% else %}
+                <img src="{{ comment.comment_writer.profile_image.url }}" alt="image" width="20" height="20"> {{ comment.comment_writer.nickname }} : {{ comment.comment_content }} / {{ comment.comment_date}} 
+            {% endif %}
+        {% endif %}
+
+        {% if comment.comment_writer == user %}
+            <a href="{% url 'comment_edit' recruit.id comment.id %}">수정</a>
+            <a href="{% url 'comment_delete' recruit.id comment.id %}">삭제</a> <br>
+        {% endif %}
+
+        {% for recomment in comment.recomments.all %}
+            {% if recomment.recomment_writer == user %}
+                ↪ 작성자 <img src="{{ comment.comment_writer.profile_image.url }}" alt="image" width="20" height="20"> : {{ recomment.recomment_writer.nickname }} / {{ recomment.recomment_content }} <br>
+            {% else %}
+                ↪ <img src="{{ comment.comment_writer.profile_image.url }}" alt="image" width="20" height="20"> : {{ recomment.recomment_writer.nickname }} / {{ recomment.recomment_content }} <br>
+            {% endif %}
+        {% endfor %}
+
+        <form method = "POST" action="{% url 'recomment_write' recruit.id comment.id %}">
+            {% csrf_token %}
+            {{ re_form.as_p }}
+            <input type="submit" value = "답글 작성">
+        </form>
+    {% endfor %}
+
+<form method="POST" action = "{% url 'study_detail' recruit.id %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="button">
+        <input type="submit" value="댓글 작성">
+    </div>
+</form>
+</div>
+
+<script src = "{% static 'js/match_detail.js' %}"></script>
+{% endblock %}
+
+</body>
+</html>
