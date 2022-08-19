@@ -1,13 +1,13 @@
-{% extends 'about_main.html' %}
+{% extends 'about_manual.html' %}
 
 {% load static %}
 
 
-{% block fooster%}
-<div class="container" style="padding:0px;">
+{% block fooster %}
+<div class="container">
     <h4 class="findssg">
         <img src="{% static 'about/image/i.png' %}" alt="mdo" width="45" height="45">문의하기</h4>
-    <hr style="color:#56b198" size="4px" width="90%">
+    <hr style="color:#56b198" size="4px" width="100%">
     <table class = "qna">
         <tr style="color:#999">
             <td width="200px;">등록번호</td>
@@ -24,7 +24,6 @@
             <td></td>
         </tr>
     </table>
-    <button class="plus" type="button" v-on:click="plus">글쓰기</button>
     <div class="search">
         <br>
         <p>
@@ -43,6 +42,7 @@
             </select>
                 <input type="text" v-model="word"/>
                 <button class="srchbutton" type="button" v-on:click="search">검색</button>
+                <button class="plus" type="button" v-on:click="plus">글쓰기</button>
         </p>
     </div>
 </div>

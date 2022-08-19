@@ -6,7 +6,7 @@ def about_main(request):
 
 # about_manual.html
 def about_manual(request):
-    return render(request, 'about_main.html')
+    return render(request, 'about_manual.html')
 
 # about_post.html
 def about_post(request):

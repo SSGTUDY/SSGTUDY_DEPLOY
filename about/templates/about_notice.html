@@ -1,13 +1,17 @@
-{% extends 'about_main.html' %}
+{% extends 'about_manual.html' %}
 
 {% load static %}
 
 
-{% block fooster%}
+{% block fooster %}
+<div class="container">
     <h4 class="findssg">
-        <img src="{% static 'about/image/i.png' %}" alt="mdo" width="45" height="45">공지사항</h4>
+        <img src="{% static 'about/image/i.png' %}" alt="mdo" width="45" height="45">공지사항
+    </h4>
+    <hr style="color:#56b198" size="4px" width="100%">
     <div id="notice" class="notice">
         <p style="color:#56b198; font-weight:bold;">[사전공지]</p>
-        <p>사이트 리뉴얼이 2023-05-06에 시작됩니다.</p>
+        <p>사이트 리뉴얼이 2022-08-20에 시작됩니다.</p>
     </div>
+</div>
 {% endblock %}

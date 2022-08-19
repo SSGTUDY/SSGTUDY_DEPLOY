@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block css %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="{% static 'about/css/about_main.css' %}" />
+{% endblock css %}
+
+{% block content %}
+
+<div class="container" style="margin-bottom: 80px;">
+
+        <div id="mysidenav" class="sidenav">
+                <a class="nav-link active" aria-current="page" href="{% url 'about_main' %}"></a><br>
+                <a class="nav-link1" href="{% url 'about_main' %}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img
+                                src="{% static 'about/image/i.png' %}" alt="mdo" width="24" height="24"><span
+                                style="color:#56b198">쓱</span>터디 이용방법</a>
+                <hr>
+                <a class="nav-link" href="{% url 'about_post' %}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img
+                                src="{% static 'about/image/i.png' %}" alt="mdo" width="24" height="24">스터디 등록방법</a>
+                <hr>
+                <a class="nav-link" href="{% url 'about_notice' %}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img
+                                src="{% static 'about/image/i.png' %}" alt="mdo" width="24" height="24">공지사항</a>
+                <hr>
+                <a class="nav-link" href="{% url 'about_qna' %}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img
+                                src="{% static 'about/image/i.png' %}" alt="mdo" width="24" height="24">문의하기</a>
+                <hr>
+                <a class="nav-link" href="{% url 'about_person' %}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img
+                                src="{% static 'about/image/i.png' %}" alt="mdo" width="24" height="24">개발자 정보</a>
+        </div>
+
+        <div id="box" class="box">
+                <fooster>
+                        {% block fooster %}
+
+                        {% endblock %}
+                </fooster>
+        </div>
+        <div style="clear:both"></div>
+
+</div>
+
+
+{% endblock %}
