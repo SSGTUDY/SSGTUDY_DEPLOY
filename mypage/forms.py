@@ -1,10 +1,7 @@
 from django import forms
-from .models import Hashtag, Recruit
+from .models import Hashtag, Recruit, Bookmark
 from django_summernote.widgets import SummernoteWidget
-from home.forms import UserForm
-from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import  UserChangeForm
-from home .models import User
+
 class RecruitForm(forms.ModelForm):
     class Meta:
         model = Recruit
@@ -40,15 +37,7 @@ class HashtagForm(forms.ModelForm):
             'hashtag_content': '해시태그'
         }
 
-
-class CustomUserChangeForm(UserChangeForm):
+class BookmarkForm(forms.ModelForm):
     class Meta:
-        model = get_user_model()
-        fields = ['username','nickname']
-
-class ProfileForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ['profile_image']
-
-
+        model = Bookmark
+        exclude = ('bookmark_id', 'bookmark_user')

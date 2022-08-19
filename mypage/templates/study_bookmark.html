@@ -60,6 +60,11 @@
             <div class = "board_div_first">C++스터디</div>
             <div>월/금</div>
             <div>대면</div>
+            {% if user.is_active %}
+                {% for bookmarks in bookmarks.all %}
+                    <a href="{% url 'study_detail' bookmarks.bookmark_id.id %}">{{ bookmarks.bookmark_id.recruit_title }}</a>
+                {% endfor %}
+            {% endif %}
         </div>
 
     </div>

@@ -74,6 +74,17 @@
                 <button style="background:#51a998;color:white;border:white;height:5vh;border-radius:15%">마지막 페이지</button></a>
             {% endif %}
         </div>
+<<<<<<< HEAD
+=======
+        {% if user.is_active %}
+            {% for recruits in recruits.all %}
+                {% if recruits.recruit_writer == user %}
+                    <a href="{% url 'study_detail' recruits.id %}">{{ recruits.recruit_title }}</a>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+>>>>>>> youngbeen
     </div>
 </div>
 </div>

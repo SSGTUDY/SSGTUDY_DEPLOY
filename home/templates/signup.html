@@ -8,7 +8,6 @@
 
 
 {% block content %}
-
 <head>
     <style>
         body {
@@ -21,18 +20,19 @@
     <div class="container box">
             <div class="input-form col-md-12 mx-auto">
                 <h4 class="mb-3">회원가입</h4>
-                <form class="validation-form" novalidate>
+                <form method = "POST" enctype="multipart/form-data" class="validation-form" novalidate>
+                    {% csrf_token %}
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="name">이름</label>
-                            <input type="text" class="form-control" id="name" placeholder="Name" value="" required>
+                            <label for="name">이름</label><br>
+                            {{ form.username }}
                             <div class="invalid-feedback">
                                 이름을 입력해주세요.
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="nickname">별명</label>
-                            <input type="text" class="form-control" id="nickname" placeholder="Nickname" value="" required>
+                            {{ form.nickname }}
                             <div class="invalid-feedback">
                                 별명을 입력해주세요.
                             </div>
@@ -41,7 +41,7 @@
 
                     <div class="mb-3">
                         <label for="email">이메일</label>
-                        <input type="email" class="form-control" id="email" placeholder="Email address" required>
+                        {{ form.email }}
                         <div class="invalid-feedback">
                             이메일을 입력해주세요.
                         </div>
@@ -49,37 +49,25 @@
 
                     <div class="mb-3">
                         <label for="password">비밀번호</label>
-                        <input type="password" class="form-control" id="address" placeholder="Password" required>
+                        {{ form.password }}
                         <div class="invalid-feedback">
                             비밀번호를 입력해주세요.
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <label for="phone-number">연락처<span class="text-muted">&nbsp;(필수 아님)</span></label>
-                        <input type="text" class="form-control" id="phone-number" placeholder="주소를 입력해주세요.">
+                        <label for="re-password">비밀번호 재확인</label>
+                        {{ form.re_password }}
                     </div>
 
                     <div class="row">
                         <div class="col-md-8 mb-3">
-                            <label for="contents">주 이용 서비스</label>
-                            <select class="custom-select d-block w-100" id="contents">
-                                <option value=""></option>
-                                <option>스터디</option>
-                                <option>소모임</option>
-                                <option>프로젝트</option>
-                                <option>설문조사</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                가입 경로를 선택해주세요.
-                            </div>
+                            <label for="contents">연락처</label>
+                            {{ form.phone_number }}
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="profile-img">프로필 사진</label>
-                            <input type="file" placeholder="PROFILEIMAGE" name="profile_image" accept="image/*" id="id_profile_image">
-                            <div class="invalid-feedback">
-                                추천인 코드를 입력해주세요.
-                            </div>
+                            {{ form.profile_image }}
                         </div>
                     </div>
                     <hr class="mb-4">

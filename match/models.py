@@ -20,3 +20,8 @@ class ReComment(models.Model):
 
     def __str__(self):
         return self.recomment_content
+
+# 스터디에 가입하기
+class RecruitUser(models.Model):
+    recruit_user_id = models.ForeignKey(Recruit, on_delete=models.CASCADE, related_name = 'recruit_users')
+    recruit_user_register = models.ForeignKey(User, on_delete=models.CASCADE, related_name = 'recruit_users', null = True)

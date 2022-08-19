@@ -42,7 +42,8 @@
             </select>
                 <input type="text" v-model="word"/>
                 <button class="srchbutton" type="button" v-on:click="search">검색</button>
-                <button class="plus" type="button" v-on:click="plus">글쓰기</button>
+                <a href="{% url 'about_qna_write' %}">글쓰기</a>
+                <button class="plus" type="button" v-on:click="location.href = {% url 'about_qna_write' %}">글쓰기</button>
         </p>
     </div>
 </div>

@@ -2,17 +2,17 @@ from django import forms
 from .models import User
 from django.contrib.auth.forms import AuthenticationForm
 
-
 class UserForm(forms.ModelForm):
     password = forms.CharField(label = '비밀번호', widget = forms.PasswordInput)
     re_password = forms.CharField(label = '비밀번호 재확인', widget = forms.PasswordInput)
 
     class Meta:
         model = User
-        fields = ['username', 'password', 're_password', 'nickname', 'phone_number', 'profile_image']
+        fields = ['email', 'username', 'nickname', 'password', 're_password', 'phone_number', 'profile_image']
 
         labels = {
-            'username': 'ID',
+            'email': 'email',
+            'username': 'Name',
             'nickname': 'Nickname',
             'phone_number': '전화번호',
             'profile_image': '프로필 사진',
@@ -35,6 +35,4 @@ class CustomAuthenticationForm(AuthenticationForm):
 
     def __init__(self, request=None, *args, **kwargs):
         super(CustomAuthenticationForm, self).__init__(*args, **kwargs) # 꼭 있어야 한다!
-        self.fields['username'].label = '아이디'    # 수정
         self.fields['password'].label = '비밀번호'
-    

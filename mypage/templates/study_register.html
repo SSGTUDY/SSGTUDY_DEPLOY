@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> youngbeen
 {% load static %}
 <html lang="en">
 <head>
@@ -67,7 +70,15 @@
         <div style = "font-size:1.2rem;"><b>등록하기</b></div>
         <div>REGISTER</div>
     </div>
-
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            {{ form.as_p }}
+        </table>
+        <div class="button">
+            <input type="submit" value="작성완료">
+        </div>
+    </form>
     <div class = "second">
 
         <p><svg width="20" height="23" viewBox="0 0 20 23" fill="#51a998" xmlns="http://www.w3.org/2000/svg">
@@ -213,3 +224,8 @@
  -->
 
 
+<<<<<<< HEAD
+=======
+</body>
+</html>
+>>>>>>> youngbeen

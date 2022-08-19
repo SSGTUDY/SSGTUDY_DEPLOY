@@ -1,0 +1,29 @@
+<h1>QnA Detail</h1>
+제목: {{ question.question_title }} <br>
+작성자: {{ question.question_writer.nickname }} <br>
+작성시간: {{ question.question_date }} <br>
+{% if question.questions_image %}
+    <img src="{{ question.question_image.url }}" alt="image"> <br>
+{% endif %}
+내용 : {{ question.question_content | safe }} <br>
+
+{% if question.question_writer == user %}
+    <a href="{% url 'about_qna_edit' question.id %}">수정</a>  
+    <a href="{% url 'about_qna_delete' question.id %}">삭제</a>
+{% endif %}
+
+{% for question in question.question_comments.all %}
+    {% if user.is_superuser %}
+        담당자 : {{ question.question_comment_content }} / {{ question.question_comment_date }}
+    {% endif %}
+{% endfor %}
+
+{% if user.is_superuser %}
+    <form method="POST" action = "{% url 'about_qna_detail' question.id %}">
+        {% csrf_token %}
+        {{ question_comment_form.as_p }}
+        <div class="button">
+            <input type="submit" value="댓글 작성">
+        </div>
+    </form>
+{% endif %}
