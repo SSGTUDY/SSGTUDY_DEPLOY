@@ -67,6 +67,7 @@
     <h4 class="titleword" style="margin-left:15%;font-size:2vw;">카테고리별</h4>
 
 
+
         <form class="sea" action="" method="GET">
             <input class="searchtext" type="text" v-model="word" name = "q" value = "{{ q }}"/>
             <button class="srchbutton" type="submit" v-on:click="search" value = "검색" onclick = "display_search()">SEARCH</button>
@@ -225,6 +226,24 @@
         <text style="font-size:2vw;"># 태그 별</text>
     </div>
 
+    <div class="tagbox">
+        <div class="slide-wrapper">
+
+              <div class="slider" style="overflow-x:scroll;">
+                  <div class="tagname"><button class="button">#어학</button></div>
+                  <div class="tagname"><button class="button">#운동</button></div>
+                  <div class="tagname"><button class="button">#밴드</button></div>
+                  <div class="tagname"><button class="button">#주 1회</button></div>
+                  <div class="tagname"><button class="button">#자격증</button></div>
+                  <div class="tagname"><button class="button">#프로그래밍</button></div>
+                  <div class="tagname"><button class="button">#프로그래밍</button></div>
+                  <div class="tagname"><button class="button">#프로그래밍</button></div>
+                  <div class="tagname"><button class="button">#프로그래밍</button></div>
+              </div>
+              
+        </div>
+
+
     <div id = "myCarousel" class = "carousel slide slider" date-ride = "carousel">
         <ol class = "carousel-indicators" style="background-color:green;visibility: hidden;">
             {% for Temp in Posts %}
@@ -255,28 +274,19 @@
 </div>
 <script src = "{% static 'js/match_main.js' %}"></script>
 <script>
-  let buttonRight = document.getElementById('slideRight');
-  let buttonLeft = document.getElementById('slideLeft');
+  
+  let buttonRight = document.getElementById('.slideRight');
+  let buttonLeft = document.getElementById('.slideLeft');
 
   buttonLeft.addEventListener('click', function(){
-    document.getElementById('slider').scrollLeft -= 180
+    document.getElementById('slider').ScrollLeft() - 180
   });
 
   buttonRight.addEventListener('click', function(){
-    document.getElementById('slider').scrollLeft += 180
-
+    document.getElementById('slider').ScrollLeft() += 180
   });
 
-  $('.slider').slick({
-  slidesToShow: 3,
-  slidesToScroll: 1,
-  dots: true,
-  centerMode: true,
-  focusOnSelect: true
-});
-
 </script>
-
 {% endblock %}
 </body>
 </html>
