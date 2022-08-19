@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {% extends 'base.html' %}
 {% load static %}
 <html lang="en">
@@ -71,7 +70,14 @@
         <div> <!-- 대면여부 -->
             <label style="color:black;">대면 여부</label>
             <div>{{ recruit.recruit_meeting }}</div>
-
+        </div>
+        <div> <!-- 해시태그 -->
+            <label style="color:black;">해쉬태그</label>
+            <div>
+                {% for hashtag in recruit.recruit_hashtag.all %}
+                    {{ hashtag.hashtag_content }}
+                {% endfor %}
+            </div>
         </div>
 
         <div> <!-- 해시태그를 작성하는 Form -->
@@ -89,6 +95,17 @@
         </div>
     </div>
 
+    <!-- 좋아요 -->
+    {{ recruit.like.count }}
+    <a href="{% url 'likes' recruit.id %}">
+        {% if user in recruit.like.all %}
+        취소
+        {% else %}
+        ❤️좋아요
+        {% endif %}
+    </a>
+    <br><br>
+
     <!-- 만약 작성자가 현재 user와 동일하다면 수정, 삭제를 띄우기 -->
     {% if recruit.recruit_writer == user %}
     <div class = "button_list">
@@ -100,72 +117,8 @@
     </div>
     {% endif %}
 </div>
-<div class = "comment_container">
-<!-- 댓글 부분 -->
-{% for comment in recruit.comments.all %}
 
-    <div class = "comment_detail" style="margin-top:1vh;">
-        {% if comment.comment_writer_profile %}
-        <img src = "{{ comment.comment_writer_profile }}" alt = "유저의 이미지 부분" class = "comment_user_image">
-        {% endif %}
-
-        <div class = "comment_user_nickname">
-        <img src = "{% static 'img/match_comment.png' %}">
-        {{ comment.comment_writer.nickname }}</div>
-        <div style = "font-size:0.8vw;" id = "comment_date"> {{ comment.comment_date}}</div>
-        {{ comment.comment_content }}
-        {% if comment.comment_writer == user %}
-        <div style="margin:0.6vh auto;">
-        <a href="{% url 'comment_edit' recruit.id comment.id %}" class = "comment_modify">수정</a>
-        <a href="{% url 'comment_delete' recruit.id comment.id %}" class = "comment_delete">삭제</a>
-        </div>
-        {% endif %}
-=======
-<h1>Study Detail</h1>
-
-<!-- 작성한 글을 띄우는 것 -->
-제목 {{ recruit.recruit_title }} <br>
-작성자 {{ recruit.recruit_writer.nickname }} <br>
-{% if recruit.recruit_image %}
-    <img src="{{ recruit.recruit_image.url }}" alt="image"> <br>
-{% endif %}
-글내용 {{ recruit.recruit_content | safe}} <br>
-모집분야 {{ recruit.get_recruit_field_display }} <br>
-모집여부 {{ recruit.get_recruit_status_display }} <br>
-모집기간 {{ recruit.recruit_period_start }} ~ {{ recruit.recruit_period_end }} <br>
-모집인원 {{ recruit.recruit_number }} <br>
-대면여부 {{ recruit.get_recruit_meeting_display }} <br>
-해시태그 
-{% for hashtag in recruit.recruit_hashtag.all %}
-    {{ hashtag.hashtag_content }}
-{% endfor %}
-<!-- 만약 작성자가 현재 user와 동일하다면 수정, 삭제를 띄우기 -->
-{% if recruit.recruit_writer == user %}
-    <a href="{% url 'study_edit' recruit.id %}">수정</a>
-    <a href="{% url 'study_delete' recruit.id %}">삭제</a> 
-{% endif %}
-
-<br>
-<!-- 해시태그를 작성하는 Form -->
-{% if recruit.recruit_writer == user %}
-    <form method = "POST" action="{% url 'hashtag_write' recruit.id %}">
-        {% csrf_token %}
-        {{ hashtag_form.hashtag_content }}
-        <input type="submit">
-    </form>
-{% endif %}
-
-<!-- 좋아요 -->
-{{ recruit.like.count }}
-<a href="{% url 'likes' recruit.id %}">
-    {% if user in recruit.like.all %}
-    취소
-    {% else %}
-    ❤️좋아요
-    {% endif %}
-</a>
-<br><br>
-
+<!-- 가입 -->
 {% if recruit.recruit_writer != user %}
 <form method = "POST" action="{% url 'recruit_user' recruit.id %}">
     {% csrf_token %}
@@ -184,6 +137,7 @@
     {% endfor %}
 {% endif %}
 
+<!-- 북마크 -->
 {% if recruit.recruit_writer != user %}
 <form method = "POST" action="{% url 'bookmark' recruit.id %}">
     {% csrf_token %}
@@ -198,68 +152,36 @@
 {% endif %}
 <hr>
 
-{% for comment in recruit.comments.all %}
-    {% if comment.comment_writer.profile_image %}
+
+<div class = "comment_container">
+    {% for comment in recruit.comments.all %}
+        {% if comment.comment_writer.profile_image %}
+            {% if comment.comment_writer == user %}
+                작성자 <img src="{{ comment.comment_writer.profile_image.url }}" alt="image" width="20" height="20"> {{ comment.comment_writer.nickname }} : {{ comment.comment_content }} / {{ comment.comment_date}} 
+            {% else %}
+                <img src="{{ comment.comment_writer.profile_image.url }}" alt="image" width="20" height="20"> {{ comment.comment_writer.nickname }} : {{ comment.comment_content }} / {{ comment.comment_date}} 
+            {% endif %}
+        {% endif %}
+
         {% if comment.comment_writer == user %}
-            작성자 <img src="{{ comment.comment_writer.profile_image.url }}" alt="image" width="20" height="20"> {{ comment.comment_writer.nickname }} : {{ comment.comment_content }} / {{ comment.comment_date}} 
-        {% else %}
-            <img src="{{ comment.comment_writer.profile_image.url }}" alt="image" width="20" height="20"> {{ comment.comment_writer.nickname }} : {{ comment.comment_content }} / {{ comment.comment_date}} 
+            <a href="{% url 'comment_edit' recruit.id comment.id %}">수정</a>
+            <a href="{% url 'comment_delete' recruit.id comment.id %}">삭제</a> <br>
         {% endif %}
-    {% endif %}
-
-    {% if comment.comment_writer == user %}
-        <a href="{% url 'comment_edit' recruit.id comment.id %}">수정</a>
-        <a href="{% url 'comment_delete' recruit.id comment.id %}">삭제</a> <br>
-    {% endif %}
-
-    {% for recomment in comment.recomments.all %}
-        {% if recomment.recomment_writer == user %}
-            ↪ 작성자 <img src="{{ comment.comment_writer.profile_image.url }}" alt="image" width="20" height="20"> : {{ recomment.recomment_writer.nickname }} / {{ recomment.recomment_content }} <br>
-        {% else %}
-            ↪ <img src="{{ comment.comment_writer.profile_image.url }}" alt="image" width="20" height="20"> : {{ recomment.recomment_writer.nickname }} / {{ recomment.recomment_content }} <br>
-        {% endif %}
-    {% endfor %}
->>>>>>> youngbeen
-
-    <form method = "POST" action="{% url 'recomment_write' recruit.id comment.id %}">
-        {% csrf_token %}
-        {{ re_form.as_p }}
-<<<<<<< HEAD
-        <input type="submit" class = "recomment_form">
-    </form>
 
         {% for recomment in comment.recomments.all %}
-        <div class = "comment_user_name">
-            <img src = "{% static 'img/match_recomment.png' %}">
-            {{ recomment.recomment_writer.nickname }}
-        </div>
-        <div style = "font-size:0.8vw;" id = "comment_date"> {{recomment.recomment_date}}</div>
-        <div style="margin-top:1vh;">{{ recomment.recomment_content }}</div>
-     <br>
+            {% if recomment.recomment_writer == user %}
+                ↪ 작성자 <img src="{{ comment.comment_writer.profile_image.url }}" alt="image" width="20" height="20"> : {{ recomment.recomment_writer.nickname }} / {{ recomment.recomment_content }} <br>
+            {% else %}
+                ↪ <img src="{{ comment.comment_writer.profile_image.url }}" alt="image" width="20" height="20"> : {{ recomment.recomment_writer.nickname }} / {{ recomment.recomment_content }} <br>
+            {% endif %}
         {% endfor %}
 
-
-    </div>
-
+        <form method = "POST" action="{% url 'recomment_write' recruit.id comment.id %}">
+            {% csrf_token %}
+            {{ re_form.as_p }}
+            <input type="submit" value = "답글 작성">
+        </form>
     {% endfor %}
-    <form method="POST" action = "{% url 'study_detail' recruit.id %}" style="margin-top:6vh;">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <div class="button">
-            <input type="submit" value="댓글 작성"  class = "recomment_form">
-        </div>
-    </form>
-</div>
-
-<script src = "{% static 'js/match_detail.js' %}"></script>
-{% endblock %}
-
-</body>
-</html>
-=======
-        <input type="submit" value = "답글 작성">
-    </form>
-{% endfor %}
 
 <form method="POST" action = "{% url 'study_detail' recruit.id %}">
     {% csrf_token %}
@@ -268,4 +190,10 @@
         <input type="submit" value="댓글 작성">
     </div>
 </form>
->>>>>>> youngbeen
+</div>
+
+<script src = "{% static 'js/match_detail.js' %}"></script>
+{% endblock %}
+
+</body>
+</html>

@@ -32,7 +32,7 @@ class User(AbstractUser):
     username = models.CharField(max_length = 200, null = False, blank = True)
     nickname = models.CharField(max_length = 200, null = False, blank = False)
     phone_number = models.CharField(max_length=200, null = False, blank = False)
-    profile_image = models.ImageField(upload_to="profile/", blank = True)
+    profile_image = models.ImageField(default='img/login_icon.png')
     objects: UserManager()
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'nickname']

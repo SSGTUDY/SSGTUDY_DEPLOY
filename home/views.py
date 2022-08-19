@@ -7,7 +7,8 @@ from home.models import User
 # main.html
 def main(request):
     hashtag = Hashtag.objects
-    return render(request, 'main.html', {'hashtag': hashtag})
+    user = User.objects
+    return render(request, 'main.html', {'hashtag': hashtag, 'user': user})
 
 # login.html
 def login(request):

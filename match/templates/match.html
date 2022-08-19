@@ -1,112 +1,282 @@
 {% extends 'base.html' %}
+{% load static %}
+<html>
+<head>
+    {% block css %}
+    <title>Match</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel = "stylesheet" href = "{% static 'css/match_main.css' %}">
+    {% endblock css %}
+</head>
+
+<body>
 {% block content %}
-    모집 마감 임박 <br>
-    {% for recruits in recruits.all %}
-        <br><br>
-        {{ recruits.get_recruit_field_display }} <br>
-        <a href="{% url 'study_detail' recruits.id %}">{{ recruits.recruit_title }}</a>
-        {{ recruits.recruit_period_end | timeuntil }}
-    {% endfor %}
 
-    <br><br>
-    
-    <form class="sea" action="" method="GET">
-        <input type="text" name="q" value="{{ q }}"/>
-        <input type="submit" value="검색" />
-    </form>
+<div class="top_container"> <!--모집 마감 임박 -->
+    <div class = "text_area">
+        <text style="font-size:2vw;">모집 마감 임박</text>
+        <img src = "{% static 'img/match_home_logo.png' %}" style="width:2.8vw;">
+    </div>
 
-    <br><br>
-    카테고리별
-    <br>
+    <div class = "board_area"> <!--실제 게시글이 들어갈 위치 -->
+        {% if posts.has_previous %}
+        <a href = "?page1={{posts.previous_page_number}}" class = "page_nation" style="text-decoration:none;">
+            <div class = "circle">
+                <div class = "inner_circle">⇦</div>
+            </div></a>
+        {% endif %}
+        <!-- 게시글 세부 정보가 들어갈 영역 -->
+        {% for temp in posts %}
 
-    <!--최신순 정렬-->
-    전체
-    {% for recruit_field in recruit_field.all %}
-        <a href="{% url 'study_detail' recruit_field.id %}">{{ recruit_field.recruit_title }}</a>
-        {{ recruit_field.hashtag }}
-        <br>
-    {% endfor %}
-    <br>
+        <div class = "board_detail">
+            <!--어떤 종류의 게시글인지 보여줌 -->
+            <div class = "top_board_detail">
+                <div style="font-size:0.8vw;color:#BBBABA" class = "recruit_field">
+                    {{ temp.recruit_field }}
+                </div>
+                <div style="font-size:1.1vw;color:#3165B1" class = "top_content_date">
 
-    스터디
-    {% for recruit_field_study in recruit_field_study.all %}
-        <a href="{% url 'study_detail' recruit_field_study.id %}">{{ recruit_field_study.recruit_title }}</a>
-        {{ recruit_field_study.hashtag}}
-        <br>
-    {% endfor %}
-    <br>
+                    <label class = "today" style="font-size:1vw;">{{ temp.recruit_period_end }}</label> <!-- 모집 날짜 (마감) -->
+                </div>
+            </div>
 
-    소모임
-    {% for recruit_field_club in recruit_field_club.all %}
-        <a href="{% url 'study_detail' recruit_field_club.id %}">{{ recruit_field_club.recruit_title }}</a>
-        {{ recruit_field_club.hashtag}}
-        <br>
-    {% endfor %}
-    <br>
+            <div style = "width:100%;height:35%;overflow:auto;border-bottom:1px solid #d1d1d1;margin:0px auto;">
+                <a href="{% url 'study_detail' temp.id %}" style="text-decoration:none;color:black;font-size:1vw;font-weight:700">{{ temp.recruit_title }}</a>
+            </div>
+            <div style= "width:100%;height:45%;overflow:auto;">
+                {{ temp.recruit_content | safe}}
+            </div>
+        </div>
+        {% endfor %}
+        {% if posts.has_next %}
+        <a href = "?page1={{posts.next_page_number}}" class = "page_nation" style="text-decoration:none;">
+            <div class = "circle">
+                <div class = "inner_circle">⇨</div>
+            </div>
+        </a>
+        {% endif %}
+    </div>
+</div>
 
-    프로젝트
-    {% for recruit_field_project in recruit_field_project.all %}
-        <a href="{% url 'study_detail' recruit_field_project.id %}">{{ recruit_field_project.recruit_title }}</a>
-        {{ recruit_field_project.hashtag}}
-        <br>
-    {% endfor %}
-    <br>
 
-    설문조사
-    {% for recruit_field_survey in recruit_field_survey.all %}
-        <a href="{% url 'study_detail' recruit_field_survey.id %}">{{ recruit_field_survey.recruit_title }}</a>
-        {{ recruit_field_survey.hashtag}}
-        <br>
-    {% endfor %}
-    <br><br>
+<!--카테고리-->
+<div class="middlebox">
+    <h4 class="titleword" style="margin-left:15%;font-size:2vw;">카테고리별</h4>
 
-    <!--인기순 정렬-->
-    전체
-    {% for recruit_like in recruit_like.all %}
-        <a href="{% url 'study_detail' recruit_like.id %}">{{ recruit_like.recruit_title }}</a>
-        {{ recruit_like.hashtag }}
-        <br>
-    {% endfor %}
-    <br>
 
-    스터디
-    {% for recruit_like_study in recruit_like_study.all %}
-        <a href="{% url 'study_detail' recruit_like_study.id %}">{{ recruit_like_study.recruit_title }}</a>
-        {{ recruit_like_study.hashtag}}
-        <br>
-    {% endfor %}
-    <br>
+        <form class="sea" action="" method="GET">
+            <input class="searchtext" type="text" v-model="word" name = "q" value = "{{ q }}"/>
+            <button class="srchbutton" type="submit" v-on:click="search" value = "검색" onclick = "display_search()">SEARCH</button>
+        </form>
 
-    소모임
-    {% for recruit_like_club in recruit_like_club.all %}
-        <a href="{% url 'study_detail' recruit_like_club.id %}">{{ recruit_like_club.recruit_title }}</a>
-        {{ recruit_like_club.hashtag}}
-        <br>
-    {% endfor %}
-    <br>
 
-    프로젝트
-    {% for recruit_like_project in recruit_like_project.all %}
-        <a href="{% url 'study_detail' recruit_like_project.id %}">{{ recruit_like_project.recruit_title }}</a>
-        {{ recruit_like_project.hashtag}}
-        <br>
-    {% endfor %}
-    <br>
+    <div class="category">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link" href = "#" style="color:#3f3f3f;font-weight:700" onclick = "recruit_all()">전체</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" style="color:#3f3f3f;font-weight:700" href="#" onclick = "recruit_club()">소모임</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" style="color:#3f3f3f;font-weight:700" href="#" onclick = "recruit_study()">스터디</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" style="color:#3f3f3f;font-weight:700" href="#" onclick = "recruit_project()">프로젝트</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" style="color:#3f3f3f;font-weight:700" href="#" onclick = "recruit_survey()">설문조사</a>
+            </li>
 
-    설문조사
-    {% for recruit_like_survey in recruit_like_survey.all %}
-        <a href="{% url 'study_detail' recruit_like_survey.id %}">{{ recruit_like_survey.recruit_title }}</a>
-        {{ recruit_like_survey.hashtag}}
-        <br>
-    {% endfor %}
-    <br><br>
-    
-    태그별 <br>
-    {% for hashtag in hashtag.all %}
-        <a href="{% url 'hashtag_detail' pk=hashtag.pk %}">{{ hashtag.hashtag_content }}</a>
-    {% endfor %}
-    <br>
-    {% for hashtag_recruits in hashtag_recruits.all %}
-        <a href="{% url 'study_detail' id=hashtag_recruits.id %}">{{ hashtag_recruits.recruit_title }}</a>
-    {% endfor %}
+        </ul>
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link" href = "{% url 'sort_by_like' %}">인기순</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href = "{% url 'match' %}">최신순</a>
+            </li>
+        </ul>
+        <!--키테고리게시글-->
+        {% for recruit_all in recruit_all.all %}
+        <div id="catepost" class = "recruit_all">
+            <div class = "inner_recruit">
+                <div>
+                    <a href="{% url 'study_detail' recruit_all.id %}" class = "recruit_a">
+                        {{ recruit_all.recruit_title }}</a>
+                </div>
+                <br>
+                <div class = "today">
+                    {{ recruit_all.recruit_period_end }}
+
+                </div>
+                <br>
+                <div style="color:red;margin-bottom:1vh;font-size:3rem;">
+                ❤{{ recruit_all.like_count }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        {% for recruit_field_study in recruit_field_study.all %}
+        <div id = "catepost" class = "recruit_study">
+            <div class = "inner_recruit">
+                <div>
+                    <a href = "{% url 'study_detail' recruit_field_study.id %}" class = "recruit_a">
+                        {{ recruit_field_study.recruit_title }}</a>
+                </div>
+                <div class = "today">
+                    {{ recruit_field_study.recruit_period_end }}
+
+                </div>
+                <br>
+                <div style="color:red;margin-bottom:1vh;font-size:2rem;">
+                   ❤{{ recruit_field_study.like_count }}
+                </div>
+
+
+            </div>
+
+        </div>
+        {% endfor %}
+
+        {% for recruit_field_club in recruit_field_club.all %}
+        <div id = "catepost" class = "recruit_club">
+            <div class = "inner_recruit">
+                <div>
+                    <a href = "{% url 'study_detail' recruit_field_club.id %}" class = "recruit_a">
+                        {{ recruit_field_club.recruit_title }}</a>
+                </div>
+                <br>
+                <div class = "today">
+                    {{ recruit_field_club.recruit_period_end }}
+
+                </div>
+                <br>
+                <div style="color:red;margin-bottom:1vh;font-size:2rem;">
+                   ❤{{ recruit_field_club.like_count }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        {% for recruit_field_project in recruit_field_project.all %}
+        <div id = "catepost" class = "recruit_project">
+
+            <div class = "inner_recruit">
+                <div>
+                    <a href = "{% url 'study_detail' recruit_field_project.id %}" class = "recruit_a">
+                        {{ recruit_field_project.recruit_title }}
+                    </a>
+                </div>
+                <br>
+                <div class = "today">
+                   {{ recruit_field_project.recruit_period_end }}
+
+                </div>
+                <br>
+                <div style="color:red;margin-bottom:1vh;font-size:2rem;">
+                   ❤{{ recruit_field_project.like_count }}
+                </div>
+            </div>
+
+        </div>
+        {% endfor %}
+
+        {% for recruit_field_survey in recruit_field_survey.all %}
+        <div id = "catepost" class = "recruit_survey">
+            <div class = "inner_recruit">
+                <div>
+                    <a href = "{% url 'study_detail' recruit_field_survey.id %" class = "recruit_a">
+                        {{ recruit_field_survey.recruit_title }}
+                    </a>
+                </div>
+                <br>
+                <div class = "today">
+                   {{ recruit_field_survey.recruit_period_end }}
+
+                </div>
+                <br>
+                <div style="color:red;margin-bottom:1vh;font-size:2rem;">
+                    ❤{{ recruit_field_survey.like_count }}
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+
+        {% for q in q.all %}
+        <div id = "catepost" class = "recruit_q">
+            <a href = "{% url 'study_detail' q.id %">
+                {{ p.recruit_title }}
+            </a>
+        </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+<div class = "tag_area">
+    <div class = "text_area">
+        <text style="font-size:2vw;"># 태그 별</text>
+    </div>
+
+    <div id = "myCarousel" class = "carousel slide slider" date-ride = "carousel">
+        <ol class = "carousel-indicators" style="background-color:green;visibility: hidden;">
+            {% for Temp in Posts %}
+            <li data-target="#myCarousel" data-slide-to = "{{ Temp.id }}" class="{% if forloop.first%}active{%endif%}" style="color:green">
+            </li>
+            {% endfor %}
+        </ol>
+
+        <div class = "carousel-inner" style="width:100%;height:30%;background:#f5f5f5;">
+            {% for Temp in Posts.all %}
+            <div class="item{% if forloop.first %} active{% endif %}">
+                <a style="cursor:pointer;color:black;text-decoration:none;" href = "{% url 'hashtag_detail' Temp.id%}">
+                    <h3 style = "color:black;text-decoration:none;">{{ Temp.hashtag_content }}</h3></a>
+            </div>
+            {% endfor %}
+
+        </div>
+        <a class="carousel-control-prev" href="#myCarousel" data-slide="prev" style="background:#51a998;border-radius:50%;margin-left:12%;width:3.5rem;height:3.5rem;
+        ">
+            <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#myCarousel" data-slide="next" style="background:#51a998;border-radius:50%;margin-right:12%;width:3.5rem;height:3.5rem;
+        ">
+            <span class="carousel-control-next-icon"></span>
+        </a>
+    </div>
+
+</div>
+<script src = "{% static 'js/match_main.js' %}"></script>
+<script>
+  let buttonRight = document.getElementById('slideRight');
+  let buttonLeft = document.getElementById('slideLeft');
+
+  buttonLeft.addEventListener('click', function(){
+    document.getElementById('slider').scrollLeft -= 180
+  });
+
+  buttonRight.addEventListener('click', function(){
+    document.getElementById('slider').scrollLeft += 180
+
+  });
+
+  $('.slider').slick({
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  dots: true,
+  centerMode: true,
+  focusOnSelect: true
+});
+
+</script>
+
 {% endblock %}
+</body>
+</html>

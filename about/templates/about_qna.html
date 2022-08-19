@@ -21,13 +21,13 @@
             <td width="150px">작성자</td>
             <td width="150px">작성일</td>
         </tr>
+        {% for questions in questions.all %}
         <tr>
-            {% for questions in questions.all %}
             <td style="color:#999;"><a href="{% url 'about_qna_detail' questions.id %}">{{ questions.question_title}}</a></td>
             <td>{{ questions.question_writer.nickname }}</td>
             <td>{{ questions.question_date }}</td>
-            {% endfor %}
         </tr>
+        {% endfor %}
     </table>
     <div class="search">
         <br>

@@ -32,7 +32,7 @@
 
 
 
-        
+
 
         <div class="collapse navbar-collapse" style="text-align: right; font-weight: bold;" id="navbarsExample07">
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 ">
@@ -45,7 +45,7 @@
                 <!--user.is_authenticated을 위한 li-->
 
 
-                 <!-- 유저 로그인 중이면 -->
+                <!-- 유저 로그인 중이면 -->
                 {% if user.is_active %}
                 <li style=" margin-left: 15px; margin-right:15px; color:gray;"><a style="color:#56b198;">{{user.nickname}}</a> 님 안녕하세요!</li>
                 <div class="dropdown text-end">
@@ -54,22 +54,27 @@
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="{{ user.profile_image.url }}" alt="mdo" width="32" height="32" class="rounded-circle">
                     </a>
+                    {% endif %}
                     <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                        <li><a class="dropdown-item" style="font-weight: bold;" href="{% url 'mypage_main' %}">Mypage</a></li>
+                        <li><a class="dropdown-item" style="font-weight: bold;"
+                                href="{% url 'mypage_main' %}">Mypage</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        {% endif %}
-                        <li><a style="color:#56b198; font-weight: bold;" class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                        
+                        <li><a style="color:#56b198; font-weight: bold;" class="dropdown-item"
+                                href="{% url 'logout' %}">Logout</a></li>
                     </ul>
                 </div>
+
+
                 <!-- 유저 로그인 중이 아니면 -->
                 {% else %}
                 <li><a href="{% url 'signup' %}" class="nav-link px-2 link-dark">Sign up</a></li>
-                <li><a href="{% url 'login' %}" class="nav-link px-2 link-dark" style="margin-right: 10px; color:gray;">Login</a></li>
+                <li><a href="{% url 'login' %}" class="nav-link px-2 link-dark"
+                        style="margin-right: 10px; color:gray;">Login</a></li>
                 {% endif %}
             </ul>
-
 
         </div>
     </div>

@@ -2,7 +2,195 @@ let parse_about = document.querySelectorAll('.today');
 const value_real_today = new Date();
 let is_first_page = false;
 
-let init_href = 'http://127.0.0.1:8000/match/';
+function recruit_all(){ //전체 뺴고 다 바꾸기
+   let all = document.querySelectorAll('.recruit_all');
+
+   for(let i = 0;i<all.length;i++){
+    all[i].style.display = 'flex';
+   }
+   let study = document.querySelectorAll('.recruit_study');
+
+   console.log(all);
+    for(let i = 0;i<study.length;i++){
+        study[i].style.display = 'none';
+    }
+   let club = document.querySelectorAll('.recruit_club');
+
+    for(let i = 0;i<club.length;i++){
+        club[i].style.display = 'none';
+    }
+    let project = document.querySelectorAll('.recruit_project');
+
+    for(let i = 0;i<project.length;i++){
+        project[i].style.display = 'none';
+    }
+    let survey = document.querySelectorAll('.recruit_survey');
+
+    for(let i = 0;i<survey.length;i++){
+        survey[i].style.display = 'none';
+    }
+    let q = document.querySelectorAll('.recruit_q');
+
+
+}
+
+function recruit_club(){
+   let all = document.querySelectorAll('.recruit_all');
+
+   for(let i = 0;i<all.length;i++){
+     all[i].style.display = 'none';
+   }
+   let study = document.querySelectorAll('.recruit_study');
+    for(let i = 0;i<study.length;i++){
+        study[i].style.display = 'none';
+    }
+   let club = document.querySelectorAll('.recruit_club');
+    for(let i = 0;i<club.length;i++){
+        club[i].style.display = 'flex';
+    }
+    let project = document.querySelectorAll('.recruit_project');
+
+    for(let i = 0;i<project.length;i++){
+        project[i].style.display = 'none';
+    }
+    let survey = document.querySelectorAll('.recruit_survey');
+
+    for(let i = 0;i<survey.length;i++){
+        survey[i].style.display = 'none';
+    }
+    let q = document.querySelectorAll('.recruit_q');
+
+    for(let i = 0;i<q.length;i++){
+        survey[i].style.display = 'none';
+    }
+}
+
+function recruit_study(){
+    let all = document.querySelectorAll('.recruit_all');
+
+   for(let i = 0;i<all.length;i++){
+     all[i].style.display = 'none';
+   }
+   let study = document.querySelectorAll('.recruit_study');
+    for(let i = 0;i<study.length;i++){
+        study[i].style.display = 'flex';
+    }
+   let club = document.querySelectorAll('.recruit_club');
+    for(let i = 0;i<club.length;i++){
+        club[i].style.display = 'none';
+    }
+    let project = document.querySelectorAll('.recruit_project');
+
+    for(let i = 0;i<project.length;i++){
+        project[i].style.display = 'none';
+    }
+    let survey = document.querySelectorAll('.recruit_survey');
+
+    for(let i = 0;i<survey.length;i++){
+        survey[i].style.display = 'none';
+    }
+    let q = document.querySelectorAll('.recruit_q');
+
+    for(let i = 0;i<q.length;i++){
+        survey[i].style.display = 'none';
+    }
+}
+
+function recruit_project(){
+    let all = document.querySelectorAll('.recruit_all');
+
+   for(let i = 0;i<all.length;i++){
+     all[i].style.display = 'none';
+   }
+   let study = document.querySelectorAll('.recruit_study');
+    for(let i = 0;i<study.length;i++){
+        study[i].style.display = 'none';
+    }
+   let club = document.querySelectorAll('.recruit_club');
+    for(let i = 0;i<club.length;i++){
+        club[i].style.display = 'none';
+    }
+    let project = document.querySelectorAll('.recruit_project');
+
+    for(let i = 0;i<project.length;i++){
+        project[i].style.display = 'flex';
+    }
+    let survey = document.querySelectorAll('.recruit_survey');
+
+    for(let i = 0;i<survey.length;i++){
+        survey[i].style.display = 'none';
+    }
+
+    let q = document.querySelectorAll('.recruit_q');
+
+    for(let i = 0;i<q.length;i++){
+        survey[i].style.display = 'none';
+    }
+}
+
+
+function recruit_survey(){
+    let all = document.querySelectorAll('.recruit_all');
+
+   for(let i = 0;i<all.length;i++){
+     all[i].style.display = 'none';
+   }
+   let study = document.querySelectorAll('.recruit_study');
+    for(let i = 0;i<study.length;i++){
+        study[i].style.display = 'none';
+    }
+   let club = document.querySelectorAll('.recruit_club');
+    for(let i = 0;i<club.length;i++){
+        club[i].style.display = 'none';
+    }
+    let project = document.querySelectorAll('.recruit_project');
+
+    for(let i = 0;i<project.length;i++){
+        project[i].style.display = 'none';
+    }
+    let survey = document.querySelectorAll('.recruit_survey');
+
+    for(let i = 0;i<survey.length;i++){
+        survey[i].style.display = 'flex';
+    }
+
+    let q = document.querySelectorAll('.recruit_q');
+
+    for(let i = 0;i<q.length;i++){
+        survey[i].style.display = 'none';
+    }
+}
+
+function display_search(){
+     let all = document.querySelectorAll('.recruit_all');
+
+   for(let i = 0;i<all.length;i++){
+     all[i].style.display = 'none';
+   }
+   let study = document.querySelectorAll('.recruit_study');
+    for(let i = 0;i<study.length;i++){
+        study[i].style.display = 'flex';
+    }
+   let club = document.querySelectorAll('.recruit_club');
+    for(let i = 0;i<club.length;i++){
+        club[i].style.display = 'flex';
+    }
+    let project = document.querySelectorAll('.recruit_project');
+
+    for(let i = 0;i<project.length;i++){
+        project[i].style.display = 'flex';
+    }
+    let survey = document.querySelectorAll('.recruit_survey');
+
+    for(let i = 0;i<survey.length;i++){
+        survey[i].style.display = 'flex';
+    }
+
+
+
+}
+
+recruit_all();
 
 for(let i = 0;i<parse_about.length;i++){
     let year = "";
@@ -44,49 +232,27 @@ for(let i = 0;i<parse_about.length;i++){
 }
 else{
 
-    parse_about[i].innerHTML = Math.floor(getDiff);
+    parse_about[i].innerHTML = 'D' + ' ' + '-' + ' ' +  Math.floor(getDiff);
 }
 }
 
-function change_page(){
-    let href = document.location.href;
-    let valid_index;
-    is_first_page = false;
-    let new_url = '';
 
-    for(let i = 0;i<href.length;i++){
+let buttonRight = document.getElementById('slideRight');
+  let buttonLeft = document.getElementById('slideLeft');
 
-        if(href[i] == '/'){
-            valid_index = i;
-            new_url = '';
-        }
-        else{
-            new_url += href[i];
-        }
-    }
+  buttonLeft.addEventListener('click', function(){
+    document.getElementById('slider').scrollLeft -= 180
+  });
 
-    let temp_new = init_href + new_url;
-    let next_ = parseInt(temp_new[temp_new.length-1]);
-    let list_ = next_;
+  buttonRight.addEventListener('click', function(){
+    document.getElementById('slider').scrollLeft += 180
 
-    next_++;
-    next_ += '';
-    console.log(list_);
-    console.log(next_);
-    temp_new.replace(list_,next_);
+  });
 
-    if(valid_index == href.length-1 || new_url == ''){
-        is_first_page = true;
-    }
-    if(is_first_page == true || temp_new[temp_new.length-1] == '/'){ //첫번쨰 페이지인 경우
-
-    }
-    else{ //첫번째 페이지가 아닌경우
-
-
-    }
-}
-
-setTimeout(change_page(),1000);
-
-
+  $('.slider').slick({
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  dots: true,
+  centerMode: true,
+  focusOnSelect: true
+});
