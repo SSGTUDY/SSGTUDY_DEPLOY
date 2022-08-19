@@ -31,22 +31,6 @@
         </button>
 
 
-        <!-- <div class="box container">
-            <h1>test</h1> -->
-            <!-- 유저 로그인 중이면 -->
-            <!-- {% if user.is_active %}
-                <p>{{user.nickname}} 님 안녕하세요</p> -->
-                <!-- 로그인 한 유저의 프로필 -->
-                <!-- {% if user.profile_image %}
-                    <img src="{{ user.profile_image.url }}" alt="image"> <br>
-                {% endif %}
-                <a href="{% url 'logout' %}">로그아웃</a> -->
-        <!-- 유저 로그인 중이 아니면 -->
-            <!-- {% else %}
-                <a href="{% url 'signup' %}">회원가입</a>
-                <a href="{% url 'login' %}">로그인</a>
-            {% endif %}
-        </div> -->
 
         
 
@@ -55,25 +39,38 @@
                 <li><a href="{% url 'main' %}" style="color:#56b198" class="nav-link px-2 ">Home</a></li>
                 <li><a href="{% url 'about_main' %}" class="nav-link px-2 link-dark">About</a></li>
                 <li><a href="{% url 'match' %}" class="nav-link px-2 link-dark">Match</a></li>
+
+
+
+                <!--user.is_authenticated을 위한 li-->
+
+
+                 <!-- 유저 로그인 중이면 -->
+                {% if user.is_active %}
+                <li style=" margin-left: 15px; margin-right:15px; color:gray;"><a style="color:#56b198;">{{user.nickname}}</a> 님 안녕하세요!</li>
+                <div class="dropdown text-end">
+                    {% if user.profile_image %}
+                    <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="{{ user.profile_image.url }}" alt="mdo" width="32" height="32" class="rounded-circle">
+                    </a>
+                    <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                        <li><a class="dropdown-item" style="font-weight: bold;" href="{% url 'mypage_main' %}">Mypage</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        {% endif %}
+                        <li><a style="color:#56b198; font-weight: bold;" class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                    </ul>
+                </div>
+                <!-- 유저 로그인 중이 아니면 -->
+                {% else %}
                 <li><a href="{% url 'signup' %}" class="nav-link px-2 link-dark">Sign up</a></li>
-                <!--user.is_authenticated을 위한 임시 li-->
-                <li><a href="{% url 'login' %}" class="nav-link px-2 link-dark" style="margin-right: 10px;">Login</a></li>
+                <li><a href="{% url 'login' %}" class="nav-link px-2 link-dark" style="margin-right: 10px; color:gray;">Login</a></li>
+                {% endif %}
             </ul>
 
 
-            <div class="dropdown text-end">
-                <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{% static 'home/img/icon.png' %}" alt="mdo" width="32" height="32" class="rounded-circle">
-                </a>
-                <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                    <li><a class="dropdown-item" style="font-weight: bold;" href="{% url 'mypage_main' %}">Mypage</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li><a style="color:#56b198; font-weight: bold;" class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
-                </ul>
-            </div>
         </div>
     </div>
 </nav>

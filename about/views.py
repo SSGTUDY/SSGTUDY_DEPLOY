@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from .models import Question
 from .forms import QuestionCommentForm, QuestionForm
+from django.db.models import Q
 
 # about_main.html
 def about_main(request):
@@ -71,3 +72,11 @@ def about_qna_delete(request, id):
     question = get_object_or_404(Question, id = id)
     question.delete()
     return redirect('about_qna')
+
+
+def about_qna(request):
+    questions = Question.objects
+    q = request.GET.get('q', '')
+    if q:
+        questions = questions.filter(Q(question_title__icontains = q) | Q(question_content__icontains = q))
+    return render(request, 'about_qna.html', {'questions': questions, 'q': q})

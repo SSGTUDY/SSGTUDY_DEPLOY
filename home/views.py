@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib import auth
 from .forms import UserForm, CustomAuthenticationForm
 from mypage.models import Hashtag
+from mypage.models import Hashtag, Recruit
+from home.models import User
 # main.html
 def main(request):
     hashtag = Hashtag.objects
@@ -42,3 +44,9 @@ def signup(request):
 # signup_end.html
 def signup_end(request):
     return render(request, 'signup_end.html')
+
+def main(request):
+    hashtag = Hashtag.objects
+    recruit = Recruit.objects
+    user = User.objects
+    return render(request, 'main.html', {'hashtag': hashtag, 'recruit': recruit, 'user': user})

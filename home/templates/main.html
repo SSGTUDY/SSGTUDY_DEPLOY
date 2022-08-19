@@ -8,11 +8,6 @@
 
 {% block content %}
 
-<head>
-    <style>
-
-    </style>
-</head>
 
 <div style="margin-top: 73px;">
     <div id="carouselExampleIndicators" class="carousel slide " data-bs-ride="carousel">
@@ -200,7 +195,7 @@
                             <!-- 이용자 수 -->
                             <div class="text-center">
                                 <i class="bi-phone icon-feature text-gradient d-block mb-3"></i>
-                                <h3 class="how_much">85</h3>
+                                <h3 class="how_much">{{ user.all.count }} </h3>
                                 <p class="text-muted mb-0">이용자 수</p>
                             </div>
                         </div>
@@ -209,7 +204,7 @@
                             <!-- 게시글 수 -->
                             <div class="text-center">
                                 <i class="bi-camera icon-feature text-gradient d-block mb-3"></i>
-                                <h3 class="how_much">1234</h3>
+                                <h3 class="how_much">{{ recruit.all.count }}</h3>
                                 <p class="text-muted mb-0">개의 매칭서비스</p>
                             </div>
                         </div>
@@ -219,7 +214,7 @@
                             <!-- 해시태그 수 -->
                             <div class="text-center">
                                 <i class="bi-gift icon-feature text-gradient d-block mb-3"></i>
-                                <h3 class="how_much">567</h3>
+                                <h3 class="how_much">{{ hashtag.all.count }}</h3>
                                 <p class="text-muted mb-0">개의 해시태그</p>
                             </div>
                         </div>

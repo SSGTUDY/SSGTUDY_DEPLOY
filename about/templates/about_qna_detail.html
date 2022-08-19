@@ -1,5 +1,15 @@
-<h1>QnA Detail</h1>
-제목: {{ question.question_title }} <br>
+{% extends 'about_manual.html' %}
+
+{% load static %}
+
+
+{% block fooster %}
+<div class="container">
+    <h4 class="findssg">
+        <img src="{% static 'about/image/i.png' %}" alt="mdo" width="45" height="45">{{ question.question_title }}
+    </h4>
+    <hr style="color:#56b198" size="4px" width="100%">
+    제목: {{ question.question_title }} <br>
 작성자: {{ question.question_writer.nickname }} <br>
 작성시간: {{ question.question_date }} <br>
 {% if question.questions_image %}
@@ -8,8 +18,11 @@
 내용 : {{ question.question_content | safe }} <br>
 
 {% if question.question_writer == user %}
-    <a href="{% url 'about_qna_edit' question.id %}">수정</a>  
-    <a href="{% url 'about_qna_delete' question.id %}">삭제</a>
+
+<a class=btn style="background-color: #56b198; color:white;"  href="{% url 'about_qna_edit' question.id %}">수정</a> 
+<a class=btn style="background-color: #56b198; color:white;"  href="{% url 'about_qna_delete' question.id %}">삭제</a> 
+<a class=btn style="background-color: #56b198; color:white;"  href="{% url 'about_qna' %}">목록으로</a> 
+
 {% endif %}
 
 {% for question in question.question_comments.all %}
@@ -27,3 +40,6 @@
         </div>
     </form>
 {% endif %}
+</div>
+{% endblock %}
+
