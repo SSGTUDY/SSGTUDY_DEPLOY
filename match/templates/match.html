@@ -15,12 +15,11 @@
 <body>
 {% block content %}
 
-<div class="top_container"> <!--모집 마감 임박 -->
+<div class="top_container" style="margin-top:70px; padding-bottom: 40px;"> <!--모집 마감  임박 -->
     <div class = "text_area">
-        <text style="font-size:2vw;">모집 마감 임박</text>
-        <img src = "{% static 'img/match_home_logo.png' %}" style="width:2.8vw;">
+        <img src = "{% static 'img/match_home_logo.png' %}" style="width:50px; margin-top: 50px; margin-right: 10px;">
+        <text style="font-size:2vw; margin-top: 50px;"> 모집 마감 임박</text>
     </div>
-
     <div class = "board_area"> <!--실제 게시글이 들어갈 위치 -->
         {% if posts.has_previous %}
         <a href = "?page1={{posts.previous_page_number}}" class = "page_nation" style="text-decoration:none;">
@@ -64,17 +63,20 @@
 
 <!--카테고리-->
 <div class="middlebox">
-    <h4 class="titleword" style="margin-left:15%;font-size:2vw;">카테고리별</h4>
+    <div class = "text_area">
+        <img src = "{% static 'img/match_category_logo.png' %}" style="width:50px; margin-top: 50px; margin-right: 10px;">
+        <text style="font-size:2vw; margin-top: 50px; "> 카테고리 별</text>
+    </div>
 
 
 
-        <form class="sea" action="" method="GET">
+        <form class="sea" action="" method="GET" style="margin-top: 30px;">
             <input class="searchtext" type="text" v-model="word" name = "q" value = "{{ q }}"/>
             <button class="srchbutton" type="submit" v-on:click="search" value = "검색" onclick = "display_search()">SEARCH</button>
         </form>
 
 
-    <div class="category">
+    <div class="category" style="margin-bottom: 80px;">
         <ul class="nav nav-tabs">
             <li class="nav-item">
                 <a class="nav-link" href = "#" style="color:#3f3f3f;font-weight:700" onclick = "recruit_all()">전체</a>
@@ -115,7 +117,7 @@
 
                 </div>
                 <br>
-                <div style="color:red;margin-bottom:1vh;font-size:3rem;">
+                <div style="color:#56b198;margin-bottom:1vh;font-size:1.5rem;">
                 ❤{{ recruit_all.like_count }}
                 </div>
             </div>
@@ -134,7 +136,7 @@
 
                 </div>
                 <br>
-                <div style="color:red;margin-bottom:1vh;font-size:2rem;">
+                <div style="color:#56b198;margin-bottom:1vh;font-size:1.5rem;">
                    ❤{{ recruit_field_study.like_count }}
                 </div>
 
@@ -157,7 +159,7 @@
 
                 </div>
                 <br>
-                <div style="color:red;margin-bottom:1vh;font-size:2rem;">
+                <div style="color:#56b198;margin-bottom:1vh;font-size:1.5rem;">
                    ❤{{ recruit_field_club.like_count }}
                 </div>
             </div>
@@ -179,7 +181,7 @@
 
                 </div>
                 <br>
-                <div style="color:red;margin-bottom:1vh;font-size:2rem;">
+                <div style="color:#56b198;margin-bottom:1vh;font-size:1.5rem;">
                    ❤{{ recruit_field_project.like_count }}
                 </div>
             </div>
@@ -201,7 +203,7 @@
 
                 </div>
                 <br>
-                <div style="color:red;margin-bottom:1vh;font-size:2rem;">
+                <div style="color:#56b198;margin-bottom:1vh;font-size:1.5rem;">
                     ❤{{ recruit_field_survey.like_count }}
                 </div>
 
@@ -221,52 +223,29 @@
 
 </div>
 
-<div class = "tag_area tag_box">
+<!--해쉬태그 별-->
+<div class = "tag_area tag_box" >
     <div class = "text_area">
-        <text style="font-size:2vw;"># 태그 별</text>
+        <img src = "{% static 'img/match_hashtag_logo.png' %}" style="width:50px; margin-top: 80px; margin-right: 10px;">
+        <text style="font-size:2vw; margin-top: 80px;"> 해쉬태그 별</text>
     </div>
-    <div class="tagbox">
-        <div class="slide-wrapper container">
-              <div class="slider row" style="overflow-x:scroll;">
-                  <div class="tagname col-md-2"><button class="button">#어학</button></div>
-                  <div class="tagname col-md-2"><button class="button">#운동</button></div>
-                  <div class="tagname col-md-2"><button class="button">#밴드</button></div>
-                  <div class="tagname col-md-2"><button class="button">#주 1회</button></div>
-                  <div class="tagname col-md-2"><button class="button">#자격증</button></div>
-                  <div class="tagname col-md-2"><button class="button">#프로그래밍</button></div>
-              </div>
-              
+
+
+    <div class="row" style=" width: 60%; margin: 0 auto;">
+        {% for hashtag in hashtag.all %}
+            <a class="col-md-2" href = "{% url 'hashtag_detail' pk=hashtag.pk %}">
+                 <button class="button">{{ hashtag.hashtag_content }}</button>
+            </a>
+        {% endfor %}
+     </div>
+        <div class="category" style="padding: 50px; margin-bottom: 100px;">
+            {% for hashtag_recruits in hashtag_recruits.all %}
+            <a href="{% url 'study_detail' id=hashtag_recruits.id %}">{{ hashtag_recruits.recruit_title }}</a>
+        {% endfor %}
         </div>
-
-
-    <div id = "myCarousel" class = "carousel slide slider" date-ride = "carousel">
-        <ol class = "carousel-indicators" style="background-color:green;visibility: hidden;">
-            {% for Temp in Posts %}
-            <li data-target="#myCarousel" data-slide-to = "{{ Temp.id }}" class="{% if forloop.first%}active{%endif%}" style="color:green">
-            </li>
-            {% endfor %}
-        </ol>
-
-        <div class = "carousel-inner" style="width:100%;height:30%;background:#f5f5f5;">
-            {% for Temp in Posts.all %}
-            <div class="item{% if forloop.first %} active{% endif %}">
-                <a style="cursor:pointer;color:black;text-decoration:none;" href = "{% url 'hashtag_detail' Temp.id%}">
-                    <h3 style = "color:black;text-decoration:none;">{{ Temp.hashtag_content }}</h3></a>
-            </div>
-            {% endfor %}
-
-        </div>
-        <a class="carousel-control-prev" href="#myCarousel" data-slide="prev" style="background:#51a998;border-radius:50%;margin-left:12%;width:3.5rem;height:3.5rem;
-        ">
-            <span class="carousel-control-prev-icon"></span>
-        </a>
-        <a class="carousel-control-next" href="#myCarousel" data-slide="next" style="background:#51a998;border-radius:50%;margin-right:12%;width:3.5rem;height:3.5rem;
-        ">
-            <span class="carousel-control-next-icon"></span>
-        </a>
-    </div>
 
 </div>
+
 <script src = "{% static 'js/match_main.js' %}"></script>
 <script>
   
@@ -280,6 +259,8 @@
   buttonRight.addEventListener('click', function(){
     document.getElementById('slider').ScrollLeft() += 180
   });
+
+  
 
 </script>
 {% endblock %}
