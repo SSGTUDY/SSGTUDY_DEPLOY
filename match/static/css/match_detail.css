@@ -15,6 +15,7 @@
     justify-content:center;
     width:20%;
      font-size:1.2vw;
+     border-collapse:collapse;
 }
 
 .top_content_real_title{
@@ -22,8 +23,8 @@
     border:1px solid #51a998;
     color:black;
     overflow:auto;
-    height:10%;
     font-size:1.2vw;
+    border-collapse:collapse;
 }
 
 .user_image{
@@ -39,7 +40,7 @@
     font-size:1.2vw;
     border:1px solid #51a998;
     justify-content:center;
-    overflow:scroll;
+    border-collapse:collapse;
 }
 .main_content{
     width:45%;
@@ -159,8 +160,25 @@
     margin-top:5vh;
     width:25vw;
 }
+#comment_submit{
+    background:#51a998;
+    border-radius:1%;
+    color:white;
+    width:20%;
+    border:none;
 
+}
 
+#comment_submit:hover{
+    background-color:green;
+}
+#comment_like_number{
+    color:rgba(81, 169, 152, 0.9);
+    text-decoration:underline;
+}
+#comment_like_number:hover{
+    color:green;
+}
 
 .comment_modify{
     display:inline-block;
@@ -184,11 +202,13 @@
 .comment_container{
     display:flex;
     flex-direction:column;
-    background:#f2f2f2;
+    border-radius:5%;
+    background:	rgba(81, 169, 152, 0.1);
     width:50%;
     height:auto;
     margin:0px auto;
     font-size:1vw;
+    margin-bottom:1%;
 }
 
 .comment_user_nickname{

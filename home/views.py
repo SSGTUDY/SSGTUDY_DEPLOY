@@ -8,7 +8,9 @@ from home.models import User
 def main(request):
     hashtag = Hashtag.objects
     user = User.objects
-    return render(request, 'main.html', {'hashtag': hashtag, 'user': user})
+
+def call_base(request):
+    return render(request,'base.html',{'user':user})
 
 # login.html
 def login(request):
@@ -50,4 +52,5 @@ def main(request):
     hashtag = Hashtag.objects
     recruit = Recruit.objects
     user = User.objects
+
     return render(request, 'main.html', {'hashtag': hashtag, 'recruit': recruit, 'user': user})

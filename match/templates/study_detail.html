@@ -96,12 +96,14 @@
     </div>
 
     <!-- 좋아요 -->
+    <p>💚
     {{ recruit.like.count }}
-    <a href="{% url 'likes' recruit.id %}">
+    </p>
+    <a href="{% url 'likes' recruit.id %}" style="text-decoration:none;">
         {% if user in recruit.like.all %}
-        취소
+        <span style="text-decoration:none; color:#51a998;" id = "comment_like_cancel">취소</span>
         {% else %}
-        ❤️좋아요
+            💚<span id = "comment_like_number" style="text-decoration:none;">좋아요</span>
         {% endif %}
     </a>
     <br><br>
@@ -157,15 +159,18 @@
     {% for comment in recruit.comments.all %}
         {% if comment.comment_writer.profile_image %}
             {% if comment.comment_writer == user %}
-                작성자 <img src="{{ comment.comment_writer.profile_image.url }}" alt="image" width="20" height="20"> {{ comment.comment_writer.nickname }} : {{ comment.comment_content }} / {{ comment.comment_date}} 
+
+                작성자 <img src="{{ comment.comment_writer.profile_image.url }}" alt="image" width="20" height="20"> {{ comment.comment_writer.nickname }} : {{ comment.comment_content }} / {{ comment.comment_date}}
             {% else %}
                 <img src="{{ comment.comment_writer.profile_image.url }}" alt="image" width="20" height="20"> {{ comment.comment_writer.nickname }} : {{ comment.comment_content }} / {{ comment.comment_date}} 
             {% endif %}
         {% endif %}
 
         {% if comment.comment_writer == user %}
-            <a href="{% url 'comment_edit' recruit.id comment.id %}">수정</a>
-            <a href="{% url 'comment_delete' recruit.id comment.id %}">삭제</a> <br>
+            <div style="margin:2% auto">
+            <a href="{% url 'comment_edit' recruit.id comment.id %}" class = "comment_modify">수정</a>
+            <a href="{% url 'comment_delete' recruit.id comment.id %}" class = "comment_delete">삭제</a>
+            </div>
         {% endif %}
 
         {% for recomment in comment.recomments.all %}
@@ -187,7 +192,7 @@
     {% csrf_token %}
     {{ form.as_p }}
     <div class="button">
-        <input type="submit" value="댓글 작성">
+        <input type="submit" value="댓글 작성" id = "comment_submit">
     </div>
 </form>
 </div>
