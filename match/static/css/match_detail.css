@@ -68,15 +68,15 @@
     width:100%;
     flex-direction:column;
     justify-content:space-evenly;
-    height:110vh;
+    height:auto;
 }
 
 .button_list{
     width:60%;
-    margin:1vh auto;
+    margin:2% auto;
     display:flex;
     justify-content:space-around;
-    margin-bottom:1vh;
+    margin-bottom:2%;
 
 }
 .modify{
@@ -131,6 +131,7 @@
 }
 .recruit_info div,.recruit_info section{
     margin-left:1vw;
+    margin-bottom:2%;
     font-weight:600;
     display:flex;
     width:80%;
@@ -180,6 +181,19 @@
     color:green;
 }
 
+
+.join,.bookmark{
+    color:white;
+    background: #51a998;
+    border:none;
+    
+}
+
+.join:hover,.bookmark:hover{
+    background-color:green;
+
+}
+
 .comment_modify{
     display:inline-block;
     width:5vw;
@@ -216,6 +230,7 @@
 
 }
 .comment_detail{
+    margin-top:0.5%;
     width:85%;
     background:white;
     border:1px solid #d1d1d1;

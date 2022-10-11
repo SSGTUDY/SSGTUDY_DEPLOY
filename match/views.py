@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from mypage.models import Recruit, Hashtag
 from home.models import User
-from datetime import date,timedelta
+from datetime import date, datetime,timedelta
 from django.core.paginator import Paginator,EmptyPage, PageNotAnInteger
 from mypage.forms import BookmarkForm, RecruitForm, HashtagForm
 from .forms import CommentForm, ReCommentForm, RecruitUserForm
@@ -14,12 +14,13 @@ from django.db.models import Q
 
 def hashtag_detail(request, pk):
     startdate = date.today()
-    enddate = startdate + timedelta(days = 200)
-    recruits = Recruit.objects.filter(recruit_period_end__lte = enddate, recruit_status = 'ongoing').order_by('recruit_period_end')
+    enddate = startdate
+ 
+    recruits = Recruit.objects.filter(recruit_period_end__gte = datetime(enddate), recruit_status = 'ongoing').order_by('recruit_period_end')
     paginator = Paginator(recruits,5)
     page = request.GET.get('page1')
-    recruit_all = Recruit.objects.filter(recruit_period_end__lte = enddate, recruit_status = 'ongoing').order_by('recruit_period_end')
-
+    recruit_all = Recruit.objects.filter(recruit_period_end__gte = datetime(enddate), recruit_status = 'ongoing').order_by('recruit_period_end')
+  
     try:
         recruits = paginator.page(page)
     except PageNotAnInteger:
@@ -196,31 +197,45 @@ def recomment_write(request, id, comment_id):
 
 
 def find_date_end(request):
+    #전체 게시글에 대한 함수들 (페이지네이션도 전체 게시글 대상)
    startdate = date.today()
-   enddate = startdate + timedelta(days = 200)
-   recruits = Recruit.objects.filter(recruit_period_end__lte = enddate, recruit_status = 'ongoing').order_by('recruit_period_end')
-   paginator = Paginator(recruits,5)
-   page = request.GET.get('page1')
-   recruit_all = Recruit.objects.filter(recruit_period_end__lte = enddate, recruit_status = 'ongoing').order_by('recruit_period_end')
+   enddate = startdate + timedelta(days = 1000)
+   recruits = Recruit.objects.filter(recruit_period_end__lte = enddate,recruit_period_end__gte = startdate, recruit_status = 'ongoing').order_by('recruit_period_end')
+   recruit_top = Recruit.objects.filter(recruit_period_end__lte = enddate,recruit_period_end__gte = startdate, recruit_status = 'ongoing').order_by('recruit_period_end')
+   recruit_top = recruit_top[:5]
+   recruit_all = Recruit.objects.filter(recruit_period_end__lte = enddate, recruit_period_end__gte = startdate, recruit_status = 'ongoing').order_by('recruit_period_end')
+   
+   
+   hashtag = Hashtag.objects
+   
+   #스터디에 대한 코드(스터디에 대한 페이지네이션)
+   
+   recruit_field_study = Recruit.objects.filter(recruit_field="study",recruit_status = 'ongoing').order_by('recruit_period_end')
+   
+      
+   recruit_field_club = Recruit.objects.filter(recruit_field="club",recruit_status = 'ongoing').order_by('recruit_period_end')
+   recruit_field_project = Recruit.objects.filter(recruit_field="project",recruit_status = 'ongoing').order_by('recruit_period_end')
+   recruit_field_survey = Recruit.objects.filter(recruit_field="survey",recruit_status = 'ongoing').order_by('recruit_period_end')
+   
 
+   q = request.GET.get('q', '')
+   if q:
+       recruit_all = recruit_all.filter(Q(recruit_title__icontains=q) | Q(recruit_content__icontains=q))
+       
+   recruits = recruit_all
+   paginator = Paginator(recruits,5)
+   page = request.GET.get('page1',1)
    try:
        recruits = paginator.page(page)
    except PageNotAnInteger:
        recruits = paginator.page(1)
    except EmptyPage:
        recruits = paginator.page(paginator.num_pages)
+    
    # hashtag = Hashtag.objects.all()
-   hashtag = Hashtag.objects
-   recruit_field_study = Recruit.objects.filter(recruit_field="study",recruit_status = 'ongoing').order_by('recruit_period_end')
-   recruit_field_club = Recruit.objects.filter(recruit_field="club",recruit_status = 'ongoing').order_by('recruit_period_end')
-   recruit_field_project = Recruit.objects.filter(recruit_field="project",recruit_status = 'ongoing').order_by('recruit_period_end')
-   recruit_field_survey = Recruit.objects.filter(recruit_field="survey",recruit_status = 'ongoing').order_by('recruit_period_end')
-
-   q = request.GET.get('q', '')
-   if q:
-       recruit_all = recruit_all.filter(Q(recruit_title__icontains=q) | Q(recruit_content__icontains=q))
+       
    return render(request, 'match.html', {'posts':recruits,'hashtag':hashtag,'recruit_field_study': recruit_field_study, 'recruit_field_club': recruit_field_club, 'recruit_field_project': recruit_field_project, 'recruit_field_survey': recruit_field_survey,
-    'q': q,'recruit_all':recruit_all})
+    'q': q,'recruit_all':recruit_all,'recruit_top':recruit_top})
 
 @login_required
 def likes(request, recruit_id):

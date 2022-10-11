@@ -57,9 +57,21 @@
             <div class = "board_div_first">C++스터디</div>
             <div>월/금</div>
             <div>대면</div>
+        </div>
             {% if user.is_active %}
                 {% for bookmarks in bookmarks.all %}
-                    <a href="{% url 'study_detail' bookmarks.bookmark_id.id %}">{{ bookmarks.bookmark_id.recruit_title }}</a>
+                    <div class = "board_div">
+                    <div class = "board_div_first">
+                    <a href="{% url 'study_detail' bookmarks.bookmark_id.id %}" style="color:#51a998;text-decoration:none;">{{ bookmarks.bookmark_id.recruit_title }}</a>
+                    </div>
+                    <div>
+                        <!-- 이 부분에 하트 이모지-->
+                       좋아요 : {{ bookmarks.bookmark_id.like_count }}
+                    </div>
+                    <div>
+                        모집분야 : {{bookmarks.bookmark_id.recruit_field }}
+                    </div>
+                </div>
                 {% endfor %}
             {% endif %}
         </div>

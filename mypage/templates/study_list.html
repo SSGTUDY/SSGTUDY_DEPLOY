@@ -1,79 +1,169 @@
-{% extends 'base.html' %}
-{% load static %}
+{% extends 'base.html' %} {% load static %}
 <html lang="en">
-<head>
-{% block css %}
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>내가 찜한 스터디</title>
-<link rel = "stylesheet" href = "{% static 'css/mypage_main.css' %}">
-{% endblock css %}
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-</head>
-<body>
-{% block content %}
-<div class = "text">
-<div class = "text_1" style="font-size:3.5vh;letter-spacing: 0.09em;"><b>내가 등록한 게시글 보기</b></div>
-<div class = "text_1" style="font-size:2vh;letter-spacing: 0.275em;">MY REGISTRATION</div>
-</div>
-<div class = "body_area">
-<div class = "area">
-<div class = "second_area">
-{% if user.is_active %}
-{% if user.profile_image %}
-<img src = "{{ user.profile_image.url }}" alt = "유저의 이미지 부분">
-{% endif %}
-<div class = "user_profile">
-<div><div id = "user_infomation">닉네임</div>{{ user.nickname }}</div>
-<div><div id = "user_infomation">아이디</div>{{ user.username }}</div>
-</div>
-{% endif %}
-</div>
-<div class = "mypage_move">
-<div><img src = "{% static 'img/register.png' %}">
-<a href = "{% url 'study_register' %}" target = "_blank" style = "text-decoration:none;color:black;">
-스터디 등록하기</a></div>
-<div><img src = "{% static 'img/mylist.png' %}">
-<a href = "{% url 'study_list' %}" style = "text-decoration:none;color:black;">
-등록한 게시글 보기</a></div>
-<div><img src = "{% static 'img/bookmark.png' %}">
-<a href = "{% url 'study_bookmark' %}" style = "text-decoration:none;color:black;">
-내가 찜한 게시글</a></div>
+  <head>
+    {% block css %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>내가 찜한 스터디</title>
+    <link rel="stylesheet" href="{% static 'css/mypage_main.css' %}" />
+    {% endblock css %}
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  </head>
+  <body>
+    {% block content %}
+    <div class="text">
+      <div class="text_1" style="font-size: 3.5vh; letter-spacing: 0.09em">
+        <b>내가 등록한 게시글 보기</b>
+      </div>
+      <div class="text_1" style="font-size: 2vh; letter-spacing: 0.275em">
+        MY REGISTRATION
+      </div>
+    </div>
+    <div class="body_area">
+      <div class="area">
+        <div class="second_area">
+          {% if user.is_active %} {% if user.profile_image %}
+          <img src="{{ user.profile_image.url }}" alt="유저의 이미지 부분" />
+          {% endif %}
+          <div class="user_profile">
+            <div>
+              <div id="user_infomation">닉네임</div>
+              {{ user.nickname }}
+            </div>
+            <div>
+              <div id="user_infomation">아이디</div>
+              {{ user.username }}
+            </div>
+          </div>
+          {% endif %}
+        </div>
+        <div class="mypage_move">
+          <div>
+            <img src="{% static 'img/register.png' %}" />
+            <a
+              href="{% url 'study_register' %}"
+              target="_blank"
+              style="text-decoration: none; color: black"
+            >
+              스터디 등록하기</a
+            >
+          </div>
+          <div>
+            <img src="{% static 'img/mylist.png' %}" />
+            <a
+              href="{% url 'study_list' %}"
+              style="text-decoration: none; color: black"
+            >
+              등록한 게시글 보기</a
+            >
+          </div>
+          <div>
+            <img src="{% static 'img/bookmark.png' %}" />
+            <a
+              href="{% url 'study_bookmark' %}"
+              style="text-decoration: none; color: black"
+            >
+              내가 찜한 게시글</a
+            >
+          </div>
 
-<div><img src = "{% static 'img/change_user.png' %}">
-<a href = "{% url 'mypage_edit' %}" style = "text-decoration:none;color:black;">
-개인정보 수정하기</a></div>
-</div>
-</div>
-<div class = "content" style = "border:1px solid #d1d1d1;border-radius:1%;">
-{% for temp in posts %}
-<div class = "detail_div" style="border:1px solid #d1d1d1;width:60%;height:auto;display:flex;flex-direction:column">
-<a href = "{% url 'study_detail' temp.id %}" class = "hober" style="text-decoration:none;color:#51a998;font-size:1.2vw;">{{ temp.recruit_title }}</a>
-<br>
-<div>{{ temp.recruit_date}}</div>
-</div>
-{% endfor %}
-<div class = "page_list" style="width:50%;display:flex;">
-<section class = "span_list">
-<span class = "span_detail">{{posts.number}}</span>
-/
-<span class = "span_detail">{{posts.paginator.num_pages}}</span>
-</section>
-{% if posts.has_previous %}
-<a href = "?page=1" class = "page_list_li">
-<button style="background:#51a998;color:white;border:white;height:5vh;border-radius:15%">처음페이지</button></a>
-<a href = "?page={{posts.previous_page_number}}" class = "page_list_li">
-<button style="background:#51a998;color:white;border:white;height:5vh;border-radius:15%">이전페이지</button></a>
-{% endif %}
-{% if posts.has_next %}
-<a href = "?page={{posts.next_page_number}}" class = "page_list_li">
-<button style="background:#51a998;color:white;border:white;height:5vh;border-radius:15%">다음페이지</button></a>
-<a href = "?page={{posts.paginator.num_pages}}" class = "page_list_li">
-<button style="background:#51a998;color:white;border:white;height:5vh;border-radius:15%">마지막 페이지</button></a>
-{% endif %}
-</div>
-</div>
-</div>
-{% endblock %}
-</body>
+          <div>
+            <img src="{% static 'img/change_user.png' %}" />
+            <a
+              href="{% url 'mypage_edit' %}"
+              style="text-decoration: none; color: black"
+            >
+              개인정보 수정하기</a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="content" style="border: 1px solid #d1d1d1; border-radius: 1%">
+        {% for temp in posts %}
+        <div
+          class="detail_div"
+          style="
+            border: 1px solid #d1d1d1;
+            width: 60%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+          "
+        >
+          <a
+            href="{% url 'study_detail' temp.id %}"
+            class="hober"
+            style="text-decoration: none; color: #51a998; font-size: 1.2vw"
+            >{{ temp.recruit_title }}</a
+          >
+          <br />
+          <div>{{ temp.recruit_date}}</div>
+        </div>
+        {% endfor %}
+        <div class="page_list" style="width: 50%; display: flex">
+          <section class="span_list">
+            <span class="span_detail">{{posts.number}}</span>
+            /
+            <span class="span_detail">{{posts.paginator.num_pages}}</span>
+          </section>
+          {% if posts.has_previous %}
+          <a href="?page=1" class="page_list_li">
+            <button
+              style="
+                background: #51a998;
+                color: white;
+                border: white;
+                height: 5vh;
+                border-radius: 15%;
+              "
+            >
+              처음페이지
+            </button></a
+          >
+          <a href="?page={{posts.previous_page_number}}" class="page_list_li">
+            <button
+              style="
+                background: #51a998;
+                color: white;
+                border: white;
+                height: 5vh;
+                border-radius: 15%;
+              "
+            >
+              이전페이지
+            </button></a
+          >
+          {% endif %} {% if posts.has_next %}
+          <a href="?page={{posts.next_page_number}}" class="page_list_li">
+            <button
+              style="
+                background: #51a998;
+                color: white;
+                border: white;
+                height: 5vh;
+                border-radius: 15%;
+              "
+            >
+              다음페이지
+            </button></a
+          >
+          <a href="?page={{posts.paginator.num_pages}}" class="page_list_li">
+            <button
+              style="
+                background: #51a998;
+                color: white;
+                border: white;
+                height: 5vh;
+                border-radius: 15%;
+              "
+            >
+              마지막 페이지
+            </button></a
+          >
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endblock %}
+  </body>
 </html>
