@@ -38,7 +38,7 @@
             </div>
 
             <div style = "width:100%;height:auto;overflow:auto;border-bottom:1px solid #d1d1d1;margin:0px auto; class = "title__">
-                <a href="{% url 'study_detail' recruitALL.id %}" style="text-decoration:none;color:black;font-size:1vw;font-weight:700" id = "detail_url">{{ recruitALL.recruit_title }}</a>
+                <a href="{% url 'study_detail' recruitALL.id %}" target = "_blank" style="text-decoration:none;color:black;font-size:1vw;font-weight:700" id = "detail_url">{{ recruitALL.recruit_title }}</a>
             </div>
             <div style= "width:100%;overflow-y:scroll;height:50%;id = "inner-content">
                 {{ recruitALL.recruit_content | safe}}
@@ -57,19 +57,23 @@
         <img src = "{% static 'img/match_category_logo.png' %}">
         <text> 카테고리 별</text>
     </div>
-
+    
 
         <form class="sea" action="" method="GET" style="margin-top: 30px;">
             <input class="searchtext" type="text" v-model="word" name = "q" value = "{{ q }}"/>
             <button class="srchbutton" type="submit" v-on:click="search" value = "검색" onclick = "display_search()">SEARCH</button>
         </form>
+        
+       
 
 
     <div class="category" style="margin-bottom: 80px;">
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link" style="color:#3f3f3f;font-weight:700" >
-                    <button onclick = "recruit_all()" style = "border:none;background:none;color:#3f3f3f;font-weight:700">전체</button></a>
+                
+                    <button onclick = "recruit_all()" style = "border:none;background:none;color:#3f3f3f;font-weight:700">
+                        <a class="nav-link" style="color:#3f3f3f;font-weight:700" href = "{% url 'match' %}">전체</a>
+                        </button>
             </li>
             <li class="nav-item">
                 <a class="nav-link" style="color:#3f3f3f;font-weight:700">
@@ -96,6 +100,11 @@
             <li class="nav-item">
                 <a class="nav-link" href = "{% url 'match' %}" style ="color:#51a998;">최신순</a>
             </li>
+            <li class = "nav-item">
+                {% if user.is_active %}
+                <a href = "{% url 'study_register' %}" target = "_blank" style = "text-decoration:none;color:black;">➕</a>
+                {% endif %}
+            </li>
         </ul>
         <!--키테고리게시글-->
         {% for temp in posts %}
@@ -117,6 +126,12 @@
                 </div>
             </div>
         </div>
+        {% for hashtag in hashtag.all %}
+        
+        {{ hashtag.hashtag_content }}
+        {{ temp.recruit_hashtag }}
+        
+        {% endfor %}
 
         {% endfor %}
         
@@ -145,12 +160,13 @@
 
                 </div>
                 <br>
-                <div style="color:#56b198;margin-bottom:1vh;font-size:1rem;">
-                   ❤{{ study.like_count }}
-                </div>
-
-            </div>
+                
+            
+            <div style="color:#56b198;margin-bottom:1vh;font-size:1rem;">
+                ❤{{ study.like_count }}
+             </div>
         </div>
+    </div>
         {% endfor %}
         
     
@@ -236,12 +252,12 @@
 <!--해쉬태그 별-->
 <div class = "tag_area tag_box" >
     <div class = "text_area">
-        <img src = "{% static 'img/match_hashtag_logo.png' %}" style="width:50px; margin-top: 80px; margin-right: 10px;">
-        <text style="font-size:2vw; margin-top: 80px;"> 해쉬태그 별</text>
+        <img src = "{% static 'img/match_hashtag_logo.png' %}">
+        <text style="font-size:100%; margin-top: 50px;"> 해쉬태그 별</text>
     </div>
 
 
-    <div class="row" style=" width: 60%; margin: 0 auto;">
+    <div class="row" style = "margin:2% auto;width:60%;justify-content:center">
         {% for hashtag in hashtag.all %}
             <a class="col-md-2" href = "{% url 'hashtag_detail' pk=hashtag.pk %}">
                  <button class="button">{{ hashtag.hashtag_content }}</button>

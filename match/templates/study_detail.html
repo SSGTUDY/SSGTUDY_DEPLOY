@@ -6,7 +6,7 @@
     <title>게시글정보</title>
     <link rel = "stylesheet" href = "{% static 'css/match_detail.css' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    
     {% endblock css %}
 </head>
 
@@ -178,11 +178,13 @@
         </div>
         {% endif %}
 
+    {% if user.is_active %}
     <form method = "POST" action="{% url 'recomment_write' recruit.id comment.id %}">
         {% csrf_token %}
         {{ re_form.as_p }}
         <input type="submit" class = "recomment_form">
     </form>
+    {% endif %}
 
         {% for recomment in comment.recomments.all %}
         <div class = "comment_user_name">
@@ -198,6 +200,7 @@
     </div>
 
     {% endfor %}
+    {% if user.is_active %}
     <form method="POST" action = "{% url 'study_detail' recruit.id %}" style="margin-top:6vh;">
         {% csrf_token %}
         {{ form.as_p }}
@@ -205,6 +208,7 @@
             <input type="submit" value="댓글 작성"  class = "recomment_form">
         </div>
     </form>
+    {% endif %}
 </div>
 
 

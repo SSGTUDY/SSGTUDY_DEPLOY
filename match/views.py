@@ -14,13 +14,13 @@ from django.db.models import Q
 
 def hashtag_detail(request, pk):
     startdate = date.today()
-    enddate = startdate
- 
-    recruits = Recruit.objects.filter(recruit_period_end__gte = datetime(enddate), recruit_status = 'ongoing').order_by('recruit_period_end')
+    enddate = startdate + timedelta(days = 1000)
+    recruits = Recruit.objects.filter(recruit_period_end__gte = enddate, recruit_status = 'ongoing').order_by('recruit_period_end')
     paginator = Paginator(recruits,5)
     page = request.GET.get('page1')
-    recruit_all = Recruit.objects.filter(recruit_period_end__gte = datetime(enddate), recruit_status = 'ongoing').order_by('recruit_period_end')
-  
+    recruit_all = Recruit.objects.filter(recruit_period_end__gte = enddate, recruit_status = 'ongoing').order_by('recruit_period_end')
+    recruit_top = Recruit.objects.filter(recruit_period_end__lte = enddate,recruit_period_end__gte = startdate, recruit_status = 'ongoing').order_by('recruit_period_end')
+    recruit_top = recruit_top[:5]
     try:
         recruits = paginator.page(page)
     except PageNotAnInteger:
@@ -36,14 +36,14 @@ def hashtag_detail(request, pk):
     recruit_field_club = Recruit.objects.filter(recruit_field="club",recruit_status = 'ongoing').order_by('recruit_period_end')
     recruit_field_project = Recruit.objects.filter(recruit_field="project",recruit_status = 'ongoing').order_by('recruit_period_end')
     recruit_field_survey = Recruit.objects.filter(recruit_field="survey",recruit_status = 'ongoing').order_by('recruit_period_end')
-
+    print(recruit_top)
     q = request.GET.get('q', '')
     if q:
         recruit_all = recruit_all.filter(Q(recruit_title__icontains=q) | Q(recruit_content__icontains=q))
     
     return render(request, 'match.html', {'posts':recruits,'hashtag':hashtag, 'hashtags': hashtags, 'hashtag_recruits': hashtag_recruits,
         'recruit_field_study': recruit_field_study, 'recruit_field_club': recruit_field_club, 'recruit_field_project': recruit_field_project, 'recruit_field_survey': recruit_field_survey,
-        'q': q,'recruit_all':recruit_all})
+        'q': q,'recruit_all':recruit_all,'recruit_top':recruit_top})
 
 # study_detail.html
 def study_detail(request, id):
@@ -232,7 +232,11 @@ def find_date_end(request):
    except EmptyPage:
        recruits = paginator.page(paginator.num_pages)
     
-   # hashtag = Hashtag.objects.all()
+    #study페이지네이션
+    
+   
+    
+    
        
    return render(request, 'match.html', {'posts':recruits,'hashtag':hashtag,'recruit_field_study': recruit_field_study, 'recruit_field_club': recruit_field_club, 'recruit_field_project': recruit_field_project, 'recruit_field_survey': recruit_field_survey,
     'q': q,'recruit_all':recruit_all,'recruit_top':recruit_top})
@@ -273,6 +277,7 @@ def sort_by_like(request):
     recruit_field_survey = Recruit.objects.filter(recruit_field="survey", recruit_status='ongoing').order_by('-like_count')
 
     q = request.GET.get('q', '')
+    
     if q:
         recruit_all = recruit_all.filter(Q(recruit_title__icontains=q) | Q(recruit_content__icontains=q))
     return render(request, 'match.html',

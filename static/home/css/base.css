@@ -1,0 +1,40 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+.notosanskr * { 
+ font-family: 'Noto Sans KR', sans-serif;
+}
+@font-face {
+    font-family: 'TTTogether';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/TTTogetherA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*{
+	font-family: 'Noto Sans KR', sans-serif;
+	text-align: center;
+	align-items: center;
+}
+
+
+.logo_style{
+	width:80px;
+}
+
+.navbar-collapse {
+    flex-basis: 100%;
+    flex-grow: 0 !important;
+    align-items: center;
+}
+
+.navbar-color{
+	background-color: whitesmoke;
+}
+.footer{
+	font-family: 'GyeonggiTitleM';
+	background-color:#212529;
+	color:white;
+	padding-top: 100px;
+	padding-bottom: 50px !important;
+	
+}

@@ -1,5 +1,6 @@
 from django.urls import path
 from match import views
+from mypage import views as myview
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -17,4 +18,5 @@ urlpatterns = [
     path('recomment_write/<str:id>/<str:comment_id>/', views.recomment_write, name='recomment_write'),
     path('study_like/<int:recruit_id>/', views.likes, name='likes'),
     path('sort_by_like',views.sort_by_like,name = 'sort_by_like'),
+    path('study_register/', myview.study_register, name='study_register'),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
