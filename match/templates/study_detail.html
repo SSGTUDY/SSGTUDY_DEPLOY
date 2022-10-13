@@ -6,7 +6,7 @@
     <title>게시글정보</title>
     <link rel = "stylesheet" href = "{% static 'css/match_detail.css' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    
     {% endblock css %}
 </head>
 
@@ -49,7 +49,7 @@
         </div>
         <div> <!--게시글 내용 -->
             <label style="color:black;font-size:1vw;">내용</label>
-                <div readonly id = "Textarea" style="height:35vh;width:89%;color:black;font-weight:400;overflow:scroll;">{{recruit.recruit_content|safe}}</div>
+                <div readonly id = "Textarea" style="height:auto;width:89%;color:black;font-weight:400;overflow-y:scroll;">{{recruit.recruit_content|safe}}</div>
             </div>
         <div> <!-- 모집 분야 -->
             <label style="color:black;">모집 분야</label>
@@ -96,12 +96,14 @@
     </div>
 
     <!-- 좋아요 -->
+    <p>💚
     {{ recruit.like.count }}
-    <a href="{% url 'likes' recruit.id %}">
+    </p>
+    <a href="{% url 'likes' recruit.id %}" style="text-decoration:none;">
         {% if user in recruit.like.all %}
-        취소
+        <span style="text-decoration:none; color:#51a998;" id = "comment_like_cancel">취소</span>
         {% else %}
-        ❤️좋아요
+            💚<span id = "comment_like_number" style="text-decoration:none;">좋아요</span>
         {% endif %}
     </a>
     <br><br>
@@ -118,12 +120,13 @@
     {% endif %}
 </div>
 
+<div style = "display:flex;width:10%;margin:0 auto;justify-content:space-around">
 <!-- 가입 -->
 {% if recruit.recruit_writer != user %}
 <form method = "POST" action="{% url 'recruit_user' recruit.id %}">
     {% csrf_token %}
     {{ recruit_user_form.as_p }}
-    <input type="submit" value="가입">
+    <input type="submit" value="가입" class = "join">
 </form>
     {% for recruit_user in recruit.recruit_users.all %}
     {% if recruit_user.recruit_user_register == user %}
@@ -131,7 +134,7 @@
     {% endif %}
     {% endfor %}
 {% elif recruit.recruit_writer == user %}
-    대표: {{ recruit.recruit_writer.nickname }} <br>
+
     {% for recruit_user in recruit.recruit_users.all %}
         {{ recruit_user.recruit_user_register.nickname }} <br>
     {% endfor %}
@@ -142,7 +145,7 @@
 <form method = "POST" action="{% url 'bookmark' recruit.id %}">
     {% csrf_token %}
     {{ bookmark_form.as_p }}
-    <input type="submit" value="북마크">
+    <input type="submit" value="북마크" class = "bookmark"> 
 </form>
     {% for bookmark in recruit.recruit_bookmark.all %}
     {% if bookmark.bookmark_user == user %}
@@ -150,47 +153,64 @@
     {% endif %}
     {% endfor %}
 {% endif %}
+</div>
 <hr>
 
 
 <div class = "comment_container">
-    {% for comment in recruit.comments.all %}
-        {% if comment.comment_writer.profile_image %}
-            {% if comment.comment_writer == user %}
-                작성자 <img src="{{ comment.comment_writer.profile_image.url }}" alt="image" width="20" height="20"> {{ comment.comment_writer.nickname }} : {{ comment.comment_content }} / {{ comment.comment_date}} 
-            {% else %}
-                <img src="{{ comment.comment_writer.profile_image.url }}" alt="image" width="20" height="20"> {{ comment.comment_writer.nickname }} : {{ comment.comment_content }} / {{ comment.comment_date}} 
-            {% endif %}
+<!-- 댓글 부분 -->
+{% for comment in recruit.comments.all %}
+
+    <div class = "comment_detail" style="margin-top:1vh;">
+        {% if comment.comment_writer_profile %}
+        <img src = "{{ comment.comment_writer_profile }}" alt = "유저의 이미지 부분" class = "comment_user_image">
         {% endif %}
 
+        <div class = "comment_user_nickname">
+        <img src = "{% static 'img/match_comment.png' %}">
+        {{ comment.comment_writer.nickname }}</div>
+        <div style = "font-size:0.8vw;" id = "comment_date"> {{ comment.comment_date}}</div>
+        {{ comment.comment_content }}
         {% if comment.comment_writer == user %}
-            <a href="{% url 'comment_edit' recruit.id comment.id %}">수정</a>
-            <a href="{% url 'comment_delete' recruit.id comment.id %}">삭제</a> <br>
+        <div style="margin:0.6vh auto;">
+        <a href="{% url 'comment_edit' recruit.id comment.id %}" class = "comment_modify">수정</a>
+        <a href="{% url 'comment_delete' recruit.id comment.id %}" class = "comment_delete">삭제</a>
+        </div>
         {% endif %}
+
+    {% if user.is_active %}
+    <form method = "POST" action="{% url 'recomment_write' recruit.id comment.id %}">
+        {% csrf_token %}
+        {{ re_form.as_p }}
+        <input type="submit" class = "recomment_form">
+    </form>
+    {% endif %}
 
         {% for recomment in comment.recomments.all %}
-            {% if recomment.recomment_writer == user %}
-                ↪ 작성자 <img src="{{ comment.comment_writer.profile_image.url }}" alt="image" width="20" height="20"> : {{ recomment.recomment_writer.nickname }} / {{ recomment.recomment_content }} <br>
-            {% else %}
-                ↪ <img src="{{ comment.comment_writer.profile_image.url }}" alt="image" width="20" height="20"> : {{ recomment.recomment_writer.nickname }} / {{ recomment.recomment_content }} <br>
-            {% endif %}
+        <div class = "comment_user_name">
+            <img src = "{% static 'img/match_recomment.png' %}">
+            {{ recomment.recomment_writer.nickname }}
+        </div>
+        <div style = "font-size:0.8vw;" id = "comment_date"> {{recomment.recomment_date}}</div>
+        <div style="margin-top:1vh;">{{ recomment.recomment_content }}</div>
+     <br>
         {% endfor %}
 
-        <form method = "POST" action="{% url 'recomment_write' recruit.id comment.id %}">
-            {% csrf_token %}
-            {{ re_form.as_p }}
-            <input type="submit" value = "답글 작성">
-        </form>
-    {% endfor %}
 
-<form method="POST" action = "{% url 'study_detail' recruit.id %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <div class="button">
-        <input type="submit" value="댓글 작성">
     </div>
-</form>
+
+    {% endfor %}
+    {% if user.is_active %}
+    <form method="POST" action = "{% url 'study_detail' recruit.id %}" style="margin-top:6vh;">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="button">
+            <input type="submit" value="댓글 작성"  class = "recomment_form">
+        </div>
+    </form>
+    {% endif %}
 </div>
+
 
 <script src = "{% static 'js/match_detail.js' %}"></script>
 {% endblock %}

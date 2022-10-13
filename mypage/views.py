@@ -110,7 +110,7 @@ def change_image(request):
         profile_form = ProfileForm(request.POST,request.FILES,instance=request.user)
         if profile_form.is_valid():
             profile_form.save()
-            return HttpResponse("<script> window.close();</script>");
+            return HttpResponse("<script> window.close();</script>")
     else:
         profile_form = ProfileForm(instance=request.user)
         return render(request,'change_image.html',{

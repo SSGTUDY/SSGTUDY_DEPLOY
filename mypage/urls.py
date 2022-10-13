@@ -19,7 +19,7 @@ urlpatterns = [
     path('change_nick/',views.change_nickname,name = "change_nick"),
     path('change_img/',views.change_image,name = 'change_img'),
     path('my_study_list/',views.my_study_list,name = 'my_study_list'),
-    path('mypage_edit/', views.study_register, name='mypage_edit'),
+    path('mypage_edit/', views.mypage_edit, name='mypage_edit'),
     path('study_bookmark/', views.study_bookmark, name='study_bookmark'),
     path('study_schedule/', views.study_schedule, name='study_schedule'),
 

@@ -82,6 +82,14 @@
     text-align:left;
 }
 
+.qna_title{
+    text-align: left;
+    font-weight: 500;
+    margin-left: 40px;
+    font-size: 15;
+    color: gray;
+}
+
 .ssg{
     font-family: 'Noto Sans KR', sans-serif;
     width: 1045px;
@@ -140,7 +148,6 @@
 /* about_qna css */
 
 .qna{
-    position: absolute;
     border: 1px solid rgb(220, 220, 220);
     font-size: 15px;
     font-family: 'Noto Sans KR', sans-serif;
@@ -157,11 +164,11 @@
     color: white;
 }
 
-.search{
+/* .search{
     position: absolute;
     top: 230%;
     left: 25%;
-}
+} */
 
 .srchbutton{
     margin: 5px;
