@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 <html>
+
 <head>
     {% block css %}
     <title>Match</title>
@@ -8,287 +9,335 @@
     <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <link rel = "stylesheet" href = "{% static 'css/match_main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/match_main.css' %}">
     {% endblock css %}
 </head>
 
 <body>
-{% block content %}
+    {% block content %}
 
-<div class="top_container" style="margin-top:95px;"> <!--모집 마감  임박 -->
-    <div class = "text_area">
-        <img src = "{% static 'img/match_home_logo.png' %}">
-        <text style="font-size:100%; margin-top: 50px;"> 모집 마감 임박</text>
-    </div>
-    <div class = "board_area"> <!--실제 게시글이 들어갈 위치 -->
-        
-        <!-- 게시글 세부 정보가 들어갈 영역 -->
-        {% for recruitALL in recruit_top %}
-       
-        <div class = "board_detail">
-            <!--어떤 종류의 게시글인지 보여줌 -->
-            <div class = "top_board_detail">
-                <div style="color:#BBBABA" class = "recruit_field">
-                    {{ recruitALL.recruit_field }}
-                </div>
-                <div style="color:#3165B1" class = "top_content_date">
-
-                    <label class = "today">{{ recruitALL.recruit_period_end }}</label> <!-- 모집 날짜 (마감) -->
-                </div>
-            </div>
-
-            <div style = "width:100%;height:auto;overflow:auto;border-bottom:1px solid #d1d1d1;margin:0px auto;" class = "title__">
-                <a href="{% url 'study_detail' recruitALL.id %}" target = "_blank" style="text-decoration:none;color:black;font-size:1vw;font-weight:700" id = "detail_url">{{ recruitALL.recruit_title }}</a>
-            </div>
-            <div style= "width:100%;overflow-y:scroll;height:50%;" id ="inner-content">
-                {{ recruitALL.recruit_content | safe}}
-            </div>
+    <!--모집 마감  임박 -->
+    <div class="top_container" style="padding-top: 10px; padding-bottom: 40px;">
+        <div style="text-align: left;  padding-bottom: 10px;" class="text_area container">
+            <img src="{% static 'img/match_home_logo.png' %}" style="width: 45px;">
+            <span style="font-size:30px;"> 모집 마감 임박</span>
+            <a style="color: rgb(181, 181, 181); font-size: 13px; font-weight: 400;">모집 마감일이 임박한 상위 5개의 목록을 보여줍니다.</a>
         </div>
-       
-        {% endfor %}
-        
+        <!--실제 게시글이 들어갈 위치 -->
+        <div class="board_area">
+            <!-- 게시글 세부 정보가 들어갈 영역 -->
+            {% for recruitALL in recruit_top %}
+            <div class="board_detail">
+                <!--어떤 종류의 게시글인지 보여줌 -->
+                <div class="top_board_detail" style="padding: 10px;">
+                    <div class="font-size: 1.1vw;" style="color:#BBBABA" class="recruit_field">
+                        {{ recruitALL.recruit_field }}
+                    </div>
+                    <div style="color:#3165B1" class="top_content_date">
+                        <label class="today">{{ recruitALL.recruit_period_end }}</label> <!-- 모집 날짜 (마감) -->
+                    </div>
+                </div>
+                <div style="width:100%;height:auto;overflow:auto;border-bottom:1px solid #d1d1d1; margin:0px auto; "
+                    class="title__"> </div>
+                <!--제목이 들어갈 영역-->
+                <div style=" padding: 50 10px;">
+                    <a href="{% url 'study_detail' recruitALL.id %}" target="_blank"
+                        style="font-weight:700; text-decoration:none; color:black; font-size:1vw; font-weight:700;"
+                        id="detail_url">{{ recruitALL.recruit_title }}</a>
+                </div>
+            </div>
+
+            {% endfor %}
+        </div>
     </div>
-</div>
 
 
-<!--카테고리-->
-<div class="middlebox">
-    <div class = "text_area">
-        <img src = "{% static 'img/match_category_logo.png' %}">
-        <text> 카테고리 별</text>
-    </div>
-    
+    <!--카테고리-->
+    <div class="middlebox">
+        <div style="text-align: left;  padding-top: 10px; padding-bottom: 10px;" class="text_area container">
+            <img src="{% static 'img/match_category_logo.png' %}" style="width: 45px;">
+            <span style="font-size:30px;"> 카테고리 별</span>
+            <a style="color: rgb(181, 181, 181); font-size: 13px; font-weight: 400;">카테고리 별로 맞춤 서비스를 이용해보세요. </a>
+        </div>
 
-        <form class="sea" action="" method="GET" style="margin-top: 30px;">
-            <input class="searchtext" type="text" v-model="word" name = "q" value = "{{ q }}"/>
-            <button class="srchbutton" type="submit" v-on:click="search" value = "검색" onclick = "display_search()">SEARCH</button>
+        <!--검색창-->
+        <form class="" action="" method="GET" style="margin-top: 30px;">
+            <input class="searchtext" type="text" v-model="word" name="q" value="{{ q }}" />
+            <button class="srchbutton" type="submit" v-on:click="search" value="검색" onclick="display_search()">
+                <span style="font-weight: 500;">SEARCH</span>
+            </button>
         </form>
-        
-       
 
 
-    <div class="category" style="margin-bottom: 80px;">
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-                
-                    <button onclick = "recruit_all()" style = "border:none;background:none;color:#3f3f3f;font-weight:700">
-                        <a class="nav-link" style="color:#3f3f3f;font-weight:700" href = "{% url 'match' %}">전체</a>
-                        </button>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" style="color:#3f3f3f;font-weight:700">
-                    <button onclick = "recruit_club()" style = "border:none;background:none;color:#3f3f3f;font-weight:700">소모임</button></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" style="color:#3f3f3f;font-weight:700">
-                    <button onclick = "recruit_study()" style = "border:none;background:none;color:#3f3f3f;font-weight:700">스터디</button></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" style="color:#3f3f3f;font-weight:700">
-                    <button onclick = "recruit_project()" style = "border:none;background:none;color:#3f3f3f;font-weight:700">프로젝트</button></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" style="color:#3f3f3f;font-weight:700">
-                    <button onclick = "recruit_survey()" style = "border:none;background:none;color:#3f3f3f;font-weight:700">설문조사</button></a>
-            </li>
+        <!--글 목록-->
+        <div class="category" style="margin-bottom: 80px;">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
 
-        </ul>
-        <ul class="nav justify-content-end">
-            <li class="nav-item">
-                <a class="nav-link" href = "{% url 'sort_by_like' %}">인기순</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href = "{% url 'match' %}" style ="color:#51a998;">최신순</a>
-            </li>
-            <li class = "nav-item">
-                {% if user.is_active %}
-                <a href = "{% url 'study_register' %}" target = "_blank" style = "text-decoration:none;color:black;">➕</a>
+                    <!--카테고리 종류-->
+                    <button onclick="recruit_all()" style="border:none;background:none;color:#3f3f3f;font-weight:700">
+                        <a class="nav-link" style="color:#3f3f3f;font-weight:700" href="{% url 'match' %}">전체</a>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color:#3f3f3f;font-weight:700">
+                        <button onclick="recruit_club()"
+                            style="border:none;background:none;color:#3f3f3f;font-weight:700">소모임</button></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color:#3f3f3f;font-weight:700">
+                        <button onclick="recruit_study()"
+                            style="border:none;background:none;color:#3f3f3f;font-weight:700">스터디</button></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color:#3f3f3f;font-weight:700">
+                        <button onclick="recruit_project()"
+                            style="border:none;background:none;color:#3f3f3f;font-weight:700">프로젝트</button></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color:#3f3f3f;font-weight:700">
+                        <button onclick="recruit_survey()"
+                            style="border:none;background:none;color:#3f3f3f;font-weight:700">설문조사</button></a>
+                </li>
+
+                <!--정렬순-->
+            </ul>
+            <ul class="nav justify-content-end">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'sort_by_like' %}" style="font-weight: 600;">인기순</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'match' %}"
+                        style="color:#51a998; font-weight: 600; margin-left: -10;">최신순</a>
+                </li>
+                <li class="nav-item">
+                    {% if user.is_active %}
+                    <a href="{% url 'study_register' %}" target="_blank"
+                        style="text-decoration:none;color:black; font-size: 20; margin-right: 20px;">
+                        <i class="fa fa-plus-circle " aria-hidden="true"></i></a>
+                    {% endif %}
+                </li>
+            </ul>
+
+            <!--키테고리게시글-->
+            {% for temp in posts %}
+
+            <!--전체-->
+            <div id="catepost" class = "recruit_all">
+                <div class = "inner_recruit" style="padding-top:15px; text-align: left; padding-left: 30px;">
+                    <div style="text-align: left;">
+                        <span class="recruit_a" style="color: lightgray; font-size: 1.0vw;">[TEST] </span>
+                        <a href="{% url 'study_detail' temp.id %}" class="recruit_a">
+                            {{ temp.recruit_title }}
+                        </a>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-6" style="text-align: left;">
+                            <img src="{% static 'img/match_hashtag_logo.png' %}" style="width:25px;">&nbsp;
+                            {% for hashtag in hashtag.all %}
+                            <span class="recruit_a" style="color: gray; font-size: 1.0vw;">{{ hashtag.hashtag_content }}
+                                &nbsp;</span>
+                            {% endfor %}
+                        </div>
+                        <div class="col-6" style="font-size:1rem; text-align: right;">
+                            <img src="{% static 'img/heart_logo.png' %}" style="width:25px;">&nbsp;
+                            <span class="recruit_a" style="color:#56b198; font-size: 1.1vw; margin-right: 15px;">{{ temp.like_count }}개</span>
+                            <img src="{% static 'img/calendar_logo.png' %}" style="width:25px;">&nbsp;
+                            <span class="today recruit_a" style="color:#5a7aa8; font-size: 1.1vw; margin-right: 15px;">{{ temp.recruit_period_end }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+
+            <div class="pagenate" id="recruit_all_page">
+                {% for p in posts.paginator.page_range %}
+                {% if p == posts.number %}
+                <a style="color:#51a998;font-weight:800" ; href="?page1={{p}}">{{p}}</a>
+                {% else %}
+                <a href="?page1={{p}}">{{p}}</a>
                 {% endif %}
-            </li>
-        </ul>
-        <!--키테고리게시글-->
-        {% for temp in posts %}
-    
-        <div id="catepost" class = "recruit_all" style = "font-size:2%; align-items:center;justify-content:center;">
-            <div class = "inner_recruit" style="font-size:2%;">
-                <div>
-                    <a href="{% url 'study_detail' temp.id %}" class = "recruit_a">
-                        {{ temp.recruit_title }}</a>
-                </div>
-                <br>
-                <div class = "today">
-                    {{ temp.recruit_period_end }}
+                {% endfor %}
+            </div>
 
-                </div>
-                <br>
-                <div style="color:#56b198;margin-bottom:1vh;font-size:1rem;">
-                ❤{{ temp.like_count }}
+
+
+
+            {% for study in recruit_field_study %}
+            <div id="catepost" class="recruit_study" style="font-size:2%; align-items:center;justify-content:center;">
+                <div class="inner_recruit">
+                    <div>
+                        <a href="{% url 'study_detail' study.id %}" class="recruit_a">
+                            {{ study.recruit_title }}</a>
+                    </div>
+                    <div class="today">
+                        {{ study.recruit_period_end }}
+
+                    </div>
+                    <br>
+
+
+                    <div style="color:#56b198;margin-bottom:1vh;font-size:1rem;">
+                        ❤{{ study.like_count }}
+                    </div>
                 </div>
             </div>
-        </div>
-        {% for hashtag in hashtag.all %}
-        
-        {{ hashtag.hashtag_content }}
-        {{ temp.recruit_hashtag }}
-        
-        {% endfor %}
-
-        {% endfor %}
-        
-        <div class = "pagenate" id = "recruit_all_page">
-        {% for p in posts.paginator.page_range %}
-        {% if p == posts.number %}
-             <a style = "color:#51a998;font-weight:800"; href="?page1={{p}}">{{p}}</a>
-        {% else %}
-		<a href="?page1={{p}}">{{p}}</a>
-        {% endif %}
-	    {% endfor %}
-        </div>
-   
+            {% endfor %}
 
 
-        
-        {% for study in recruit_field_study %}
-        <div id = "catepost" class = "recruit_study" style = "font-size:2%; align-items:center;justify-content:center;"> 
-            <div class = "inner_recruit">
-                <div>
-                    <a href = "{% url 'study_detail' study.id %}" class = "recruit_a">
-                        {{ study.recruit_title }}</a>
+
+
+            {% for recruit_field_club in recruit_field_club.all %}
+            <div id="catepost" class="recruit_club" style="font-size:2%;align-items:center;justify-content:center;">
+                <div class="inner_recruit">
+                    <div>
+                        <a href="{% url 'study_detail' recruit_field_club.id %}" class="recruit_a">
+                            {{ recruit_field_club.recruit_title }}</a>
+                    </div>
+                    <br>
+                    <div class="today">
+                        {{ recruit_field_club.recruit_period_end }}
+
+                    </div>
+                    <br>
+                    <div style="color:#56b198;margin-bottom:1vh;font-size:1rem;">
+                        ❤{{ recruit_field_club.like_count }}
+                    </div>
                 </div>
-                <div class = "today">
-                    {{ study.recruit_period_end }}
+            </div>
+            {% endfor %}
+
+            {% for recruit_field_project in recruit_field_project.all %}
+            <div id="catepost" class="recruit_project" style="font-size:2%;align-items:center;justify-content:center;">
+
+                <div class="inner_recruit">
+                    <div>
+                        <a href="{% url 'study_detail' recruit_field_project.id %}" class="recruit_a">
+                            {{ recruit_field_project.recruit_title }}
+                        </a>
+                    </div>
+                    <br>
+                    <div class="today">
+                        {{ recruit_field_project.recruit_period_end }}
+
+                    </div>
+                    <br>
+                    <div style="color:#56b198;margin-bottom:1vh;font-size:1rem;">
+                        ❤{{ recruit_field_project.like_count }}
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+
+            {% for recruit_field_survey in recruit_field_survey.all %}
+            <div id="catepost" class="recruit_survey" style="font-size:2%;">
+                <div class="inner_recruit">
+                    <div>
+                        <a href="{% url 'study_detail' recruit_field_survey.id %" class="recruit_a">
+                            {{ recruit_field_survey.recruit_title }}
+                        </a>
+                    </div>
+                    <br>
+                    <div class="today">
+                        {{ recruit_field_survey.recruit_period_end }}
+
+                    </div>
+                    <br>
+                    <div style="color:#56b198;margin-bottom:1vh;font-size:1rem;">
+                        ❤{{ recruit_field_survey.like_count }}
+                    </div>
 
                 </div>
-                <br>
-                
-            
-            <div style="color:#56b198;margin-bottom:1vh;font-size:1rem;">
-                ❤{{ study.like_count }}
+            </div>
+            {% endfor %}
+
+            {% for q in q.all %}
+            <div id="catepost" class="recruit_q">
+                <a href="{% url 'study_detail' q.id %">
+                    {{ p.recruit_title }}
+                </a>
+            </div>
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    <!--해시태그 별-->
+<div class = "tag_area tag_box" id="tag_area">
+    <div style="text-align: left;  padding-top: 90px; padding-bottom: 10px;" class="text_area container">
+        <img src="{% static 'img/match_hashtag_logo.png' %}" style="width: 45px;">
+        <span style="font-size:30px;"> 해시태그 별</span>
+        <a style="color: rgb(181, 181, 181); font-size: 13px; font-weight: 400;">해시태그로 더 쉽게 서비스를 이용해보세요. </a>
+    </div>
+    <br>
+    <br>
+
+    <div id="container" class="con_hash">
+        <div class="slide_wrap">
+          <div class="slide_box">
+            <div class="slide_list clearfix">
+                {% for hashtag in hashtag.all %}
+              <div class="slide_content slide01">
+                <a href = "{% url 'hashtag_detail' pk=hashtag.pk %}#tag_area">
+                    <button class="hashbt">{{ hashtag.hashtag_content }}</button>
+                </a>
              </div>
+             {% endfor %}
+            </div>
+          </div>
+          <div class="slide_btn_box">
+            <button type="button" class="slide_btn_prev" >&#8678;</button>
+            <button type="button" class="slide_btn_next">&#8680;</button>
+          </div>
+          <!-- // .slide_btn_box -->
+          <ul class="slide_pagination"></ul>
+          <!-- // .slide_pagination -->
         </div>
-    </div>
-        {% endfor %}
-        
-    
+        <!-- // .slide_wrap -->
+      </div>
+      <!-- // .container -->
+
+    <div class="hashpostlist" style="margin-bottom: 100px;">
+        {% for hashtag_recruits in hashtag_recruits.all %}
+        <div class="hashpost-container">
+            <div class="inner-item " style="text-align: left; ">
+                <div style="text-align: left;">
+                <span class="recruit_a" style="color: lightgray; font-size: 1.0vw;">[TEST] </span>
+                <a href="{% url 'study_detail' id=hashtag_recruits.id %}" class="hash_title">{{ hashtag_recruits.recruit_title }}
+                </a>
+                </div>
+                <div style="margin-top: 10px; text-align:left">
+                <img src="{% static 'img/match_hashtag_logo.png' %}" style="width:25px;">&nbsp;
+            <span style="color:rgb(197, 194, 194); padding-top:10px;  text-align: left; font-weight: 500;">
+                {% for hashtag in hashtag.all %}
+                {{ hashtag.hashtag_content }}&nbsp;&nbsp;
+                {% endfor %}
+            </span>
+            </div>
 
 
-        {% for recruit_field_club in recruit_field_club.all %}
-        <div id = "catepost" class = "recruit_club" style = "font-size:2%;align-items:center;justify-content:center;">
-            <div class = "inner_recruit">
-                <div>
-                    <a href = "{% url 'study_detail' recruit_field_club.id %}" class = "recruit_a">
-                        {{ recruit_field_club.recruit_title }}</a>
-                </div>
-                <br>
-                <div class = "today">
-                    {{ recruit_field_club.recruit_period_end }}
-
-                </div>
-                <br>
-                <div style="color:#56b198;margin-bottom:1vh;font-size:1rem;">
-                   ❤{{ recruit_field_club.like_count }}
-                </div>
+            </div>
+            <div class="inner-item">
+                <!-- <img src="{% static 'img/calendar_logo.png' %}" style="width:25px;">&nbsp; -->
+                <span class="today recruit_a" style="color:lightgray; font-size: 1.1vw; margin-right: 15px;">{{ temp.recruit_period_end }}</span>
+            </div>
+            <div class="inner-item" >
+                <!-- <img src="{% static 'img/heart_logo.png' %}" style="width:25px;">&nbsp; -->
+                <span class="recruit_a" style="color:lightgray; font-size: 1.1vw; margin-right: 15px;">
+                    <i class="fa fa-heart" aria-hidden="true"></i>&nbsp;{{ temp.like_count }}개</span></div>
+            <div class="inner-item">
+                <a class=btn style="background-color: #d0d0d000; color:white; width: 147px;" href="{% url 'study_detail' id=hashtag_recruits.id %}">확인하기</a>
             </div>
         </div>
         {% endfor %}
-
-        {% for recruit_field_project in recruit_field_project.all %}
-        <div id = "catepost" class = "recruit_project" style = "font-size:2%;align-items:center;justify-content:center;">
-
-            <div class = "inner_recruit">
-                <div>
-                    <a href = "{% url 'study_detail' recruit_field_project.id %}" class = "recruit_a">
-                        {{ recruit_field_project.recruit_title }}
-                    </a>
-                </div>
-                <br>
-                <div class = "today">
-                   {{ recruit_field_project.recruit_period_end }}
-
-                </div>
-                <br>
-                <div style="color:#56b198;margin-bottom:1vh;font-size:1rem;">
-                   ❤{{ recruit_field_project.like_count }}
-                </div>
-            </div>
-
-        </div>
-        {% endfor %}
-
-        {% for recruit_field_survey in recruit_field_survey.all %}
-        <div id = "catepost" class = "recruit_survey" style = "font-size:2%;">
-            <div class = "inner_recruit">
-                <div>
-                    <a href = "{% url 'study_detail' recruit_field_survey.id %" class = "recruit_a">
-                        {{ recruit_field_survey.recruit_title }}
-                    </a>
-                </div>
-                <br>
-                <div class = "today">
-                   {{ recruit_field_survey.recruit_period_end }}
-
-                </div>
-                <br>
-                <div style="color:#56b198;margin-bottom:1vh;font-size:1rem;">
-                    ❤{{ recruit_field_survey.like_count }}
-                </div>
-
-            </div>
-        </div>
-        {% endfor %}
-
-        {% for q in q.all %}
-        <div id = "catepost" class = "recruit_q">
-            <a href = "{% url 'study_detail' q.id %">
-                {{ p.recruit_title }}
-            </a>
-        </div>
-        {% endfor %}
-
     </div>
-
-</div>
-
-<!--해쉬태그 별-->
-<div class = "tag_area tag_box" >
-    <div class = "text_area">
-        <img src = "{% static 'img/match_hashtag_logo.png' %}">
-        <text style="font-size:100%; margin-top: 50px;"> 해쉬태그 별</text>
-    </div>
-
-
-    <div class="row" style = "margin:2% auto;width:60%;justify-content:center">
-        {% for hashtag in hashtag.all %}
-            <a class="col-md-2" href = "{% url 'hashtag_detail' pk=hashtag.pk %}">
-                 <button class="button">{{ hashtag.hashtag_content }}</button>
-            </a>
-        {% endfor %}
-     </div>
-        <div class="category" style="padding: 50px; margin-bottom: 100px;">
-            {% for hashtag_recruits in hashtag_recruits.all %}
-            <a href="{% url 'study_detail' id=hashtag_recruits.id %}">{{ hashtag_recruits.recruit_title }}</a>
-        {% endfor %}
-        </div>
-
 </div>
 
 <script src = "{% static 'js/match_main.js' %}"></script>
-<script>
-  
-  let buttonRight = document.getElementById('.slideRight');
-  let buttonLeft = document.getElementById('.slideLeft');
-
-  buttonLeft.addEventListener('click', function(){
-    document.getElementById('slider').ScrollLeft() - 180
-  });
-
-  buttonRight.addEventListener('click', function(){
-    document.getElementById('slider').ScrollLeft() += 180
-  });
-
-  
-
-</script>
 {% endblock %}
 </body>
 </html>

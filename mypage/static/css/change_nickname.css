@@ -18,7 +18,7 @@ label:nth-child(6){
 }
 form{
     background:white;
-    drop-shadow(0px 0.5px 0.5px rgba(0, 0, 0, 0.25));
+    drop-shadow:(0px 0.5px 0.5px rgba(0, 0, 0, 0.25));
     border:1px solid #d1d1d1;
     border-radius:3%;
     margin-top:10vh;

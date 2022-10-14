@@ -12,65 +12,90 @@
 
 
 </head>
+
 <body>
-{% block content %}
-<div class = "text">
+    {% block content %}
+
+    <div class="text" style="margin-bottom: 20px;">
         <div class = "text_1" style="font-size:3.5vh;"><b>내가 찜한 게시글 보기</b></div>
         <div class = "text_1" style="font-size:2vh;letter-spacing: 0.275em;">MY LIKE</div>
     </div>
-<div class = "body_area">
+    <div class="body_area">
 
-<div class = "area">
+        <div class="area" style="padding-bottom: 100px;">
 
-   <div class = "second_area">
-        {% if user.is_active %}
+            <!--미니 프로필-->
+            <div class="second_area" style="padding: 25 0px;">
+                {% if user.is_active %}
 
-        {% if user.profile_image %}
-        <img src = "{{ user.profile_image.url }}" alt = "유저의 이미지 부분">
-        {% endif %}
+                {% if user.profile_image %}
+                <img style="border-radius: 100%; width:150px;" src="{{ user.profile_image.url }}" alt="유저의 이미지 부분">
+                {% endif %}
 
-        <div class = "user_profile">
+                <div class="user_profile">
 
-              <div><div id = "user_infomation">닉네임</div>{{ user.nickname }}</div>
-              <div><div id = "user_infomation">아이디</div>{{ user.username }}</div>
+                    <div style="margin-top: 10px;">
+                        <div id="user_infomation">닉네임</div><span style="color:gray;">{{ user.nickname }}</span>
+                    </div>
+                    <div>
+                        <div id="user_infomation">이메일</div><span style="font-size: 13; color: gray;">{{ user.email }}</span>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+
+            <div class="mypage_move">
+                <div>
+                    <img src="{% static 'img/register.png' %}"> &nbsp;
+                    <a href="{% url 'study_register' %}" target="_blank" style="text-decoration:none;color:black;">
+                        스터디 등록하기</a>
+                </div>
+                <div><img src="{% static 'img/mylist.png' %}">&nbsp;
+                    <a href="{% url 'study_list' %}" style="text-decoration:none;color:black;">
+                        등록한 게시글 보기</a>
+                </div>
+                <div><img src="{% static 'img/bookmark.png' %}">&nbsp;
+                    <a href="{% url 'study_bookmark' %}" style="text-decoration:none;color:black;">
+                        내가 찜한 게시글</a>
+                </div>
+                <div><img src="{% static 'img/change_user.png' %}">&nbsp;
+                    <a href="{% url 'mypage_edit' %}" style="text-decoration:none;color:black;">
+                        개인정보 수정하기</a>
+                </div>
+            </div>
         </div>
-        {% endif %}
-    </div>
-    <div class = "mypage_move">
-        <div><img src = "{% static 'img/register.png' %}">
-            <a href = "{% url 'study_register' %}" target = "_blank" style = "text-decoration:none;color:black;">
-            스터디 등록하기</a></div>
-        <div><img src = "{% static 'img/mylist.png' %}">
-            <a href = "{% url 'study_list' %}" style = "text-decoration:none;color:black;">
-            등록한 게시글 보기</a></div>
-        <div><img src = "{% static 'img/bookmark.png' %}">
-            <a href = "{% url 'study_bookmark' %}" style = "text-decoration:none;color:black;">
-            내가 찜한 게시글</a></div>
-        <div><img src = "{% static 'img/today.png' %}">
-            <a href = "{% url 'study_schedule' %}" style = "text-decoration:none;color:black;">
-            오늘의 스터디 일정</a></div>
-        <div><img src = "{% static 'img/change_user.png' %}">
-            <a href = "{% url 'mypage_edit' %}" style = "text-decoration:none;color:black;">
-            개인정보 수정하기</a></div>
-    </div>
-</div>
 
-    <div class = "content" style = "border:1px solid #d1d1d1;">
-        <div class = "board_div"> <!--상세 리스트 -->
-            <div class = "board_div_first">C++스터디</div>
-            <div>월/금</div>
-            <div>대면</div>
+
+        <!-- 내용 시작 -->
+        <div class="content" style="border:2px solid #d1d1d1; margin-bottom: 50px; padding-bottom: 20px;">
+
             {% if user.is_active %}
                 {% for bookmarks in bookmarks.all %}
-                    <a href="{% url 'study_detail' bookmarks.bookmark_id.id %}">{{ bookmarks.bookmark_id.recruit_title }}</a>
+                    <div class = "board_div" style="padding: 10px;">
+                    <div class = "board_div_first">
+                    <a href="{% url 'study_detail' bookmarks.bookmark_id.id %}" style="color:#51a998;text-decoration:none;">{{ bookmarks.bookmark_id.recruit_title }}</a>
+                    </div>
+                    
+                        <!-- 이 부분에 하트 이모지-->
+                        <div style="display: inline-block;">
+                            <img src="{% static 'img/heart_logo.png' %}" style="width:25px;">
+                            <span>좋아요 : {{ bookmarks.bookmark_id.like_count }}</span>
+                        </div>
+                    
+                    <div>
+                        모집분야 : {{bookmarks.bookmark_id.recruit_field }}
+                    </div>
+                </div>
                 {% endfor %}
             {% endif %}
-        </div>
 
+
+        </div>
     </div>
 
-
-</div>
-{% endblock %}
+    {% endblock %}
 </body>
+
+
 </html>

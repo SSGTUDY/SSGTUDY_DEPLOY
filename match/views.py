@@ -278,11 +278,14 @@ def sort_by_like(request):
 
     q = request.GET.get('q', '')
     
+    recruit_top = Recruit.objects.filter(recruit_period_end__lte = enddate,recruit_period_end__gte = startdate, recruit_status = 'ongoing').order_by('recruit_period_end')
+    recruit_top = recruit_top[:5]
+
     if q:
         recruit_all = recruit_all.filter(Q(recruit_title__icontains=q) | Q(recruit_content__icontains=q))
     return render(request, 'match.html',
                   {'posts': recruits, 'Posts': hashtag, 'recruit_field_study': recruit_field_study,
                    'recruit_field_club': recruit_field_club, 'recruit_field_project': recruit_field_project,
                    'recruit_field_survey': recruit_field_survey,
-                   'q': q, 'recruit_all': recruit_all})
+                   'q': q, 'recruit_all': recruit_all,'recruit_top':recruit_top, 'hashtag':hashtag})
 
