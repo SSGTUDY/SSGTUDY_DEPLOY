@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
+<!-- 수정된 코드-->
+{% load socialaccount %}
+{% providers_media_js %}
 
 {% block css %}
 <link rel="stylesheet" type="text/css" href="{% static 'home/css/base.css' %}" />
@@ -46,7 +49,10 @@
           </label> -->
         </div>
         <button class="btn-lg btn-user" type="submit" value="LOGIN">Login</button>
-
+        <!--수정된 코드-->
+        <div>
+          <a href = "{% provider_login_url 'google' %}"><img src = "{% static 'home/img/구글.png' %}" style = "width:auto;height:46px;"></a>
+        </div>
         <p class="mt-4 mb-3 text-muted">아직 계정이 없다면? <a style="color:#56b198;" href="{% url 'signup' %}"> 회원가입</a></p>
       </form>
     </div>

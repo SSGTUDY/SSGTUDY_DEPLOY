@@ -40,6 +40,14 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'match.apps.MatchConfig',
     'mypage.apps.MypageConfig',
+    #수정된 코드(구글 로그인)
+    
+    'django.contrib.sites',
+    'allauth',
+    'allauth.socialaccount',
+    'allauth.account',
+    'allauth.socialaccount.providers.google',
+    
 ]
 
 # 커스텀 유저를 사용하는데 home앱의 CustomUser 모델을 사용하겠다.
@@ -146,3 +154,25 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 db_from_env = dj_database_url.config(conn_max_age = 500)
 DATABASES['default'].update(db_from_env)
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend'
+]
+SITE_ID = 1
+LOGIN_REDIRECT_URL = '/'
+
+#수정된 코드(구글 로그인)
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
+
+SOCIALACCOUNT_LOGIN_ON_GET=True
