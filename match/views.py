@@ -159,7 +159,8 @@ def bookmark(request, id):
 
 # 댓글 수정하는 함수
 @login_required
-def comment_edit(request, comment_id, id):
+def comment_edit(request, id, comment_id):
+    recruit = get_object_or_404(Recruit, id = id)
     # 댓글 아이디를 얻어와 comment_id 변수에 저장
     comment_id = Comment.objects.get(id = comment_id)
     form = CommentForm(instance = comment_id)
@@ -168,7 +169,7 @@ def comment_edit(request, comment_id, id):
         if form.is_valid():
             form.save()
             return redirect('study_detail', id)
-    return render (request, 'comment_edit.html', {'form': form})
+    return render (request, 'comment_edit.html', {'recruit': recruit, 'form': form})
 
 @login_required
 def comment_delete(request, comment_id, id):

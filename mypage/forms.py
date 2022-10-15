@@ -5,6 +5,9 @@ from home.forms import UserForm
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import  UserChangeForm
 from home.models import User
+from django.contrib.auth.forms import PasswordChangeForm
+
+
 class RecruitForm(forms.ModelForm):
     class Meta:
         model = Recruit

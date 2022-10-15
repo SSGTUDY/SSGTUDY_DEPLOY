@@ -24,6 +24,7 @@ from django.db.models import Q
 # mypage_main.html
 def mypage_main(request):
     return render(request, 'mypage_main.html')
+
 # study_register.html
 def study_register(request, recruit = None):
     if request.method == "POST":
@@ -33,10 +34,10 @@ def study_register(request, recruit = None):
             recruit.recruit_writer = request.user
             recruit.recruit_date = timezone.now()
             recruit.save()
-            return HttpResponse("<script> window.close();</script>");
+            return redirect('study_detail', recruit.id)
     else:
         form = RecruitForm(instance = recruit)
-        return render(request, 'study_register.html', {'form': form})
+    return render(request, 'study_register.html', {'form': form})
 
 
 # study_list.html

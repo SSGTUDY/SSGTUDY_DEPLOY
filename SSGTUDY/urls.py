@@ -15,9 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
 from home import views
-
 # static과 media 불러오기 위한 import
 from django.conf import settings
 from django.conf.urls.static import static
