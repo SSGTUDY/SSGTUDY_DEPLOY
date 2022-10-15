@@ -1,109 +1,123 @@
 {% extends "base.html" %}
 {% load static %}
 <html lang="en">
+
 <head>
+
     {% block css %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel = "stylesheet" href = "{% static 'css/mypage_main.css' %}">
-    <title>개인정보 수정하기</title>
+    <link rel="stylesheet" href="{% static 'css/mypage_main.css' %}">
     {% endblock css %}
 
 </head>
+
 <body>
-{% block content %}
-<div class = "text">
-    <div class = "text_1" style="font-size:3.5vh;letter-spacing: 0.09em;"><b>개인정보 변경</b></div>
-    <div class = "text_1" style="font-size:2vh;letter-spacing: 0.275em;">Change of personal information</div>
-</div>
+    {% block content %}
 
-<div class = "body_area">
+    <div class="text" style="margin-bottom: 20px;">
+        <div class="text_1" style="font-size:3.5vh;letter-spacing: 0.09em;"><b>마이페이지</b></div>
+        <div class="text_1" style="font-size:2vh;letter-spacing: 0.275em;">MY PAGE</div>
+    </div>
+    <div class="body_area">
 
-    <div class = "area">
+        <div class="area" style="padding-bottom: 100px;">
 
-        <div class = "second_area">
+            <!--미니 프로필-->
+            <div class="second_area" style="padding: 25 0px;">
+                {% if user.is_active %}
+
+                {% if user.profile_image %}
+                <img style="border-radius: 100%; width:150px;" src="{{ user.profile_image.url }}" alt="유저의 이미지 부분">
+                {% endif %}
+
+                <div class="user_profile">
+
+                    <div style="margin-top: 10px;">
+                        <div id="user_infomation">닉네임</div><span style="color:gray;">{{ user.nickname }}</span>
+                    </div>
+                    <div>
+                        <div id="user_infomation">이메일</div><span style="font-size: 13; color: gray;">{{ user.email }}</span>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+
+            <div class="mypage_move">
+                <div>
+                    <img src="{% static 'img/register.png' %}"> &nbsp;
+                    <a href="{% url 'study_register' %}" target="_blank" style="text-decoration:none;color:black;">
+                        스터디 등록하기</a>
+                </div>
+                <div><img src="{% static 'img/mylist.png' %}">&nbsp;
+                    <a href="{% url 'study_list' %}" style="text-decoration:none;color:black;">
+                        등록한 게시글 보기</a>
+                </div>
+                <div><img src="{% static 'img/bookmark.png' %}">&nbsp;
+                    <a href="{% url 'study_bookmark' %}" style="text-decoration:none;color:black;">
+                        내가 찜한 게시글</a>
+                </div>
+                <div><img src="{% static 'img/change_user.png' %}">&nbsp;
+                    <a href="{% url 'mypage_edit' %}" style="text-decoration:none;color:black;">
+                        개인정보 수정하기</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="content" style="border:2px solid #d1d1d1; margin-bottom: 50px; padding-bottom: 20px;">
+
             {% if user.is_active %}
 
             {% if user.profile_image %}
-            <img src = "{{ user.profile_image.url }}" alt = "유저의 이미지 부분">
-            {% endif %}
-
-            <div class = "user_profile">
-                <div><div id = "user_infomation">닉네임</div>{{ user.nickname }}</div>
-                <div><div id = "user_infomation">아이디</div>{{ user.username }}</div>
+            <div>
+                <img style="border-radius: 100%; margin-top: 10px;" src="{{ user.profile_image.url }}" alt="유저의 이미지 부분">
             </div>
             {% endif %}
-        </div>
-        <div class = "mypage_move">
-            <div>
-                <img src = "{% static 'img/register.png' %}">
-                <a href = "{% url 'study_register' %}" target = "_blank" style = "text-decoration:none;color:black;">
-                    스터디 등록하기</a></div>
-            <div><img src = "{% static 'img/mylist.png' %}">
-                <a href = "{% url 'study_list' %}" style = "text-decoration:none;color:black;">
-                    등록한 게시글 보기</a></div>
-            <div><img src = "{% static 'img/bookmark.png' %}">
-                <a href = "{% url 'study_bookmark' %}" style = "text-decoration:none;color:black;">
-                    내가 찜한 게시글</a></div>
-            <div>
-                <img src = "{% static 'img/today.png' %}">
-                <a href = "{% url 'study_schedule' %}" style = "text-decoration:none;color:black;">
-                    오늘의 스터디 일정</a></div>
-            <div>
-                <img src = "{% static 'img/change_user.png' %}">
-                <a href = "{% url 'mypage_edit' %}" style = "text-decoration:none;color:black;">
-                    개인정보 수정하기</a></div>
+
+
+            <div class="user_info">
+                <label><b>이름</b></label>
+                <div>{{ user.username }}</div>
+            </div>
+
+            <div class="user_info">
+                <label><b>닉네임</b></label>
+                <div>{{ user.nickname }}</div>
+            </div>
+            <div class="user_info">
+                <label><b>이메일</b></label>
+                <div>{{ user.email }}</div>
+            </div>
+            <div class="user_info">
+                <label><b>연락처</b></label>
+                <div>{{ user.phone_number }}</div>
+            </div>
+
+            <a class=btn style="background-color: #56b198;; color:white; width: 180px;" href="{% url 'logout' %}">로그아웃</a>
+
+            <div style="margin: 0 auto; margin-bottom: 20px;" >
+                <div style="float: left; margin: 5px;"><a class=btn style="background-color: lightgray; color:white; width: 180px; float: left;"
+                        href="{% url 'change_nick' %}" target="_blank">닉네임/이메일 변경</a></div>
+                <div style="float: left; margin: 5px;"><a class=btn style="background-color: lightgray; color:white; width: 180px; float: left;"
+                        href="{% url 'change_password' %}" target="_blank">비밀번호 변경</a></div>
+                <div style="float: left; margin: 5px;"><a class=btn style="background-color: lightgray; color:white; width: 180px;"
+                        href="{% url 'change_img' %}" target="_blank">프로필 이미지 변경</a></div>
+            </div>
+            
+
+            <!-- <div class="out">
+                <button class="log_out"><a href="{% url 'logout' %}"
+                        style="text-decoration:none;color:white;">로그아웃</a></button>
+            </div> -->
+
+
+            {% endif %}
+
+
         </div>
     </div>
 
-    <div class = "content" style = "justify-content:space-around;">
-        {% if user.is_active %}
-        {% if user.profile_image %}
-                <div>
-              <img src = "{{ user.profile_image.url }}" alt = "유저의 이미지 부분">
-              </div>
-              {% endif %}
-
-        <div class = "content_div" style="width:30%;">
-
-        </div>
-
-        {% endif %}
-
-        {% if user.is_active %}
-        <div class = "user_info">
-            <label><b>닉네임</b></label>
-            <div>{{ user.nickname }}</div>
-        </div>
-        <div class = "user_info">
-            <label><b>아이디</b></label>
-            <div>{{ user.username }}</div>
-        </div>
-        <div>
-            <!--
-            <form method = "POST" action= "{%url 'change_nickname' %}">
-            {% csrf_token %}
-             <input type = "text" value = "nickname" name = "nickname">
-                <button type = "submit">변경</button>
-            </form>
-
-            -->
-            <button style = "color:white;background:#51a998;font-size:1vw;border:white;padding:0;border-radius:10%;">
-                <a href = "{% url 'change_nick' %}"target="_blank" class = "edit_button">아이디/닉네임 수정</a>
-            </button>
-
-            <button style="color:white;background:#51a998;font-size:1vw;border:white;padding:0;border-radius:10%;">
-                <a href = "{% url 'change_password' %}" target="_blank" class = "edit_button">비밀번호 수정</a></button>
-
-             <button style="color:white;background:#51a998;font-size:1vw;border:white;padding:0;border-radius:10%;">
-                <a href = "{% url 'change_img' %}" target="_blank" class = "edit_button">프로필 이미지 첨부/수정</a></button>
-        </div>
-
-
-        {% endif %}
-    </div>
-
-</div>
-<script src = "{% static 'js/mypage.js' %}"></script>
-{% endblock %}
+    {% endblock %}
 </body>
+
 </html>
