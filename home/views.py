@@ -14,6 +14,7 @@ def main(request):
 def login(request):
     if request.method == 'POST':
         form = CustomAuthenticationForm(data=request.POST)
+        
         if form.is_valid():
             new_user = form.get_user()
             auth.login(request, new_user)
@@ -21,6 +22,7 @@ def login(request):
         else:
             return render(request, 'login.html', {'form':form})
     else:
+        
         form = CustomAuthenticationForm()
         return render(request, 'login.html', {'form':form})
 

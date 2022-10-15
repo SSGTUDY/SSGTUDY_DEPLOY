@@ -31,22 +31,14 @@ for(let i = 0;i<value_today.length;i++){
 
 let new_today = year + '-' + month + '-' + date;
 const new_today_ = new Date(new_today);
-
-const getDate = new_today_.getTime() - value_real_today.getTime();
-const getDiff = Math.abs(getDate/(1000 * 60 * 60 * 24));
-
-if(Math.floor(getDiff) < 0){
-    document.getElementById('today').innerHTML = '모집기간 종료'
+console.log(new_today_);
+console.log(value_real_today);
+if(new_today_ < value_real_today){
+    document.getElementById('today').innerHTML = '모집기간 종료';
 }
+
 else{
+    const getDate = new_today_.getTime() - value_real_today.getTime();
+    const getDiff = Math.abs(getDate/(1000 * 60 * 60 * 24));
     document.getElementById('today').innerHTML = Math.floor(getDiff);
 }
-
-
-
-
-
-
-
-
-

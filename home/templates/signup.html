@@ -18,70 +18,99 @@
 
 <body>
     <div class="container box">
-            <div class="input-form col-md-12 mx-auto">
-                <h4 class="mb-3">회원가입</h4>
-                <form method = "POST" enctype="multipart/form-data" class="validation-form" novalidate>
-                    {% csrf_token %}
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="name">이름</label><br>
-                            {{ form.username }}
-                            <div class="invalid-feedback">
-                                이름을 입력해주세요.
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="nickname">별명</label>
-                            {{ form.nickname }}
-                            <div class="invalid-feedback">
-                                별명을 입력해주세요.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="email">이메일</label>
-                        {{ form.email }}
+        <div class="input-form col-md-12 mx-auto">
+            <h4 class="mb-3">회원가입</h4>
+            <!--회원가입 폼 시작-->
+            <form method="POST" enctype="multipart/form-data" class="validation-form" novalidate>
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="id_username">이름</label>
+                        <input type="text" name="username" maxlength="200" id="id_username" class="form-control"
+                            placeholder="Name" value="" required>
+                        <!-- <input type="text" class="form-control" id="name" placeholder="Name" value="" required> -->
                         <div class="invalid-feedback">
-                            이메일을 입력해주세요.
+                            이름을 입력해주세요.
                         </div>
                     </div>
-
-                    <div class="mb-3">
-                        <label for="password">비밀번호</label>
-                        {{ form.password }}
+                    <div class="col-md-6 mb-3">
+                        <label for="id_nickname">별명</label>
+                        <input type="text" name="nickname" maxlength="200" required id="id_nickname"
+                            class="form-control" placeholder="Nickname" value="" required>
+                        <!-- <input type="text" class="form-control" id="nickname" placeholder="Nickname" value="" required> -->
                         <div class="invalid-feedback">
-                            비밀번호를 입력해주세요.
+                            별명을 입력해주세요.
                         </div>
                     </div>
+                </div>
 
-                    <div class="mb-3">
-                        <label for="re-password">비밀번호 재확인</label>
-                        {{ form.re_password }}
+                <div class="mb-3">
+                    <label for="id_email">이메일</label>
+                    <input type="email" name="email" maxlength="255" required id="id_email" class="form-control"
+                        placeholder="Email address" required>
+                    <!-- <input type="email" class="form-control" id="email" placeholder="Email address" required> -->
+                    <div class="invalid-feedback">
+                        이메일을 입력해주세요.
                     </div>
+                </div>
 
-                    <div class="row">
-                        <div class="col-md-8 mb-3">
-                            <label for="contents">연락처</label>
-                            {{ form.phone_number }}
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="profile-img">프로필 사진</label>
-                            {{ form.profile_image }}
+                <div class="mb-3">
+                    <label for="id_password">비밀번호</label>
+                    <input type="password" name="password" required id="id_password" class="form-control"
+                        placeholder="Password" required>
+                    <!-- <input type="password" class="form-control" id="address" placeholder="Password" required> -->
+                    <div class="invalid-feedback">
+                        비밀번호를 입력해주세요.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_re_password">비밀번호 재확인</label>
+                    <input type="password" name="re_password" required id="id_re_password" class="form-control"
+                        placeholder="Password confirmation" required>
+                    <!-- <input type="text" class="form-control" id="phone-number" placeholder="Password confirmation" required> -->
+                    <div class="invalid-feedback">
+                        비밀번호가 일치하지 않습니다.
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8 mb-3">
+                        <label for="id_phone_number">연락처
+                            <!--<span class="text-muted">&nbsp;(필수 아님)</span>-->
+                        </label>
+                        <input type="text" name="phone_number" maxlength="200" required id="id_phone_number"
+                            class="form-control custom-select d-block w-100" placeholder="Phone number" required>
+                        <!-- <input type="text" class="form-control custom-select d-block w-100" id="phone-number" placeholder="Phone number" required> -->
+                        <div class="invalid-feedback">
+                            연락처를 입력해주세요.
                         </div>
                     </div>
-                    <hr class="mb-4">
-                    <!-- <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="aggrement" required>
-                        <label class="custom-control-label" for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
-                    </div> -->
-                    <div class="mb-4"></div>
-                    <input class = "btn btn-primary" type = "submit" value = "Signup">
-                    <p class="mt-4 mb-3 text-muted">이미 계정이 있다면? <a style="color:#56b198;" href="{% url 'login' %}"> 로그인</a></p>
-                </form>
-
-            </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="id_profile_image">프로필 사진</label>
+                        <input type="file" name="profile_image" accept="image/*" id="id_profile_image"
+                            placeholder="PROFILEIMAGE">
+                        <!-- <input type="file" placeholder="PROFILEIMAGE" name="profile_image" accept="image/*" id="id_profile_image"> -->
+                        <div class="invalid-feedback">
+                            추천인 코드를 입력해주세요.
+                        </div>
+                    </div>
+                </div>
+                <hr class="mb-4">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="aggrement" required>
+                    <label class="custom-control-label" for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
+                </div>
+                <div class="mb-4"></div>
+                <input class="btn-lg btn-user" type="submit" value="Signup">
+                <!-- <button class="btn-lg btn-user" type="submit" >Signup</button> -->
+                <p class="mt-4 mb-3 text-muted">이미 계정이 있다면? <a style="color:#56b198;" href="{% url 'login' %}"> 로그인</a>
+                </p>
+            </form>
+            <!--회원가입 폼 끝-->
+        </div>
     </div>
+
     <script>
         window.addEventListener('load', () => {
             const forms = document.getElementsByClassName('validation-form');
@@ -97,6 +126,24 @@
                 }, false);
             });
         }, false);
+
+        var password = document.getElementById("id_password")
+            , confirm_password = document.getElementById("id_re_password");
+
+        function validatePassword() {
+            if (password.value != confirm_password.value) { // 만일 두 인풋 필드값이 같지 않을 경우
+                // setCustomValidity의 값을 지정해 무조건 경고 표시가 나게 하고
+                confirm_password.setCustomValidity("비밀번호가 일치하지 않습니다.");
+            }
+            else { // 만일 두 인풋 필드값이 같을 경우
+                // 오류가 없으면 메시지를 빈 문자열로 설정해야한다. 오류 메시지가 비어 있지 않은 한 양식은 유효성 검사를 통과하지 않고 제출되지 않는다.
+                // 따라서 빈값을 주어 submit 처리되게 한다
+                confirm_password.setCustomValidity('');
+            }
+        }
+
+        password.onchange = validatePassword;
+        confirm_password.onkeyup = validatePassword;
     </script>
 </body>
 
