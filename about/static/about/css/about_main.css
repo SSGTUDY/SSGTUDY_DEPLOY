@@ -1,0 +1,207 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+.notosanskr * { 
+ font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* about_main css */
+
+
+
+.btn{
+    background-color: #56b198;
+    border-radius: 20px;
+}
+.people-box{
+    display:inline-block;
+    margin: 0px 50px;
+    margin-top: 40px;
+
+}
+
+.circle-img{
+    width: 160px;
+    border-radius: 50%;
+    margin: 10px;
+    background-color: rgba(204, 204, 204, 0.311);
+}
+
+
+.github{
+    width: 15px;
+}
+
+.info{
+    font-size: 14;
+}
+
+/* .nolink{
+    text-decoration:none;
+} */
+
+.name{
+    font-size: 20;
+    margin: 0px 0px 0px;
+    font-weight: 600;
+}
+
+.container{
+    position: relative;
+}
+.sidenav{
+    float:left;
+    padding: 30px;
+    padding-top: 150px;
+    width: 280px;
+    height: 900px;
+}
+
+.sidenav a{
+    padding-top:100px;
+	color:black;
+    font-size:15px;
+    padding: 8px 8px 8px 8px;
+    font-family: 'Noto Sans KR', sans-serif;
+    text-decoration: none;
+    text-align: left;
+    display: block;
+}
+
+.sidenav a:hover{
+    color:#56b198;
+}
+
+.sidenav a:first-letter{
+    color:#56b198
+}
+
+.findssg{
+    color:#56b198;
+    font-weight:1000;
+    font-size:23px;
+    text-align:left;
+}
+
+.qna_title{
+    text-align: left;
+    font-weight: 500;
+    margin-left: 40px;
+    font-size: 15;
+    color: gray;
+}
+
+.ssg{
+    font-family: 'Noto Sans KR', sans-serif;
+    width: 1045px;
+    height: 250px;
+    font-size: 18px;
+    opacity: 0.6;
+    background-color:#56b198;
+    color: white;
+    font-weight: bold;
+}
+
+.ssgword{
+    position:absolute;
+    text-align:left;
+    left: 5%;
+}
+
+.book{
+    position: relative;
+    left: 84%;
+}
+
+.box{
+    position: absolute;
+    top: 130px; left: 290px;
+    font-size: 15px;
+    width: 1070px;
+    height:276px;
+}
+
+.intro{
+    position: absolute;
+    text-align:left;
+}
+
+/* about_notice css */
+
+.notice{
+    position: absolute;
+    padding: 10px;
+    width: 900px;
+    height: 100px;
+    border: 1px solid #ccc;
+    text-align:center;
+}
+
+.talk{
+    color: #666666;
+    text-align: left;
+}
+
+.talk2{
+    text-align: left;
+}
+
+/* about_qna css */
+
+.qna{
+    border: 1px solid rgb(220, 220, 220);
+    font-size: 15px;
+    font-family: 'Noto Sans KR', sans-serif;
+    text-align: center;
+    width:60vw;
+}
+
+.plus{
+    padding: 5px 15px;
+    border-radius: 15px;
+    border: none;
+    text-decoration: none;
+    background-color: #56b198;
+    color: white;
+}
+
+/* .search{
+    position: absolute;
+    top: 230%;
+    left: 25%;
+} */
+
+.srchbutton{
+    margin: 5px;
+    position: relative;
+    padding: 5px 15px;
+    border-radius: 15px;
+    border: none;
+    font-family: 'Noto Sans KR', sans-serif;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.25s;
+    background-color: #56b198;
+    color: white;
+}
+
+/* about_person css */
+
+.developer{
+    position: absolute;
+    border: none;
+    font-size: 15px;
+    font-family: 'Noto Sans KR', sans-serif;
+    text-align: center;
+    width: 800px;
+    margin: auto;
+    font-weight: 500;
+    vertical-align: top;
+}
+
+.wlrtjs{
+    border-bottom: 1px solid rgb(233, 233, 233);
+}
+
+.wlrtjs2{
+    border-right: 1px solid rgb(233, 233, 233);
+}

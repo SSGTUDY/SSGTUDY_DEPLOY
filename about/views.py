@@ -66,7 +66,7 @@ def about_qna_edit(request, id):
             return redirect('about_qna_detail', id)
     else:
         question_form = QuestionForm(instance = question)
-    return render(request, 'about_qna_edit.html', {'question_form': question_form})
+    return render(request, 'about_qna_edit.html', {'question_form': question_form, 'question': question})
 
 def about_qna_delete(request, id):
     question = get_object_or_404(Question, id = id)

@@ -15,7 +15,7 @@
     {% endif %}
     {{ question.question_content | safe }} <br>
 
-    {% if question.question.writer == user or user.is_superuser %}
+    {% if question.question_writer == user or user.is_superuser %}
     <a class=btn style="background-color: #56b198; color:white;" href="{% url 'about_qna_edit' question.id %}">수정</a>
     <a class=btn style="background-color: #56b198; color:white;" href="{% url 'about_qna_delete' question.id %}">삭제</a>
 

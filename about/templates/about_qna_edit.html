@@ -20,17 +20,17 @@
         <img src="{% static 'about/image/i.png' %}" alt="mdo" width="45" height="45">문의하기 수정
     </h4>
     <hr style="color:#56b198" size="4px" width="100%">
-    <form method="POST" enctype="multipart/form-data" action ="{% url 'about_qna_edit' question.id %}">
+    <form action ="{% url 'about_qna_edit' question.id %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <!-- {{ question_form.as_p }} -->
         <table style=" margin: 0px auto;">
             <tr>
                 <td style="width:100px; background-color: f5f5f5; text-align:center; border: 1px solid f5f5f5; margin-left: 20px;">제목</td>
-                <td style="border: 1px solid #f5f5f5;"><input type="text" name="question_title" maxlength="100" 
+                <td style="border: 1px solid #f5f5f5;"><input type="text" name="question_title" maxlength="100" value="{{ question.question_title }}"
                         style="width: 900px; height: 35px; text-align: left;" ></td>
             </tr>
         </table>
-        <textarea name="question_content" cols="40" rows="10"  id="id_question_content" hidden="true"></textarea>
+        <textarea name="question_content" cols="40" rows="10"  id="id_question_content" hidden="true">{{ question.question_content }}</textarea>
 
         <div class="summernote-div" cols="40" rows="10" width="720" height="480">
             <iframe id="id_question_content_iframe" src="/summernote/editor/id_question_content/" frameborder="0"
