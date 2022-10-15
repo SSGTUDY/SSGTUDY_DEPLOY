@@ -48,7 +48,12 @@
 
                 <!-- 유저 로그인 중이면 -->
                 {% if request.user.is_authenticated %}
+                <!--구글 로그인 시 처음 이메일 주소 나타남-->
+                {% if request.user.nickname %}
                 <li style=" margin-left: 15px; margin-right:15px; color:gray;"><a style="color:#56b198;">{{request.user.nickname}}</a> 님 안녕하세요!</li>
+                {% else %}
+                <li style=" margin-left: 15px; margin-right:15px; color:gray;"><a style="color:#56b198;">{{request.user.email}}</a> 님 안녕하세요!</li>
+                {% endif %}
                 <div class="dropdown text-end">
                     {% if request.user.profile_image %}
                     <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
