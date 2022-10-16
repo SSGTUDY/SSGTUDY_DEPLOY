@@ -27,6 +27,8 @@
 
                 {% if user.profile_image %}
                 <img style="border-radius: 100%; width:150px;" src="{{ user.profile_image.url }}" alt="유저의 이미지 부분">
+                {% else %}
+                <img style="border-radius: 100%; width:150px;" src="{% static 'home/img/login_icon.png' %}" alt="유저의 이미지 부분">
                 {% endif %}
 
                 <div class="user_profile">
@@ -70,6 +72,10 @@
             {% if user.profile_image %}
             <div>
                 <img style="border-radius: 100%; margin-top: 10px;" src="{{ user.profile_image.url }}" alt="유저의 이미지 부분">
+            </div>
+            {% else %}
+            <div>
+                <img style="border-radius: 100%; margin-top: 10px;" src="{% static 'home/img/login_icon.png' %}" alt="유저의 이미지 부분">
             </div>
             {% endif %}
 
