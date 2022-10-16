@@ -313,7 +313,7 @@
                 <div style="margin-top: 10px; text-align:left">
                 <img src="{% static 'img/match_hashtag_logo.png' %}" style="width:25px;">&nbsp;
             <span style="color:rgb(197, 194, 194); padding-top:10px;  text-align: left; font-weight: 500;">
-                {% for hashtag in hashtag.all %}
+                {% for hashtag in hashtag_recruits.recruit_hashtag.all %}
                 {{ hashtag.hashtag_content }}&nbsp;&nbsp;
                 {% endfor %}
             </span>
@@ -323,12 +323,12 @@
             </div>
             <div class="inner-item">
                 <!-- <img src="{% static 'img/calendar_logo.png' %}" style="width:25px;">&nbsp; -->
-                <span class="today recruit_a" style="color:lightgray; font-size: 1.1vw; margin-right: 15px;">{{ temp.recruit_period_end }}</span>
+                <span class="today recruit_a" style="color:lightgray; font-size: 1.1vw; margin-right: 15px;">{{ hashtag_recruits.recruit_period_end }}</span>
             </div>
             <div class="inner-item" >
                 <!-- <img src="{% static 'img/heart_logo.png' %}" style="width:25px;">&nbsp; -->
                 <span class="recruit_a" style="color:lightgray; font-size: 1.1vw; margin-right: 15px;">
-                    <i class="fa fa-heart" aria-hidden="true"></i>&nbsp;{{ temp.like_count }}개</span></div>
+                    <i class="fa fa-heart" aria-hidden="true"></i>&nbsp;{{ hashtag_recruits.like_count }}개</span></div>
             <div class="inner-item">
                 <a class=btn style="background-color: #d0d0d000; color:white; width: 147px;" href="{% url 'study_detail' id=hashtag_recruits.id %}">확인하기</a>
             </div>
