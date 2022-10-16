@@ -4,11 +4,11 @@ from .forms import UserForm, CustomAuthenticationForm
 from mypage.models import Hashtag
 from mypage.models import Hashtag, Recruit
 from home.models import User
+
 # main.html
 def main(request):
     hashtag = Hashtag.objects
-    user = User.objects
-    return render(request, 'main.html', {'hashtag': hashtag, 'user': user})
+    return render(request, 'main.html', {'hashtag': hashtag})
 
 # login.html
 def login(request):
