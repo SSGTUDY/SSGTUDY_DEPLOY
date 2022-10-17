@@ -396,12 +396,12 @@
         font-weight: 700;
     }
 
-    /* .inner_recruit {
-        display: flex;
+     .inner_recruit {
+       
         flex-direction: column;
         align-items: center;
         justify-content: space-around;
-    } */
+    } 
 
     .circle {
         background: none;
@@ -537,6 +537,7 @@
     }
 
     #catepost {
+       
         margin: 10px auto;
         width: 99%;
         height: auto;
