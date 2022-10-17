@@ -124,9 +124,10 @@
 
             <!--전체-->
             <div id="catepost" class = "recruit_all">
+
                 <div class = "inner_recruit" style="padding-top:15px; text-align: left; padding-left: 30px;">
                     <div style="text-align: left;">
-                        <span class="recruit_a" style="color: lightgray; font-size: 1.0vw;">[TEST] </span>
+                        <span class="recruit_a" style="color: lightgray; font-size: 1.0vw;">{{ temp.recruit_field }} </span>
                         <a href="{% url 'study_detail' temp.id %}" class="recruit_a">
                             {{ temp.recruit_title }}
                         </a>
@@ -152,6 +153,140 @@
             {% endfor %}
 
 
+            {% for study in recruit_field_study %}
+            <div id="catepost" class = "recruit_study">
+
+                <div class = "inner_recruit" style="padding-top:15px; text-align: left; padding-left: 30px;">
+                    <div style="text-align: left;">
+                        <span class="recruit_a" style="color: lightgray; font-size: 1.0vw;">{{ study.recruit_field }} </span>
+                        <a href="{% url 'study_detail' study.id %}" class="recruit_a">
+                            {{ study.recruit_title }}
+                        </a>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-6" style="text-align: left;">
+                            <img src="{% static 'img/match_hashtag_logo.png' %}" style="width:25px;">&nbsp;
+                            {% for hashtag in temp.recruit_hashtag.all %}
+                            <span class="recruit_a" style="color: gray; font-size: 1.0vw;">{{ hashtag.hashtag_content }}
+                                &nbsp;</span>
+                            {% endfor %}
+                        </div>
+                        <div class="col-6" style="font-size:1rem; text-align: right;">
+                            <img src="{% static 'img/heart_logo.png' %}" style="width:25px;">&nbsp;
+                            <span class="recruit_a" style="color:#56b198; font-size: 1.1vw; margin-right: 15px;">{{ study.like_count }}개</span>
+                            <img src="{% static 'img/calendar_logo.png' %}" style="width:25px;">&nbsp;
+                            <span class="today recruit_a" style="color:#5a7aa8; font-size: 1.1vw; margin-right: 15px;">{{ study.recruit_period_end }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+
+            {% for project in recruit_field_project %}
+            <div id="catepost" class = "recruit_project">
+
+                <div class = "inner_recruit" style="padding-top:15px; text-align: left; padding-left: 30px;">
+                    <div style="text-align: left;">
+                        <span class="recruit_a" style="color: lightgray; font-size: 1.0vw;">{{ project.recruit_field}} </span>
+                        <a href="{% url 'study_detail' project.id %}" class="recruit_a">
+                            {{ project.recruit_title }}
+                        </a>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-6" style="text-align: left;">
+                            <img src="{% static 'img/match_hashtag_logo.png' %}" style="width:25px;">&nbsp;
+                            {% for hashtag in temp.recruit_hashtag.all %}
+                            <span class="recruit_a" style="color: gray; font-size: 1.0vw;">{{ hashtag.hashtag_content }}
+                                &nbsp;</span>
+                            {% endfor %}
+                        </div>
+                        <div class="col-6" style="font-size:1rem; text-align: right;">
+                            <img src="{% static 'img/heart_logo.png' %}" style="width:25px;">&nbsp;
+                            <span class="recruit_a" style="color:#56b198; font-size: 1.1vw; margin-right: 15px;">{{ project.like_count }}개</span>
+                            <img src="{% static 'img/calendar_logo.png' %}" style="width:25px;">&nbsp;
+                            <span class="today recruit_a" style="color:#5a7aa8; font-size: 1.1vw; margin-right: 15px;">{{ project.recruit_period_end }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+
+            {% for club in recruit_field_club %}
+            <div id="catepost" class = "recruit_club">
+
+                <div class = "inner_recruit" style="padding-top:15px; text-align: left; padding-left: 30px;">
+                    <div style="text-align: left;">
+                        <span class="recruit_a" style="color: lightgray; font-size: 1.0vw;">{{ club.recruit_field }} </span>
+                        <a href="{% url 'study_detail' club.id %}" class="recruit_a">
+                            {{ club.recruit_title }}
+                        </a>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-6" style="text-align: left;">
+                            <img src="{% static 'img/match_hashtag_logo.png' %}" style="width:25px;">&nbsp;
+                            {% for hashtag in temp.recruit_hashtag.all %}
+                            <span class="recruit_a" style="color: gray; font-size: 1.0vw;">{{ hashtag.hashtag_content }}
+                                &nbsp;</span>
+                            {% endfor %}
+                        </div>
+                        <div class="col-6" style="font-size:1rem; text-align: right;">
+                            <img src="{% static 'img/heart_logo.png' %}" style="width:25px;">&nbsp;
+                            <span class="recruit_a" style="color:#56b198; font-size: 1.1vw; margin-right: 15px;">{{ club.like_count }}개</span>
+                            <img src="{% static 'img/calendar_logo.png' %}" style="width:25px;">&nbsp;
+                            <span class="today recruit_a" style="color:#5a7aa8; font-size: 1.1vw; margin-right: 15px;">{{ club.recruit_period_end }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+            {% for survey in recruit_field_survey %}
+            <div id="catepost" class = "recruit_survey">
+
+                <div class = "inner_recruit" style="padding-top:15px; text-align: left; padding-left: 30px;">
+                    <div style="text-align: left;">
+                        <span class="recruit_a" style="color: lightgray; font-size: 1.0vw;">{{ survey.recruit_field }} </span>
+                        <a href="{% url 'study_detail' survey.id %}" class="recruit_a">
+                            {{ survey.recruit_title }}
+                        </a>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-6" style="text-align: left;">
+                            <img src="{% static 'img/match_hashtag_logo.png' %}" style="width:25px;">&nbsp;
+                            {% for hashtag in temp.recruit_hashtag.all %}
+                            <span class="recruit_a" style="color: gray; font-size: 1.0vw;">{{ hashtag.hashtag_content }}
+                                &nbsp;</span>
+                            {% endfor %}
+                        </div>
+                        <div class="col-6" style="font-size:1rem; text-align: right;">
+                            <img src="{% static 'img/heart_logo.png' %}" style="width:25px;">&nbsp;
+                            <span class="recruit_a" style="color:#56b198; font-size: 1.1vw; margin-right: 15px;">{{ survey.like_count }}개</span>
+                            <img src="{% static 'img/calendar_logo.png' %}" style="width:25px;">&nbsp;
+                            <span class="today recruit_a" style="color:#5a7aa8; font-size: 1.1vw; margin-right: 15px;">{{ survey.recruit_period_end }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+
+
+
+          
+
+            {% for q in q.all %}
+            <div id="catepost" class="recruit_q">
+                <a href="{% url 'study_detail' q.id %">
+                    {{ p.recruit_title }}
+                </a>
+            </div>
+            {% endfor %}
             <div class="pagenate" id="recruit_all_page">
                 {% for p in posts.paginator.page_range %}
                 {% if p == posts.number %}
@@ -161,106 +296,6 @@
                 {% endif %}
                 {% endfor %}
             </div>
-
-
-
-
-            {% for study in recruit_field_study %}
-            <div id="catepost" class="recruit_study" style="font-size:2%; align-items:center;justify-content:center;">
-                <div class="inner_recruit">
-                    <div>
-                        <a href="{% url 'study_detail' study.id %}" class="recruit_a">
-                            {{ study.recruit_title }}</a>
-                    </div>
-                    <div class="today">
-                        {{ study.recruit_period_end }}
-
-                    </div>
-                    <br>
-
-
-                    <div style="color:#56b198;margin-bottom:1vh;font-size:1rem;">
-                        ❤{{ study.like_count }}
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-
-
-
-
-            {% for recruit_field_club in recruit_field_club.all %}
-            <div id="catepost" class="recruit_club" style="font-size:2%;align-items:center;justify-content:center;">
-                <div class="inner_recruit">
-                    <div>
-                        <a href="{% url 'study_detail' recruit_field_club.id %}" class="recruit_a">
-                            {{ recruit_field_club.recruit_title }}</a>
-                    </div>
-                    <br>
-                    <div class="today">
-                        {{ recruit_field_club.recruit_period_end }}
-
-                    </div>
-                    <br>
-                    <div style="color:#56b198;margin-bottom:1vh;font-size:1rem;">
-                        ❤{{ recruit_field_club.like_count }}
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-
-            {% for recruit_field_project in recruit_field_project.all %}
-            <div id="catepost" class="recruit_project" style="font-size:2%;align-items:center;justify-content:center;">
-
-                <div class="inner_recruit">
-                    <div>
-                        <a href="{% url 'study_detail' recruit_field_project.id %}" class="recruit_a">
-                            {{ recruit_field_project.recruit_title }}
-                        </a>
-                    </div>
-                    <br>
-                    <div class="today">
-                        {{ recruit_field_project.recruit_period_end }}
-
-                    </div>
-                    <br>
-                    <div style="color:#56b198;margin-bottom:1vh;font-size:1rem;">
-                        ❤{{ recruit_field_project.like_count }}
-                    </div>
-                </div>
-
-            </div>
-            {% endfor %}
-
-            {% for recruit_field_survey in recruit_field_survey.all %}
-            <div id="catepost" class="recruit_survey" style="font-size:2%;">
-                <div class="inner_recruit">
-                    <div>
-                        <a href="{% url 'study_detail' recruit_field_survey.id %" class="recruit_a">
-                            {{ recruit_field_survey.recruit_title }}
-                        </a>
-                    </div>
-                    <br>
-                    <div class="today">
-                        {{ recruit_field_survey.recruit_period_end }}
-
-                    </div>
-                    <br>
-                    <div style="color:#56b198;margin-bottom:1vh;font-size:1rem;">
-                        ❤{{ recruit_field_survey.like_count }}
-                    </div>
-
-                </div>
-            </div>
-            {% endfor %}
-
-            {% for q in q.all %}
-            <div id="catepost" class="recruit_q">
-                <a href="{% url 'study_detail' q.id %">
-                    {{ p.recruit_title }}
-                </a>
-            </div>
-            {% endfor %}
 
         </div>
 
